@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>씨유에탑 | 26년 3월 고2 모의고사</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-primary:#2563EB;--c-primary-light:#EFF6FF;--c-primary-mid:#BFDBFE;
+  --c-accent:#F59E0B;--c-success:#16A34A;--c-success-bg:#F0FDF4;
+  --c-danger:#DC2626;--c-danger-bg:#FEF2F2;
+  --c-text:#1E293B;--c-text-2:#475569;--c-text-3:#94A3B8;
+  --c-bg:#F8FAFC;--c-surface:#FFFFFF;--c-border:#E2E8F0;--c-border-2:#CBD5E1;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:18px;--radius-xl:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--c-bg);font-family:"Noto Sans KR",sans-serif;color:var(--c-text)}
+#app{max-width:420px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--c-bg)}
+.header{background:var(--c-primary);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.header-logo .brand{font-family:"Nunito",sans-serif;font-weight:800;font-size:17px;color:#fff;letter-spacing:0.5px}
+.header-logo .sub{font-size:11px;color:rgba(255,255,255,0.8);margin-top:1px;letter-spacing:0.3px}
+.header-actions{display:flex;gap:6px}
+.icon-btn{background:rgba(255,255,255,0.18);border:none;border-radius:var(--radius-sm);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:17px;transition:background .15s}
+.icon-btn:hover{background:rgba(255,255,255,0.28)}
+.screen{display:none;flex:1;overflow-y:auto;padding-bottom:32px}
+.screen.active{display:block}
+.tabs-bar{display:flex;background:var(--c-surface);border-bottom:1px solid var(--c-border);padding:0 8px}
+.tab-item{flex:1;padding:11px 4px;text-align:center;font-size:13px;color:var(--c-text-3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;font-weight:500}
+.tab-item.on{color:var(--c-primary);border-bottom-color:var(--c-primary)}
+.progress-section{padding:12px 16px 8px}
+.prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.prog-label{font-size:13px;color:var(--c-text-2);font-weight:500}
+.prog-count{font-size:13px;color:var(--c-primary);font-weight:700}
+.prog-bar{height:5px;background:var(--c-border);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:var(--c-primary);border-radius:99px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.stats-mini{display:flex;gap:8px;padding:0 16px 12px}
+.stat-pill{flex:1;display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--c-surface);border-radius:var(--radius-md);border:1px solid var(--c-border)}
+.stat-pill .num{font-size:18px;font-weight:700;font-family:"Nunito",sans-serif}
+.stat-pill .lbl{font-size:11px;color:var(--c-text-3);font-weight:500}
+.stat-pill .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.card-wrap{padding:0 16px 10px;perspective:1000px}
+.flashcard{background:var(--c-surface);border-radius:var(--radius-xl);border:1px solid var(--c-border);padding:28px 24px 24px;min-height:230px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform .12s,box-shadow .12s;box-shadow:0 2px 12px rgba(37,99,235,0.07)}
+.flashcard:active{transform:scale(0.98)}
+.fc-top{position:absolute;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center}
+.pos-badge{font-size:11px;font-weight:700;color:var(--c-primary);background:var(--c-primary-light);padding:3px 9px;border-radius:99px}
+.fc-actions{display:flex;gap:6px}
+.fc-btn{background:none;border:1px solid var(--c-border);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--c-text-3);font-size:15px;transition:all .15s}
+.fc-btn:hover{border-color:var(--c-primary-mid);color:var(--c-primary)}
+.fc-btn.fav-on{color:#EF4444;border-color:#FECACA;background:#FEF2F2}
+.word-no{position:absolute;bottom:12px;right:16px;font-size:11px;color:var(--c-text-3);font-family:"Nunito",sans-serif}
+.word-en{font-family:"Nunito",sans-serif;font-size:34px;font-weight:800;color:var(--c-text);text-align:center;letter-spacing:-0.5px}
+.word-phon{font-size:14px;color:var(--c-text-3);text-align:center;letter-spacing:0.3px;font-family:"Nunito",sans-serif}
+.word-kr{font-size:23px;font-weight:700;color:var(--c-primary);text-align:center;display:none;animation:fadeIn .2s}
+.tap-hint{font-size:12px;color:var(--c-text-3);text-align:center;margin-top:2px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.swipe-hint{text-align:center;font-size:11px;color:var(--c-text-3);padding:0 0 8px}
+.mark-row{display:flex;gap:8px;padding:0 16px 12px}
+.mark-btn{flex:1;padding:11px 8px;border-radius:var(--radius-md);font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:4px}
+.mark-btn.known{background:var(--c-success-bg);border-color:#86EFAC;color:var(--c-success)}
+.mark-btn.unknown{background:var(--c-danger-bg);border-color:#FCA5A5;color:var(--c-danger)}
+.mark-btn.skip{background:var(--c-bg);border-color:var(--c-border);color:var(--c-text-2)}
+.nav-row{display:flex;gap:8px;padding:0 16px}
+.nav-btn{flex:1;padding:12px;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;border:1.5px solid var(--c-border);background:var(--c-surface);color:var(--c-text);display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;font-family:"Noto Sans KR",sans-serif}
+.nav-btn:hover{background:var(--c-primary-light);border-color:var(--c-primary-mid);color:var(--c-primary)}
+.nav-btn.primary{background:var(--c-primary);border-color:var(--c-primary);color:#fff}
+.nav-btn.primary:hover{background:#1D4ED8;border-color:#1D4ED8}
+.nav-btn:disabled{opacity:0.35;cursor:default;pointer-events:none}
+/* Quiz */
+.quiz-body{padding:16px}
+.quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.quiz-back{background:none;border:1.5px solid var(--c-border);border-radius:var(--radius-md);padding:7px 13px;font-size:13px;cursor:pointer;color:var(--c-text-2);font-family:"Noto Sans KR",sans-serif;font-weight:700;transition:all .15s}
+.quiz-back:hover{border-color:var(--c-primary);color:var(--c-primary)}
+.quiz-card{background:var(--c-surface);border-radius:var(--radius-xl);border:1px solid var(--c-border);padding:28px 20px 24px;text-align:center;margin-bottom:14px;box-shadow:0 2px 12px rgba(37,99,235,0.07)}
+.qc-word{font-family:"Nunito",sans-serif;font-size:30px;font-weight:800;color:var(--c-text);margin-bottom:5px}
+.qc-phon{font-size:13px;color:var(--c-text-3);margin-bottom:6px;font-family:"Nunito",sans-serif}
+.qc-hint{font-size:12px;color:var(--c-text-3)}
+.options{display:flex;flex-direction:column;gap:9px}
+.opt-btn{padding:13px 16px;background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:var(--radius-md);font-size:15px;cursor:pointer;text-align:left;transition:all .15s;color:var(--c-text);font-family:"Noto Sans KR",sans-serif;font-weight:500}
+.opt-btn:hover:not(:disabled){background:var(--c-primary-light);border-color:var(--c-primary-mid)}
+.opt-btn.correct{background:var(--c-success-bg);border-color:#86EFAC;color:var(--c-success)}
+.opt-btn.wrong{background:var(--c-danger-bg);border-color:#FCA5A5;color:var(--c-danger)}
+.opt-btn:disabled{cursor:default}
+.quiz-next-btn{width:100%;margin-top:12px;padding:14px;background:var(--c-primary);color:#fff;border:none;border-radius:var(--radius-md);font-size:15px;font-weight:700;cursor:pointer;font-family:"Noto Sans KR",sans-serif;display:none;transition:background .15s}
+.quiz-next-btn:hover{background:#1D4ED8}
+/* Result */
+.result-body{padding:24px 16px}
+.result-trophy{font-size:56px;text-align:center;margin-bottom:12px}
+.result-score{font-family:"Nunito",sans-serif;font-size:52px;font-weight:800;text-align:center;color:var(--c-primary);margin-bottom:4px}
+.result-msg{text-align:center;font-size:16px;color:var(--c-text-2);margin-bottom:24px}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.result-card{background:var(--c-surface);border-radius:var(--radius-lg);border:1px solid var(--c-border);padding:16px;text-align:center}
+.rc-num{font-family:"Nunito",sans-serif;font-size:28px;font-weight:800}
+.rc-lbl{font-size:12px;color:var(--c-text-3);font-weight:500;margin-top:2px}
+.result-btns{display:flex;flex-direction:column;gap:8px}
+/* Search */
+.search-bar{padding:10px 16px 8px;position:relative}
+.search-bar input{width:100%;padding:10px 14px 10px 36px;border:1.5px solid var(--c-border);border-radius:var(--radius-md);font-size:14px;background:var(--c-surface);color:var(--c-text);font-family:"Noto Sans KR",sans-serif;outline:none;transition:border .15s}
+.search-bar input:focus{border-color:var(--c-primary)}
+.search-icon{position:absolute;left:28px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--c-text-3);pointer-events:none}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <div class="header-logo">
+      <div class="brand">씨유에탑 ✦ 영어단어장</div>
+      <div class="sub">26년 3월 고2 모의고사 · 총 386단어</div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="goQuiz()" title="퀴즈">✏️</button>
+    </div>
+  </div>
+
+  <!-- STUDY -->
+  <div class="screen active" id="screen-study">
+    <div class="tabs-bar">
+      <div class="tab-item on" onclick="setFilter('all',this)">전체</div>
+      <div class="tab-item" onclick="setFilter('unknown',this)">모르는 단어</div>
+      <div class="tab-item" onclick="setFilter('fav',this)">⭐ 즐겨찾기</div>
+    </div>
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="단어 검색..." oninput="onSearch()">
+    </div>
+    <div class="progress-section">
+      <div class="prog-row">
+        <span class="prog-label" id="prog-label">학습 진도</span>
+        <span class="prog-count" id="prog-count">1 / 386</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div class="stats-mini">
+      <div class="stat-pill"><div class="dot" style="background:#16A34A"></div><div><div class="num" id="s-known" style="color:#16A34A">0</div><div class="lbl">알아요</div></div></div>
+      <div class="stat-pill"><div class="dot" style="background:#DC2626"></div><div><div class="num" id="s-unknown" style="color:#DC2626">0</div><div class="lbl">모름</div></div></div>
+      <div class="stat-pill"><div class="dot" style="background:#F59E0B"></div><div><div class="num" id="s-fav" style="color:#F59E0B">0</div><div class="lbl">즐겨찾기</div></div></div>
+    </div>
+    <div class="card-wrap">
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="fc-top">
+          <div class="pos-badge" id="fc-pos">n.</div>
+          <div class="fc-actions">
+            <button class="fc-btn" id="fav-btn" onclick="event.stopPropagation();toggleFav()" title="즐겨찾기">☆</button>
+            <button class="fc-btn" onclick="event.stopPropagation();speak()" title="발음 듣기">🔊</button>
+          </div>
+        </div>
+        <div class="word-en" id="fc-word">performance</div>
+        <div class="word-phon" id="fc-phon">pərˈfɔːrməns</div>
+        <div class="word-kr" id="fc-kr">공연, 실행</div>
+        <div class="tap-hint" id="tap-hint">카드를 탭하면 뜻이 보여요 👆</div>
+        <div class="word-no" id="word-no">1 / 386</div>
+      </div>
+    </div>
+    <div class="swipe-hint">← → 버튼 또는 스와이프로 넘기기</div>
+    <div class="mark-row" id="mark-row" style="display:none">
+      <button class="mark-btn unknown" onclick="markWord('unknown')">✗ 모름</button>
+      <button class="mark-btn skip" onclick="markWord('skip')">건너뜀</button>
+      <button class="mark-btn known" onclick="markWord('known')">✓ 알아요</button>
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prev-btn" onclick="prevCard()">← 이전</button>
+      <button class="nav-btn primary" id="next-btn" onclick="nextCard()">다음 →</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="screen" id="screen-quiz">
+    <div class="quiz-body">
+      <div class="quiz-header">
+        <button class="quiz-back" onclick="goStudy()">← 단어장</button>
+        <span style="font-size:13px;font-weight:700;color:var(--c-text-2)" id="quiz-num">1 / 10</span>
+      </div>
+      <div class="progress-section" style="padding:0 0 14px">
+        <div class="prog-bar"><div class="prog-fill" id="qprog-fill" style="width:0%"></div></div>
+      </div>
+      <div class="quiz-card">
+        <div class="qc-word" id="qc-word">performance</div>
+        <div class="qc-phon" id="qc-phon">pərˈfɔːrməns</div>
+        <div class="qc-hint">올바른 뜻을 선택하세요</div>
+      </div>
+      <div class="options" id="options"></div>
+      <button class="quiz-next-btn" id="qnext-btn" onclick="nextQuiz()">다음 문제 →</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="screen-result">
+    <div class="result-body">
+      <div class="result-trophy" id="r-trophy">🏆</div>
+      <div class="result-score" id="r-score">80점</div>
+      <div class="result-msg" id="r-msg">잘했어요!</div>
+      <div class="result-grid">
+        <div class="result-card"><div class="rc-num" id="rc-correct" style="color:#16A34A">0</div><div class="rc-lbl">정답</div></div>
+        <div class="result-card"><div class="rc-num" id="rc-wrong" style="color:#DC2626">0</div><div class="rc-lbl">오답</div></div>
+      </div>
+      <div class="result-btns">
+        <button class="nav-btn primary" onclick="startQuiz()">🔄 다시 풀기</button>
+        <button class="nav-btn" onclick="goStudy()">📚 단어장으로</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const WORDS = [{"w": "performance", "p": "pərˈfɔːrməns", "m": "공연, 실행", "pos": "명사", "fav": false, "status": ""}, {"w": "lighting", "p": "ˈlaɪtɪŋ", "m": "조명", "pos": "명사", "fav": false, "status": ""}, {"w": "state", "p": "steɪt", "m": "상태", "pos": "명사", "fav": false, "status": ""}, {"w": "cue", "p": "kjuː", "m": "신호, 큐", "pos": "명사", "fav": false, "status": ""}, {"w": "trigger", "p": "ˈtrɪɡər", "m": "촉발하다, 작동시키다", "pos": "동사", "fav": false, "status": ""}, {"w": "motivation", "p": "ˌmoʊtɪˈveɪʃn", "m": "동기, 동기부여", "pos": "명사", "fav": false, "status": ""}, {"w": "obvious", "p": "ˈɑːbviəs", "m": "명백한, 분명한", "pos": "형용사", "fav": false, "status": ""}, {"w": "require", "p": "rɪˈkwaɪər", "m": "필요로 하다, 요구하다", "pos": "동사", "fav": false, "status": ""}, {"w": "brighten", "p": "ˈbraɪtn", "m": "밝게 하다", "pos": "동사", "fav": false, "status": ""}, {"w": "setting", "p": "ˈsetɪŋ", "m": "설정, 배경", "pos": "명사", "fav": false, "status": ""}, {"w": "rapid", "p": "ˈræpɪd", "m": "빠른, 급격한", "pos": "형용사", "fav": false, "status": ""}, {"w": "intensity", "p": "ɪnˈtensəti", "m": "강도, 세기", "pos": "명사", "fav": false, "status": ""}, {"w": "traditional", "p": "trəˈdɪʃənl", "m": "전통적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "subtle", "p": "ˈsʌtl", "m": "미묘한, 섬세한", "pos": "형용사", "fav": false, "status": ""}, {"w": "atmosphere", "p": "ˈætməsfɪər", "m": "분위기, 대기", "pos": "명사", "fav": false, "status": ""}, {"w": "mention", "p": "ˈmenʃn", "m": "언급", "pos": "명사", "fav": false, "status": ""}, {"w": "sunset", "p": "ˈsʌnset", "m": "일몰, 해넘이", "pos": "명사", "fav": false, "status": ""}, {"w": "intention", "p": "ɪnˈtenʃn", "m": "의도, 의향", "pos": "명사", "fav": false, "status": ""}, {"w": "threaten", "p": "ˈθretn", "m": "위협하다", "pos": "동사", "fav": false, "status": ""}, {"w": "production", "p": "prəˈdʌkʃn", "m": "공연, 제작", "pos": "명사", "fav": false, "status": ""}, {"w": "dramatic", "p": "drəˈmætɪk", "m": "극적인, 연극의", "pos": "형용사", "fav": false, "status": ""}, {"w": "unit", "p": "ˈjuːnɪt", "m": "단위, 부분", "pos": "명사", "fav": false, "status": ""}, {"w": "scene", "p": "siːn", "m": "장면", "pos": "명사", "fav": false, "status": ""}, {"w": "transition", "p": "trænˈzɪʃn", "m": "전환, 변화", "pos": "명사", "fav": false, "status": ""}, {"w": "actor", "p": "ˈæktər", "m": "배우", "pos": "명사", "fav": false, "status": ""}, {"w": "switch", "p": "swɪtʃ", "m": "스위치, 전환", "pos": "명사", "fav": false, "status": ""}, {"w": "increase", "p": "ɪnˈkriːs", "m": "증가", "pos": "명사", "fav": false, "status": ""}, {"w": "musical", "p": "ˈmjuːzɪkl", "m": "뮤지컬", "pos": "명사", "fav": false, "status": ""}, {"w": "provide", "p": "prəˈvaɪd", "m": "제공하다", "pos": "동사", "fav": false, "status": ""}, {"w": "slowly", "p": "ˈsloʊli", "m": "천천히", "pos": "부사", "fav": false, "status": ""}, {"w": "impose", "p": "ɪmˈpoʊz", "m": "부과하다, 강요하다", "pos": "동사", "fav": false, "status": ""}, {"w": "characteristic", "p": "ˌkærəktəˈrɪstɪk", "m": "특성, 특징", "pos": "명사", "fav": false, "status": ""}, {"w": "audio", "p": "ˈɔːdioʊ", "m": "오디오의, 음향의", "pos": "형용사", "fav": false, "status": ""}, {"w": "signal", "p": "ˈsɪɡnəl", "m": "신호", "pos": "명사", "fav": false, "status": ""}, {"w": "contain", "p": "kənˈteɪn", "m": "포함하다", "pos": "동사", "fav": false, "status": ""}, {"w": "remarkable", "p": "rɪˈmɑːrkəbl", "m": "놀라운, 주목할 만한", "pos": "형용사", "fav": false, "status": ""}, {"w": "headphone", "p": "ˈhedfoʊn", "m": "헤드폰", "pos": "명사", "fav": false, "status": ""}, {"w": "acoustical", "p": "əˈkuːstɪkl", "m": "음향의, 청각의", "pos": "형용사", "fav": false, "status": ""}, {"w": "environment", "p": "ɪnˈvaɪrənmənt", "m": "환경", "pos": "명사", "fav": false, "status": ""}, {"w": "playback", "p": "ˈpleɪbæk", "m": "재생", "pos": "명사", "fav": false, "status": ""}, {"w": "path", "p": "pæθ", "m": "경로, 길", "pos": "명사", "fav": false, "status": ""}, {"w": "loudspeaker", "p": "ˈlaʊdspiːkər", "m": "스피커, 확성기", "pos": "명사", "fav": false, "status": ""}, {"w": "dramatically", "p": "drəˈmætɪkli", "m": "극적으로, 현저하게", "pos": "부사", "fav": false, "status": ""}, {"w": "place", "p": "pleɪs", "m": "놓다, 배치하다", "pos": "동사", "fav": false, "status": ""}, {"w": "location", "p": "loʊˈkeɪʃn", "m": "위치, 장소", "pos": "명사", "fav": false, "status": ""}, {"w": "similarly", "p": "ˈsɪmələrli", "m": "마찬가지로, 유사하게", "pos": "부사", "fav": false, "status": ""}, {"w": "record", "p": "rɪˈkɔːrd", "m": "녹음하다, 기록하다", "pos": "동사", "fav": false, "status": ""}, {"w": "musical", "p": "ˈmjuːzɪkl", "m": "음악의", "pos": "형용사", "fav": false, "status": ""}, {"w": "instrument", "p": "ˈɪnstrəmənt", "m": "악기, 도구", "pos": "명사", "fav": false, "status": ""}, {"w": "receive", "p": "rɪˈsiːv", "m": "받다, 수신하다", "pos": "동사", "fav": false, "status": ""}, {"w": "microphone", "p": "ˈmaɪkrəfoʊn", "m": "마이크", "pos": "명사", "fav": false, "status": ""}, {"w": "recorded", "p": "rɪˈkɔːrdɪd", "m": "녹음된", "pos": "형용사", "fav": false, "status": ""}, {"w": "move", "p": "muːv", "m": "이동하다, 움직이다", "pos": "동사", "fav": false, "status": ""}, {"w": "thesis", "p": "ˈθiːsɪs", "m": "논문, 학위 논문", "pos": "명사", "fav": false, "status": ""}, {"w": "doctoral", "p": "ˈdɑːktərəl", "m": "박사의, 박사 과정의", "pos": "형용사", "fav": false, "status": ""}, {"w": "programme", "p": "ˈproʊɡræm", "m": "프로그램, 과정", "pos": "명사", "fav": false, "status": ""}, {"w": "typically", "p": "ˈtɪpɪkli", "m": "일반적으로, 전형적으로", "pos": "부사", "fav": false, "status": ""}, {"w": "significant", "p": "sɪɡˈnɪfɪkənt", "m": "상당한, 중요한", "pos": "형용사", "fav": false, "status": ""}, {"w": "research", "p": "rɪˈsɜːrtʃ", "m": "연구하다", "pos": "동사", "fav": false, "status": ""}, {"w": "specific", "p": "spəˈsɪfɪk", "m": "특정한, 구체적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "exploration", "p": "ˌekspləˈreɪʃn", "m": "탐색, 탐구", "pos": "명사", "fav": false, "status": ""}, {"w": "thorough", "p": "ˈθɜːroʊ", "m": "철저한, 완전한", "pos": "형용사", "fav": false, "status": ""}, {"w": "narrow", "p": "ˈnæroʊ", "m": "좁히다, 좁아지다", "pos": "동사", "fav": false, "status": ""}, {"w": "absorb", "p": "əbˈsɔːrb", "m": "몰두하다, 흡수하다", "pos": "동사", "fav": false, "status": ""}, {"w": "acquire", "p": "əˈkwaɪər", "m": "습득하다, 얻다", "pos": "동사", "fav": false, "status": ""}, {"w": "immediate", "p": "ɪˈmiːdiət", "m": "직접적인, 즉각적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "consequently", "p": "ˈkɑːnsəkwentli", "m": "결과적으로, 따라서", "pos": "부사", "fav": false, "status": ""}, {"w": "singular", "p": "ˈsɪŋɡjələr", "m": "단일한, 유일한", "pos": "형용사", "fav": false, "status": ""}, {"w": "breadth", "p": "bredθ", "m": "폭, 넓이", "pos": "명사", "fav": false, "status": ""}, {"w": "potentially", "p": "pəˈtenʃəli", "m": "잠재적으로, 가능성이 있게", "pos": "부사", "fav": false, "status": ""}, {"w": "hinder", "p": "ˈhɪndər", "m": "방해하다, 저해하다", "pos": "동사", "fav": false, "status": ""}, {"w": "adapt", "p": "əˈdæpt", "m": "적응하다, 조정하다", "pos": "동사", "fav": false, "status": ""}, {"w": "diverse", "p": "daɪˈvɜːrs", "m": "다양한, 여러 가지의", "pos": "형용사", "fav": false, "status": ""}, {"w": "address", "p": "əˈdres", "m": "다루다, 해결하다", "pos": "동사", "fav": false, "status": ""}, {"w": "interdisciplinary", "p": "ˌɪntərˈdɪsəplɪneri", "m": "학제간의, 여러 학문 분야의", "pos": "형용사", "fav": false, "status": ""}, {"w": "recognise", "p": "ˈrekəɡnaɪz", "m": "인식하다, 알아보기", "pos": "동사", "fav": false, "status": ""}, {"w": "limitation", "p": "ˌlɪmɪˈteɪʃn", "m": "한계, 제한", "pos": "명사", "fav": false, "status": ""}, {"w": "implement", "p": "ˈɪmplɪment", "m": "시행하다, 실행하다", "pos": "동사", "fav": false, "status": ""}, {"w": "structured", "p": "ˈstrʌktʃərd", "m": "구조화된, 체계적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "combine", "p": "kəmˈbaɪn", "m": "결합하다, 합치다", "pos": "동사", "fav": false, "status": ""}, {"w": "coursework", "p": "ˈkɔːrswɜːrk", "m": "교과 과정, 수업", "pos": "명사", "fav": false, "status": ""}, {"w": "transferable", "p": "trænsˈfɜːrəbl", "m": "전이 가능한, 이전 가능한", "pos": "형용사", "fav": false, "status": ""}, {"w": "incorporate", "p": "ɪnˈkɔːrpəreɪt", "m": "통합하다, 포함시키다", "pos": "동사", "fav": false, "status": ""}, {"w": "research", "p": "rɪˈsɜːrtʃ", "m": "연구", "pos": "명사", "fav": false, "status": ""}, {"w": "imaginary", "p": "ɪˈmædʒɪneri", "m": "상상의, 가상의", "pos": "형용사", "fav": false, "status": ""}, {"w": "especially", "p": "ɪˈspeʃəli", "m": "특히", "pos": "부사", "fav": false, "status": ""}, {"w": "respect", "p": "rɪˈspekt", "m": "관계, 관련", "pos": "명사", "fav": false, "status": ""}, {"w": "everyday", "p": "ˈevrideɪ", "m": "일상적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "remain", "p": "rɪˈmeɪn", "m": "남아있다", "pos": "동사", "fav": false, "status": ""}, {"w": "emotion", "p": "ɪˈmoʊʃn", "m": "감정", "pos": "명사", "fav": false, "status": ""}, {"w": "disrupt", "p": "dɪsˈrʌpt", "m": "방해하다, 혼란시키다", "pos": "동사", "fav": false, "status": ""}, {"w": "understanding", "p": "ˌʌndərˈstændɪŋ", "m": "이해", "pos": "명사", "fav": false, "status": ""}, {"w": "expression", "p": "ɪkˈspreʃn", "m": "표현", "pos": "명사", "fav": false, "status": ""}, {"w": "monster", "p": "ˈmɑːnstər", "m": "괴물", "pos": "명사", "fav": false, "status": ""}, {"w": "refuse", "p": "rɪˈfjuːz", "m": "거부하다", "pos": "동사", "fav": false, "status": ""}, {"w": "indeed", "p": "ɪnˈdiːd", "m": "실제로, 정말로", "pos": "부사", "fav": false, "status": ""}, {"w": "display", "p": "dɪˈspleɪ", "m": "드러내다, 보여주다", "pos": "동사", "fav": false, "status": ""}, {"w": "causal", "p": "ˈkɔːzl", "m": "인과 관계의", "pos": "형용사", "fav": false, "status": ""}, {"w": "relation", "p": "rɪˈleɪʃn", "m": "관계", "pos": "명사", "fav": false, "status": ""}, {"w": "imagination", "p": "ɪˌmædʒɪˈneɪʃn", "m": "상상", "pos": "명사", "fav": false, "status": ""}, {"w": "reality", "p": "riˈæləti", "m": "현실", "pos": "명사", "fav": false, "status": ""}, {"w": "pretend", "p": "prɪˈtend", "m": "가장하다, ~인 척하다", "pos": "동사", "fav": false, "status": ""}, {"w": "scary", "p": "ˈskeri", "m": "무서운", "pos": "형용사", "fav": false, "status": ""}, {"w": "preschool", "p": "ˈpriːskuːl", "m": "유치원의, 취학 전의", "pos": "형용사", "fav": false, "status": ""}, {"w": "empty", "p": "ˈempti", "m": "빈", "pos": "형용사", "fav": false, "status": ""}, {"w": "agree", "p": "əˈɡriː", "m": "동의하다", "pos": "동사", "fav": false, "status": ""}, {"w": "exhibit", "p": "ɪɡˈzɪbɪt", "m": "보이다, 나타내다", "pos": "동사", "fav": false, "status": ""}, {"w": "fear", "p": "fɪər", "m": "두려움", "pos": "명사", "fav": false, "status": ""}, {"w": "avoidance", "p": "əˈvɔɪdəns", "m": "회피", "pos": "명사", "fav": false, "status": ""}, {"w": "alone", "p": "əˈloʊn", "m": "혼자인", "pos": "형용사", "fav": false, "status": ""}, {"w": "thought", "p": "θɔːt", "m": "생각", "pos": "명사", "fav": false, "status": ""}, {"w": "difficult", "p": "ˈdɪfɪkəlt", "m": "어려운", "pos": "형용사", "fav": false, "status": ""}, {"w": "intensify", "p": "ɪnˈtensɪfaɪ", "m": "강화하다", "pos": "동사", "fav": false, "status": ""}, {"w": "emerge", "p": "ɪˈmɜːrdʒ", "m": "나타나다, 드러나다", "pos": "동사", "fav": false, "status": ""}, {"w": "liberation", "p": "ˌlɪbəˈreɪʃn", "m": "해방, 자유", "pos": "명사", "fav": false, "status": ""}, {"w": "expansion", "p": "ɪkˈspænʃn", "m": "확장, 확대", "pos": "명사", "fav": false, "status": ""}, {"w": "aesthetic", "p": "esˈθetɪk", "m": "미적인, 심미적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "presently", "p": "ˈprezntli", "m": "현재, 지금", "pos": "부사", "fav": false, "status": ""}, {"w": "flowering", "p": "ˈflaʊərɪŋ", "m": "번성, 개화", "pos": "명사", "fav": false, "status": ""}, {"w": "gratification", "p": "ˌɡrætɪfɪˈkeɪʃn", "m": "만족, 기쁨", "pos": "명사", "fav": false, "status": ""}, {"w": "ordinary", "p": "ˈɔːrdneri", "m": "평범한, 일상적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "recognize", "p": "ˈrekəɡnaɪz", "m": "인정하다, 인식하다", "pos": "동사", "fav": false, "status": ""}, {"w": "degrade", "p": "dɪˈɡreɪd", "m": "격하시키다, 저하시키다", "pos": "동사", "fav": false, "status": ""}, {"w": "dismiss", "p": "dɪsˈmɪs", "m": "무시하다, 일축하다", "pos": "동사", "fav": false, "status": ""}, {"w": "prevalent", "p": "ˈprevələnt", "m": "지배적인, 널리 퍼진", "pos": "형용사", "fav": false, "status": ""}, {"w": "widely", "p": "ˈwaɪdli", "m": "널리, 광범위하게", "pos": "부사", "fav": false, "status": ""}, {"w": "value", "p": "ˈvæljuː", "m": "가치를 인정하다, 소중히 여기다", "pos": "동사", "fav": false, "status": ""}, {"w": "tradition", "p": "trəˈdɪʃn", "m": "전통", "pos": "명사", "fav": false, "status": ""}, {"w": "locate", "p": "ˈloʊkeɪt", "m": "위치시키다, 찾다", "pos": "동사", "fav": false, "status": ""}, {"w": "contemporary", "p": "kənˈtempəreri", "m": "현대의, 동시대의", "pos": "형용사", "fav": false, "status": ""}, {"w": "intellectual", "p": "ˌɪntəˈlektʃuəl", "m": "지적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "origin", "p": "ˈɔːrɪdʒ", "m": "기원, 유래", "pos": "명사", "fav": false, "status": ""}, {"w": "argue", "p": "ˈɑːrɡjuː", "m": "주장하다", "pos": "동사", "fav": false, "status": ""}, {"w": "separation", "p": "ˌsepəˈreɪʃn", "m": "분리", "pos": "명사", "fav": false, "status": ""}, {"w": "base", "p": "beɪs", "m": "기반을 두다", "pos": "동사", "fav": false, "status": ""}, {"w": "biological", "p": "ˌbaɪəˈlɑːdʒɪkl", "m": "생물학적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "cultural", "p": "ˈkʌltʃərəl", "m": "문화적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "internalize", "p": "ɪnˈtɜːrnəlaɪz", "m": "내면화하다", "pos": "동사", "fav": false, "status": ""}, {"w": "awareness", "p": "əˈwernəs", "m": "인식", "pos": "명사", "fav": false, "status": ""}, {"w": "sensation", "p": "senˈseɪʃn", "m": "감각", "pos": "명사", "fav": false, "status": ""}, {"w": "interpenetration", "p": "ˌɪntərpɛnɪˈtreɪʃən", "m": "상호침투", "pos": "명사", "fav": false, "status": ""}, {"w": "clarify", "p": "ˈklærəfaɪ", "m": "명료화하다", "pos": "동사", "fav": false, "status": ""}, {"w": "validly", "p": "ˈvælɪdli", "m": "타당하게, 정당하게", "pos": "부사", "fav": false, "status": ""}, {"w": "morally", "p": "ˈmɔːrəli", "m": "도덕적으로", "pos": "부사", "fav": false, "status": ""}, {"w": "superior", "p": "suːˈpɪriər", "m": "우월한, 우수한", "pos": "형용사", "fav": false, "status": ""}, {"w": "ground", "p": "ɡraʊnd", "m": "근거, 이유", "pos": "명사", "fav": false, "status": ""}, {"w": "possess", "p": "pəˈzes", "m": "소유하다, 가지다", "pos": "동사", "fav": false, "status": ""}, {"w": "lack", "p": "læk", "m": "결여하다, 부족하다", "pos": "동사", "fav": false, "status": ""}, {"w": "capacity", "p": "kəˈpæsəti", "m": "능력, 역량", "pos": "명사", "fav": false, "status": ""}, {"w": "agent", "p": "ˈeɪdʒənt", "m": "행위자, 대리인", "pos": "명사", "fav": false, "status": ""}, {"w": "standard", "p": "ˈstændərd", "m": "기준, 표준", "pos": "명사", "fav": false, "status": ""}, {"w": "concern", "p": "kənˈsɜːrn", "m": "관련되다, 관계하다", "pos": "동사", "fav": false, "status": ""}, {"w": "meaningfully", "p": "ˈmiːnɪŋfəli", "m": "의미 있게", "pos": "부사", "fav": false, "status": ""}, {"w": "judge", "p": "dʒʌdʒ", "m": "판단하다, 심판하다", "pos": "동사", "fav": false, "status": ""}, {"w": "judgment", "p": "ˈdʒʌdʒmənt", "m": "판단, 심판", "pos": "명사", "fav": false, "status": ""}, {"w": "comparative", "p": "kəmˈpærətɪv", "m": "비교의, 상대적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "merit", "p": "ˈmerɪt", "m": "장점, 가치", "pos": "명사", "fav": false, "status": ""}, {"w": "deficiency", "p": "dɪˈfɪʃnsi", "m": "결점, 부족", "pos": "명사", "fav": false, "status": ""}, {"w": "entity", "p": "ˈentəti", "m": "실체, 존재", "pos": "명사", "fav": false, "status": ""}, {"w": "determine", "p": "dɪˈtɜːrmɪn", "m": "결정하다", "pos": "동사", "fav": false, "status": ""}, {"w": "correctly", "p": "kəˈrektli", "m": "올바르게, 정확하게", "pos": "부사", "fav": false, "status": ""}, {"w": "valid", "p": "ˈvælɪd", "m": "타당한, 유효한", "pos": "형용사", "fav": false, "status": ""}, {"w": "apply", "p": "əˈplaɪ", "m": "적용하다", "pos": "동사", "fav": false, "status": ""}, {"w": "fulfill", "p": "fʊlˈfɪl", "m": "충족하다, 이행하다", "pos": "동사", "fav": false, "status": ""}, {"w": "degree", "p": "dɪˈɡriː", "m": "정도, 수준", "pos": "명사", "fav": false, "status": ""}, {"w": "range", "p": "reɪndʒ", "m": "범위", "pos": "명사", "fav": false, "status": ""}, {"w": "application", "p": "ˌæplɪˈkeɪʃn", "m": "적용, 응용", "pos": "명사", "fav": false, "status": ""}, {"w": "however", "p": "haʊˈevər", "m": "그러나", "pos": "부사", "fav": false, "status": ""}, {"w": "latter", "p": "ˈlætər", "m": "후자의", "pos": "형용사", "fav": false, "status": ""}, {"w": "superiority", "p": "suːˌpɪriˈɔːrəti", "m": "우월성, 우세", "pos": "명사", "fav": false, "status": ""}, {"w": "preference", "p": "ˈprefrəns", "m": "선호", "pos": "명사", "fav": false, "status": ""}, {"w": "artificial", "p": "ˌɑːrtɪˈfɪʃl", "m": "인공적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "pause", "p": "pɔːz", "m": "멈춤, 휴지", "pos": "명사", "fav": false, "status": ""}, {"w": "filler", "p": "ˈfɪlər", "m": "충전재, 채우는 것", "pos": "명사", "fav": false, "status": ""}, {"w": "supplement", "p": "ˈsʌplɪmənt", "m": "보충물", "pos": "명사", "fav": false, "status": ""}, {"w": "produce", "p": "prəˈduːs", "m": "만들어내다, 생산하다", "pos": "동사", "fav": false, "status": ""}, {"w": "cadence", "p": "ˈkeɪdns", "m": "리듬, 억양", "pos": "명사", "fav": false, "status": ""}, {"w": "convince", "p": "kənˈvɪns", "m": "확신시키다", "pos": "동사", "fav": false, "status": ""}, {"w": "interlocutor", "p": "ˌɪntərˈlɑːkjətər", "m": "대화 상대자", "pos": "명사", "fav": false, "status": ""}, {"w": "engage", "p": "ɪnˈɡeɪdʒ", "m": "관여하다, 대화하다", "pos": "동사", "fav": false, "status": ""}, {"w": "humanity", "p": "hjuːˈmænəti", "m": "인간성", "pos": "명사", "fav": false, "status": ""}, {"w": "emerge", "p": "ɪˈmɜːrdʒ", "m": "나타나다", "pos": "동사", "fav": false, "status": ""}, {"w": "context", "p": "ˈkɑːntekst", "m": "맥락", "pos": "명사", "fav": false, "status": ""}, {"w": "interpret", "p": "ɪnˈtɜːrprɪt", "m": "해석하다", "pos": "동사", "fav": false, "status": ""}, {"w": "reinforce", "p": "ˌriːɪnˈfɔːrs", "m": "강화하다", "pos": "동사", "fav": false, "status": ""}, {"w": "illusion", "p": "ɪˈluːʒn", "m": "환상", "pos": "명사", "fav": false, "status": ""}, {"w": "technical", "p": "ˈteknɪkl", "m": "기술적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "flag", "p": "flæɡ", "m": "지적하다, 표시하다", "pos": "동사", "fav": false, "status": ""}, {"w": "duration", "p": "duˈreɪʃn", "m": "지속 시간", "pos": "명사", "fav": false, "status": ""}, {"w": "frequency", "p": "ˈfriːkwənsi", "m": "빈도", "pos": "명사", "fav": false, "status": ""}, {"w": "inference", "p": "ˈɪnfərəns", "m": "추론", "pos": "명사", "fav": false, "status": ""}, {"w": "relevant", "p": "ˈreləvənt", "m": "관련된", "pos": "형용사", "fav": false, "status": ""}, {"w": "conversational", "p": "ˌkɑːnvərˈseɪʃənl", "m": "대화의", "pos": "형용사", "fav": false, "status": ""}, {"w": "significant", "p": "sɪɡˈnɪfɪkənt", "m": "중요한", "pos": "형용사", "fav": false, "status": ""}, {"w": "recognise", "p": "ˈrekəɡnaɪz", "m": "인식하다", "pos": "동사", "fav": false, "status": ""}, {"w": "absence", "p": "ˈæbsəns", "m": "부재", "pos": "명사", "fav": false, "status": ""}, {"w": "meaningful", "p": "ˈmiːnɪŋfl", "m": "의미 있는", "pos": "형용사", "fav": false, "status": ""}, {"w": "confusion", "p": "kənˈfjuːʒn", "m": "혼란", "pos": "명사", "fav": false, "status": ""}, {"w": "substantial", "p": "səbˈstænʃl", "m": "상당한", "pos": "형용사", "fav": false, "status": ""}, {"w": "equivalent", "p": "ɪˈkwɪvələnt", "m": "동등한", "pos": "형용사", "fav": false, "status": ""}, {"w": "archaeological", "p": "ˌɑːrkiəˈlɑːdʒɪkl", "m": "고고학적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "evidence", "p": "ˈevɪdəns", "m": "증거", "pos": "명사", "fav": false, "status": ""}, {"w": "suggest", "p": "səˈdʒest", "m": "시사하다, 제안하다", "pos": "동사", "fav": false, "status": ""}, {"w": "crop", "p": "krɑːp", "m": "작물", "pos": "명사", "fav": false, "status": ""}, {"w": "cultivate", "p": "ˈkʌltɪveɪt", "m": "재배하다, 경작하다", "pos": "동사", "fav": false, "status": ""}, {"w": "millennia", "p": "mɪˈleniə", "m": "수천 년 (millennium의 복수형)", "pos": "명사", "fav": false, "status": ""}, {"w": "continuous", "p": "kənˈtɪnjuəs", "m": "지속적인, 계속되는", "pos": "형용사", "fav": false, "status": ""}, {"w": "innovation", "p": "ˌɪnəˈveɪʃn", "m": "혁신", "pos": "명사", "fav": false, "status": ""}, {"w": "boost", "p": "buːst", "m": "증진시키다, 높이다", "pos": "동사", "fav": false, "status": ""}, {"w": "productivity", "p": "ˌproʊdʌkˈtɪvəti", "m": "생산성", "pos": "명사", "fav": false, "status": ""}, {"w": "reduce", "p": "rɪˈduːs", "m": "줄이다, 감소시키다", "pos": "동사", "fav": false, "status": ""}, {"w": "manual", "p": "ˈmænjuəl", "m": "육체의, 수동의", "pos": "형용사", "fav": false, "status": ""}, {"w": "labor", "p": "ˈleɪbər", "m": "노동", "pos": "명사", "fav": false, "status": ""}, {"w": "demand", "p": "dɪˈmænd", "m": "요구하다, 수요", "pos": "동사", "fav": false, "status": ""}, {"w": "project", "p": "prəˈdʒekt", "m": "예측하다, 투사하다", "pos": "동사", "fav": false, "status": ""}, {"w": "require", "p": "rɪˈkwaɪər", "m": "요구하다, 필요로 하다", "pos": "동사", "fav": false, "status": ""}, {"w": "portion", "p": "ˈpɔːrʃn", "m": "부분, 일부", "pos": "명사", "fav": false, "status": ""}, {"w": "suitable", "p": "ˈsuːtəbl", "m": "적합한, 알맞은", "pos": "형용사", "fav": false, "status": ""}, {"w": "farming", "p": "ˈfɑːrmɪŋ", "m": "농사, 농업", "pos": "명사", "fav": false, "status": ""}, {"w": "limitation", "p": "ˌlɪmɪˈteɪʃn", "m": "제약, 한계", "pos": "명사", "fav": false, "status": ""}, {"w": "topography", "p": "təˈpɑːɡrəfi", "m": "지형", "pos": "명사", "fav": false, "status": ""}, {"w": "ownership", "p": "ˈoʊnərʃɪp", "m": "소유권, 소유", "pos": "명사", "fav": false, "status": ""}, {"w": "pattern", "p": "ˈpætərn", "m": "형태, 패턴", "pos": "명사", "fav": false, "status": ""}, {"w": "environmental", "p": "ɪnˌvaɪrənˈmentl", "m": "환경의", "pos": "형용사", "fav": false, "status": ""}, {"w": "density", "p": "ˈdensəti", "m": "밀도", "pos": "명사", "fav": false, "status": ""}, {"w": "influence", "p": "ˈɪnfluəns", "m": "영향을 미치다", "pos": "동사", "fav": false, "status": ""}, {"w": "agriculture", "p": "ˈæɡrɪkʌltʃər", "m": "농업", "pos": "명사", "fav": false, "status": ""}, {"w": "decline", "p": "dɪˈklaɪn", "m": "감소하다, 쇠퇴하다", "pos": "동사", "fav": false, "status": ""}, {"w": "production", "p": "prəˈdʌkʃn", "m": "생산", "pos": "명사", "fav": false, "status": ""}, {"w": "compare", "p": "kəmˈper", "m": "비교하다", "pos": "동사", "fav": false, "status": ""}, {"w": "confident", "p": "ˈkɑːnfɪdənt", "m": "확신하는", "pos": "형용사", "fav": false, "status": ""}, {"w": "sign", "p": "saɪn", "m": "기호, 표시", "pos": "명사", "fav": false, "status": ""}, {"w": "relationship", "p": "rɪˈleɪʃnʃɪp", "m": "관계", "pos": "명사", "fav": false, "status": ""}, {"w": "category", "p": "ˈkætəɡɔːri", "m": "범주, 카테고리", "pos": "명사", "fav": false, "status": ""}, {"w": "kinship", "p": "ˈkɪnʃɪp", "m": "친족 관계", "pos": "명사", "fav": false, "status": ""}, {"w": "terminology", "p": "ˌtɜːrmɪˈnɑːlədʒi", "m": "용어", "pos": "명사", "fav": false, "status": ""}, {"w": "define", "p": "dɪˈfaɪ", "m": "정의하다", "pos": "동사", "fav": false, "status": ""}, {"w": "comparative", "p": "kəmˈpærətɪv", "m": "비교의", "pos": "형용사", "fav": false, "status": ""}, {"w": "typological", "p": "ˌtaɪpəˈlɑːdʒɪkl", "m": "유형론적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "discover", "p": "dɪˈskʌvər", "m": "발견하다", "pos": "동사", "fav": false, "status": ""}, {"w": "label", "p": "ˈleɪbl", "m": "명칭, 표시", "pos": "명사", "fav": false, "status": ""}, {"w": "probability", "p": "ˌprɑːbəˈbɪləti", "m": "확률", "pos": "명사", "fav": false, "status": ""}, {"w": "specific", "p": "spəˈsɪfɪk", "m": "특정한", "pos": "형용사", "fav": false, "status": ""}, {"w": "predictable", "p": "prɪˈdɪktəbl", "m": "예측 가능한", "pos": "형용사", "fav": false, "status": ""}, {"w": "core", "p": "kɔːr", "m": "핵심의, 중심의", "pos": "형용사", "fav": false, "status": ""}, {"w": "contrast", "p": "ˈkɑːntræst", "m": "대조", "pos": "명사", "fav": false, "status": ""}, {"w": "central", "p": "ˈsentrəl", "m": "중심적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "member", "p": "ˈmembər", "m": "구성원", "pos": "명사", "fav": false, "status": ""}, {"w": "build up", "p": "bɪld ʌp", "m": "구성하다", "pos": "동사", "fav": false, "status": ""}, {"w": "mother-in-law", "p": "ˈmʌðər ɪn lɔː", "m": "장모, 시어머니", "pos": "명사", "fav": false, "status": ""}, {"w": "step-father", "p": "ˈstep fɑːðər", "m": "계부, 의붓아버지", "pos": "명사", "fav": false, "status": ""}, {"w": "typically", "p": "ˈtɪpɪkli", "m": "일반적으로", "pos": "부사", "fav": false, "status": ""}, {"w": "express", "p": "ɪkˈspres", "m": "표현하다", "pos": "동사", "fav": false, "status": ""}, {"w": "modify", "p": "ˈmɑːdɪfaɪ", "m": "수정하다", "pos": "동사", "fav": false, "status": ""}, {"w": "aunt", "p": "ænt", "m": "이모, 고모", "pos": "명사", "fav": false, "status": ""}, {"w": "cousin", "p": "ˈkʌzn", "m": "사촌", "pos": "명사", "fav": false, "status": ""}, {"w": "grandmother", "p": "ˈɡrænmʌðər", "m": "할머니", "pos": "명사", "fav": false, "status": ""}, {"w": "brother-in-law", "p": "ˈbrʌðər ɪn lɔː", "m": "매형, 처남", "pos": "명사", "fav": false, "status": ""}, {"w": "participant", "p": "pɑːrˈtɪsɪpənt", "m": "참가자", "pos": "명사", "fav": false, "status": ""}, {"w": "make-believe", "p": "ˈmeɪk bɪliːv", "m": "가상놀이, 상상놀이", "pos": "명사", "fav": false, "status": ""}, {"w": "communicate", "p": "kəˈmjuːnɪkeɪt", "m": "전달하다, 의사소통하다", "pos": "동사", "fav": false, "status": ""}, {"w": "fictional", "p": "ˈfɪkʃənl", "m": "허구의, 가상의", "pos": "형용사", "fav": false, "status": ""}, {"w": "emit", "p": "iˈmɪt", "m": "방출하다, 내보내다", "pos": "동사", "fav": false, "status": ""}, {"w": "naturally", "p": "ˈnætʃrəli", "m": "자연스럽게", "pos": "부사", "fav": false, "status": ""}, {"w": "participation", "p": "pɑːrˌtɪsɪˈpeɪʃn", "m": "참여", "pos": "명사", "fav": false, "status": ""}, {"w": "character", "p": "ˈkærəktər", "m": "등장인물, 역할", "pos": "명사", "fav": false, "status": ""}, {"w": "pretend", "p": "prɪˈtend", "m": "~인 척하다, 가장하다", "pos": "동사", "fav": false, "status": ""}, {"w": "gasp", "p": "ɡæsp", "m": "숨을 헐떡이다", "pos": "동사", "fav": false, "status": ""}, {"w": "draw", "p": "drɔː", "m": "뽑다, 꺼내다", "pos": "동사", "fav": false, "status": ""}, {"w": "plastic", "p": "ˈplæstɪk", "m": "플라스틱의", "pos": "형용사", "fav": false, "status": ""}, {"w": "sufficient", "p": "səˈfɪʃnt", "m": "충분한", "pos": "형용사", "fav": false, "status": ""}, {"w": "enemy", "p": "ˈenəmi", "m": "적", "pos": "명사", "fav": false, "status": ""}, {"w": "approach", "p": "əˈproʊtʃ", "m": "접근하다", "pos": "동사", "fav": false, "status": ""}, {"w": "behavior", "p": "bɪˈheɪvjər", "m": "행동", "pos": "명사", "fav": false, "status": ""}, {"w": "insufficient", "p": "ˌɪnsəˈfɪʃnt", "m": "불충분한", "pos": "형용사", "fav": false, "status": ""}, {"w": "maintain", "p": "meɪnˈteɪn", "m": "유지하다", "pos": "동사", "fav": false, "status": ""}, {"w": "necessary", "p": "ˈnesəseri", "m": "필요한", "pos": "형용사", "fav": false, "status": ""}, {"w": "common ground", "p": "ˈkɑːmən ɡraʊnd", "m": "공통 기반", "pos": "명사", "fav": false, "status": ""}, {"w": "avoid", "p": "əˈvɔɪd", "m": "피하다", "pos": "동사", "fav": false, "status": ""}, {"w": "partly", "p": "ˈpɑːrtli", "m": "부분적으로", "pos": "부사", "fav": false, "status": ""}, {"w": "information", "p": "ˌɪnfərˈmeɪʃn", "m": "정보", "pos": "명사", "fav": false, "status": ""}, {"w": "intuition", "p": "ˌɪntuˈɪʃn", "m": "직관, 직감", "pos": "명사", "fav": false, "status": ""}, {"w": "matter", "p": "ˈmætər", "m": "물질", "pos": "명사", "fav": false, "status": ""}, {"w": "uniformly", "p": "ˈjuːnɪfɔːrmli", "m": "균일하게, 일정하게", "pos": "부사", "fav": false, "status": ""}, {"w": "variation", "p": "ˌweriˈeɪʃn", "m": "변화, 변동", "pos": "명사", "fav": false, "status": ""}, {"w": "solid", "p": "ˈsɑːlɪd", "m": "고체", "pos": "명사", "fav": false, "status": ""}, {"w": "liquid", "p": "ˈlɪkwɪd", "m": "액체", "pos": "명사", "fav": false, "status": ""}, {"w": "plasma", "p": "ˈplæzmə", "m": "플라스마", "pos": "명사", "fav": false, "status": ""}, {"w": "intuitively", "p": "ɪnˈtuːɪtɪvli", "m": "직관적으로", "pos": "부사", "fav": false, "status": ""}, {"w": "assume", "p": "əˈsuːm", "m": "가정하다, 추정하다", "pos": "동사", "fav": false, "status": ""}, {"w": "reflect", "p": "rɪˈflekt", "m": "반영하다, 나타내다", "pos": "동사", "fav": false, "status": ""}, {"w": "bias", "p": "ˈbaɪəs", "m": "편향, 편견", "pos": "명사", "fav": false, "status": ""}, {"w": "constant", "p": "ˈkɑːnstənt", "m": "일정한, 지속적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "metabolism", "p": "məˈtæbəlɪzəm", "m": "신진대사", "pos": "명사", "fav": false, "status": ""}, {"w": "trivial", "p": "ˈtrɪviəl", "m": "사소한, 하찮은", "pos": "형용사", "fav": false, "status": ""}, {"w": "overall", "p": "ˌoʊvərˈɔːl", "m": "전체의, 전반적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "planetary", "p": "ˈplænəteri", "m": "행성의", "pos": "형용사", "fav": false, "status": ""}, {"w": "control", "p": "kənˈtroʊl", "m": "통제하다, 조절하다", "pos": "동사", "fav": false, "status": ""}, {"w": "overlying", "p": "ˌoʊvərˈlaɪɪŋ", "m": "위에 놓인", "pos": "형용사", "fav": false, "status": ""}, {"w": "rapidly", "p": "ˈræpɪdli", "m": "빠르게, 급속히", "pos": "부사", "fav": false, "status": ""}, {"w": "depth", "p": "depθ", "m": "깊이", "pos": "명사", "fav": false, "status": ""}, {"w": "generate", "p": "ˈdʒenəreɪt", "m": "발생시키다, 생성하다", "pos": "동사", "fav": false, "status": ""}, {"w": "enormous", "p": "ɪˈnɔːrməs", "m": "엄청난, 거대한", "pos": "형용사", "fav": false, "status": ""}, {"w": "essentially", "p": "ɪˈsenʃəli", "m": "본질적으로, 근본적으로", "pos": "부사", "fav": false, "status": ""}, {"w": "atmosphere", "p": "ˈætməsfɪər", "m": "기압, 대기", "pos": "명사", "fav": false, "status": ""}, {"w": "interior", "p": "ɪnˈtɪriər", "m": "내부", "pos": "명사", "fav": false, "status": ""}, {"w": "experience", "p": "ɪkˈspɪriəns", "m": "경험", "pos": "명사", "fav": false, "status": ""}, {"w": "experimentation", "p": "ɪkˌsperɪmenˈteɪʃn", "m": "실험", "pos": "명사", "fav": false, "status": ""}, {"w": "conventional", "p": "kənˈvenʃənl", "m": "전통적인, 관습적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "resemble", "p": "rɪˈzembl", "m": "닮다, 비슷하다", "pos": "동사", "fav": false, "status": ""}, {"w": "discovery", "p": "dɪˈskʌvəri", "m": "발견", "pos": "명사", "fav": false, "status": ""}, {"w": "convince", "p": "kənˈvɪns", "m": "설득하다, 납득시키다", "pos": "동사", "fav": false, "status": ""}, {"w": "solution", "p": "səˈluːʃn", "m": "해결책", "pos": "명사", "fav": false, "status": ""}, {"w": "consider", "p": "kənˈsɪdər", "m": "고려하다", "pos": "동사", "fav": false, "status": ""}, {"w": "resource", "p": "ˈriːsɔːrs", "m": "자원", "pos": "명사", "fav": false, "status": ""}, {"w": "followed", "p": "ˈfɑːloʊd", "m": "뒤따르는", "pos": "동사", "fav": false, "status": ""}, {"w": "effect", "p": "ɪˈfekt", "m": "효과, 영향", "pos": "명사", "fav": false, "status": ""}, {"w": "generate", "p": "ˈdʒenəreɪt", "m": "생성하다, 발생시키다", "pos": "동사", "fav": false, "status": ""}, {"w": "eliminate", "p": "ɪˈlɪmɪneɪt", "m": "제거하다", "pos": "동사", "fav": false, "status": ""}, {"w": "hypothesis", "p": "haɪˈpɑːθəsɪs", "m": "가설", "pos": "명사", "fav": false, "status": ""}, {"w": "exploratory", "p": "ɪkˈsplɔːrətɔːri", "m": "탐색적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "phase", "p": "feɪz", "m": "단계, 국면", "pos": "명사", "fav": false, "status": ""}, {"w": "convenient", "p": "kənˈviːniənt", "m": "편리한", "pos": "형용사", "fav": false, "status": ""}, {"w": "procedural", "p": "prəˈsiːdʒərəl", "m": "절차적인", "pos": "형용사", "fav": false, "status": ""}, {"w": "parameter", "p": "pəˈræmɪtər", "m": "변수, 매개변수", "pos": "명사", "fav": false, "status": ""}, {"w": "duration", "p": "duˈreɪʃn", "m": "기간, 지속시간", "pos": "명사", "fav": false, "status": ""}, {"w": "intensity", "p": "ɪnˈtensəti", "m": "강도", "pos": "명사", "fav": false, "status": ""}, {"w": "optimize", "p": "ˈɑːptɪmaɪz", "m": "최적화하다", "pos": "동사", "fav": false, "status": ""}, {"w": "maximize", "p": "ˈmæksɪmaɪz", "m": "극대화하다", "pos": "동사", "fav": false, "status": ""}, {"w": "psychologist", "p": "saɪˈkɑːlədʒɪst", "m": "심리학자", "pos": "명사", "fav": false, "status": ""}, {"w": "researcher", "p": "rɪˈsɜːrtʃər", "m": "연구자", "pos": "명사", "fav": false, "status": ""}, {"w": "theory", "p": "ˈθiːəri", "m": "이론", "pos": "명사", "fav": false, "status": ""}, {"w": "industrial", "p": "ɪnˈdʌstriəl", "m": "산업의", "pos": "형용사", "fav": false, "status": ""}, {"w": "revolution", "p": "ˌrevəˈluːʃn", "m": "혁명", "pos": "명사", "fav": false, "status": ""}, {"w": "invent", "p": "ɪnˈvent", "m": "발명하다", "pos": "동사", "fav": false, "status": ""}, {"w": "material", "p": "məˈtɪriəl", "m": "재료, 물질", "pos": "명사", "fav": false, "status": ""}, {"w": "process", "p": "ˈprɑːses", "m": "과정, 절차", "pos": "명사", "fav": false, "status": ""}, {"w": "manufacturing", "p": "ˌmænjuˈfæktʃərɪŋ", "m": "제조업", "pos": "명사", "fav": false, "status": ""}, {"w": "factory", "p": "ˈfæktəri", "m": "공장", "pos": "명사", "fav": false, "status": ""}, {"w": "previous", "p": "ˈpriːviəs", "m": "이전의", "pos": "형용사", "fav": false, "status": ""}, {"w": "apprentice", "p": "əˈprentɪs", "m": "도제, 견습생", "pos": "명사", "fav": false, "status": ""}, {"w": "master", "p": "ˈmæstər", "m": "숙련자, 명인", "pos": "명사", "fav": false, "status": ""}, {"w": "builder", "p": "ˈbɪldər", "m": "제작자, 건설자", "pos": "명사", "fav": false, "status": ""}, {"w": "skill", "p": "skɪl", "m": "기술, 기능", "pos": "명사", "fav": false, "status": ""}, {"w": "trade", "p": "treɪd", "m": "직업, 업종", "pos": "명사", "fav": false, "status": ""}, {"w": "expert", "p": "ˈekspɜːrt", "m": "전문가", "pos": "명사", "fav": false, "status": ""}, {"w": "specialize", "p": "ˈspeʃəlaɪz", "m": "전문으로 하다", "pos": "동사", "fav": false, "status": ""}, {"w": "soundboard", "p": "ˈsaʊndbɔːrd", "m": "향판", "pos": "명사", "fav": false, "status": ""}, {"w": "hammer", "p": "ˈhæmər", "m": "해머", "pos": "명사", "fav": false, "status": ""}, {"w": "produce", "p": "prəˈduːs", "m": "생산하다", "pos": "동사", "fav": false, "status": ""}, {"w": "inherently", "p": "ɪnˈhɪrəntli", "m": "본질적으로", "pos": "부사", "fav": false, "status": ""}, {"w": "development", "p": "dɪˈveləpmənt", "m": "발전, 개발", "pos": "명사", "fav": false, "status": ""}, {"w": "occur", "p": "əˈkɜːr", "m": "발생하다, 일어나다", "pos": "동사", "fav": false, "status": ""}, {"w": "lead", "p": "liːd", "m": "이끌다, 주도하다", "pos": "동사", "fav": false, "status": ""}, {"w": "improvement", "p": "ɪmˈpruːvmənt", "m": "개선, 향상", "pos": "명사", "fav": false, "status": ""}, {"w": "efficiency", "p": "ɪˈfɪʃnsi", "m": "효율성", "pos": "명사", "fav": false, "status": ""}, {"w": "quality", "p": "ˈkwɑːləti", "m": "품질", "pos": "명사", "fav": false, "status": ""}, {"w": "casting", "p": "ˈkæstɪŋ", "m": "주조", "pos": "명사", "fav": false, "status": ""}, {"w": "facility", "p": "fəˈsɪləti", "m": "시설", "pos": "명사", "fav": false, "status": ""}, {"w": "plate", "p": "pleɪt", "m": "판", "pos": "명사", "fav": false, "status": ""}, {"w": "available", "p": "əˈveɪləbl", "m": "이용 가능한", "pos": "형용사", "fav": false, "status": ""}, {"w": "standardization", "p": "ˌstændərdaɪˈzeɪʃn", "m": "표준화", "pos": "명사", "fav": false, "status": ""}, {"w": "printing", "p": "ˈprɪntɪŋ", "m": "인쇄(술)", "pos": "명사", "fav": false, "status": ""}, {"w": "allow", "p": "əˈlaʊ", "m": "허락하다, 가능하게 하다", "pos": "동사", "fav": false, "status": ""}, {"w": "exact", "p": "ɪɡˈzækt", "m": "정확한", "pos": "형용사", "fav": false, "status": ""}, {"w": "reproduction", "p": "ˌriːprəˈdʌkʃn", "m": "복제", "pos": "명사", "fav": false, "status": ""}, {"w": "manuscript", "p": "ˈmænjuskrɪpt", "m": "필사본, 원고", "pos": "명사", "fav": false, "status": ""}, {"w": "manifest", "p": "ˈmænɪfest", "m": "명백한", "pos": "형용사", "fav": false, "status": ""}, {"w": "contrast", "p": "ˈkɑːntræst", "m": "대조, 대비", "pos": "명사", "fav": false, "status": ""}, {"w": "narrative", "p": "ˈnærətɪv", "m": "이야기, 서술", "pos": "명사", "fav": false, "status": ""}, {"w": "copy", "p": "ˈkɑːpi", "m": "복사하다", "pos": "동사", "fav": false, "status": ""}, {"w": "difference", "p": "ˈdɪfrəns", "m": "차이(점)", "pos": "명사", "fav": false, "status": ""}, {"w": "version", "p": "ˈvɜːrʒn", "m": "판본, 버전", "pos": "명사", "fav": false, "status": ""}, {"w": "authentic", "p": "ɔːˈθentɪk", "m": "진본의, 진짜의", "pos": "형용사", "fav": false, "status": ""}, {"w": "exploration", "p": "ˌekspləˈreɪʃn", "m": "탐험", "pos": "명사", "fav": false, "status": ""}, {"w": "fix", "p": "fɪks", "m": "고정하다", "pos": "동사", "fav": false, "status": ""}, {"w": "widely", "p": "ˈwaɪdli", "m": "널리", "pos": "부사", "fav": false, "status": ""}, {"w": "distribute", "p": "dɪˈstrɪbjuːt", "m": "배포하다", "pos": "동사", "fav": false, "status": ""}, {"w": "certainty", "p": "ˈsɜːrtnti", "m": "확실성", "pos": "명사", "fav": false, "status": ""}, {"w": "accuracy", "p": "ˈækjərəsi", "m": "정확성", "pos": "명사", "fav": false, "status": ""}, {"w": "improvement", "p": "ɪmˈpruːvmənt", "m": "개선", "pos": "명사", "fav": false, "status": ""}, {"w": "oral", "p": "ˈɔːrəl", "m": "구술의", "pos": "형용사", "fav": false, "status": ""}, {"w": "culture", "p": "ˈkʌltʃər", "m": "문화", "pos": "명사", "fav": false, "status": ""}, {"w": "return", "p": "rɪˈtɜːrn", "m": "귀환", "pos": "명사", "fav": false, "status": ""}, {"w": "century", "p": "ˈsentʃəri", "m": "세기", "pos": "명사", "fav": false, "status": ""}, {"w": "possession", "p": "pəˈzeʃn", "m": "소유", "pos": "명사", "fav": false, "status": ""}];
+
+let allWords = WORDS.map(w=>({...w, fav:false, status:''}));
+let filter='all', searchQ='', idx=0, flipped=false;
+let quizWords=[], qIdx=0, qScore=0;
+
+// 로컬스토리지 키
+const STORE_KEY = 'cyatop_26mar_g2';
+
+function save(){
+  try{
+    const state = allWords.map(w=>{return {w:w.w,fav:w.fav,status:w.status}});
+    localStorage.setItem(STORE_KEY, JSON.stringify(state));
+  }catch(e){}
+}
+function load(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORE_KEY)||'null');
+    if(saved){
+      saved.forEach(s=>{
+        const w = allWords.find(x=>x.w===s.w);
+        if(w){w.fav=s.fav;w.status=s.status;}
+      });
+    }
+  }catch(e){}
+}
+
+// 터치 스와이프
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(!document.getElementById('screen-study').classList.contains('active'))return;
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)<50)return;
+  if(dx<0)nextCard(); else prevCard();
+},{passive:true});
+
+function getFiltered(){
+  let list = allWords;
+  if(filter==='fav') list=list.filter(w=>w.fav);
+  else if(filter==='unknown') list=list.filter(w=>w.status==='unknown');
+  if(searchQ) list=list.filter(w=>w.w.toLowerCase().includes(searchQ)||w.m.includes(searchQ));
+  return list;
+}
+
+function renderCard(){
+  const list=getFiltered();
+  if(!list.length){
+    document.getElementById('fc-word').textContent='단어 없음';
+    document.getElementById('fc-phon').textContent='';
+    document.getElementById('fc-pos').textContent='';
+    document.getElementById('fc-kr').style.display='none';
+    document.getElementById('tap-hint').style.display='block';
+    document.getElementById('mark-row').style.display='none';
+    document.getElementById('prog-count').textContent='0 / 0';
+    document.getElementById('prog-fill').style.width='0%';
+    document.getElementById('word-no').textContent='';
+    return;
+  }
+  if(idx>=list.length)idx=list.length-1;
+  if(idx<0)idx=0;
+  const w=list[idx];
+  flipped=false;
+  document.getElementById('fc-word').textContent=w.w;
+  document.getElementById('fc-phon').textContent=w.p;
+  document.getElementById('fc-pos').textContent=w.pos||'';
+  document.getElementById('fc-kr').textContent=w.m;
+  document.getElementById('fc-kr').style.display='none';
+  document.getElementById('tap-hint').style.display='block';
+  document.getElementById('mark-row').style.display='none';
+  const fb=document.getElementById('fav-btn');
+  fb.textContent=w.fav?'★':'☆';
+  fb.classList.toggle('fav-on',!!w.fav);
+  document.getElementById('prog-count').textContent=(idx+1)+' / '+list.length;
+  document.getElementById('word-no').textContent=(idx+1)+' / '+list.length;
+  document.getElementById('prog-fill').style.width=(((idx+1)/list.length)*100)+'%';
+  document.getElementById('prev-btn').disabled=idx===0;
+  document.getElementById('next-btn').disabled=idx===list.length-1;
+  const k=allWords.filter(x=>x.status==='known').length;
+  const u=allWords.filter(x=>x.status==='unknown').length;
+  const f=allWords.filter(x=>x.fav).length;
+  document.getElementById('s-known').textContent=k;
+  document.getElementById('s-unknown').textContent=u;
+  document.getElementById('s-fav').textContent=f;
+  const done=allWords.filter(x=>x.status==='known'||x.status==='unknown').length;
+  document.getElementById('prog-label').textContent='학습 진도 '+done+'/'+allWords.length;
+}
+
+function flipCard(){
+  flipped=!flipped;
+  document.getElementById('fc-kr').style.display=flipped?'block':'none';
+  document.getElementById('tap-hint').style.display=flipped?'none':'block';
+  document.getElementById('mark-row').style.display=flipped?'flex':'none';
+  if(flipped)speak();
+}
+
+function speak(){
+  const list=getFiltered();
+  const w=list[idx];
+  if(!w)return;
+  if('speechSynthesis' in window){
+    const u=new SpeechSynthesisUtterance(w.w);
+    u.lang='en-US';u.rate=0.85;
+    speechSynthesis.cancel();speechSynthesis.speak(u);
+  }
+}
+
+function toggleFav(){
+  const list=getFiltered();
+  const w=list[idx];if(!w)return;
+  w.fav=!w.fav;save();
+  renderCard();
+  if(filter==='fav'){idx=Math.min(idx,getFiltered().length-1);renderCard();}
+}
+
+function markWord(s){
+  const list=getFiltered();
+  const w=list[idx];if(!w)return;
+  w.status=s;save();
+  const l=getFiltered();
+  if(filter!=='all'&&idx>=l.length)idx=Math.max(0,l.length-1);
+  else if(idx<(filter==='all'?allWords.length-1:l.length-1))idx++;
+  renderCard();
+}
+
+function prevCard(){if(idx>0){idx--;renderCard();}}
+function nextCard(){const l=getFiltered();if(idx<l.length-1){idx++;renderCard();}}
+
+function setFilter(f,el){
+  filter=f;idx=0;
+  document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  renderCard();
+}
+
+function onSearch(){
+  searchQ=document.getElementById('search-input').value.toLowerCase().trim();
+  idx=0;renderCard();
+}
+
+function showScreen(s){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.getElementById('screen-'+s).classList.add('active');
+}
+
+function goStudy(){showScreen('study');renderCard();}
+function goQuiz(){if(allWords.length<2){alert('단어가 부족해요!');return;}startQuiz();}
+
+function startQuiz(){
+  quizWords=[...allWords].sort(()=>Math.random()-0.5).slice(0,Math.min(10,allWords.length));
+  qIdx=0;qScore=0;showScreen('quiz');renderQuiz();
+}
+
+function renderQuiz(){
+  if(qIdx>=quizWords.length){showResult();return;}
+  const q=quizWords[qIdx];
+  document.getElementById('qc-word').textContent=q.w;
+  document.getElementById('qc-phon').textContent=q.p;
+  document.getElementById('quiz-num').textContent=(qIdx+1)+' / '+quizWords.length;
+  document.getElementById('qprog-fill').style.width=(((qIdx+1)/quizWords.length)*100)+'%';
+  document.getElementById('qnext-btn').style.display='none';
+  const wrong=allWords.filter(x=>x.w!==q.w).sort(()=>Math.random()-0.5).slice(0,3);
+  const opts=[...wrong.map(x=>x.m),q.m].sort(()=>Math.random()-0.5);
+  document.getElementById('options').innerHTML=opts.map(o=>
+    `<button class="opt-btn" onclick="checkAns(this,'${o.replace(/'/g,"\'")}',${JSON.stringify(q.m)})">${o}</button>`
+  ).join('');
+  if('speechSynthesis' in window){
+    const u=new SpeechSynthesisUtterance(q.w);u.lang='en-US';u.rate=0.85;
+    speechSynthesis.cancel();setTimeout(()=>speechSynthesis.speak(u),200);
+  }
+}
+
+function checkAns(btn,chosen,correct){
+  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+  if(chosen===correct){btn.classList.add('correct');qScore++;}
+  else{
+    btn.classList.add('wrong');
+    document.querySelectorAll('.opt-btn').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');});
+  }
+  document.getElementById('qnext-btn').style.display='block';
+}
+
+function nextQuiz(){qIdx++;renderQuiz();}
+
+function showResult(){
+  showScreen('result');
+  const total=quizWords.length;
+  const pct=Math.round(qScore/total*100);
+  document.getElementById('r-score').textContent=pct+'점';
+  document.getElementById('rc-correct').textContent=qScore;
+  document.getElementById('rc-wrong').textContent=total-qScore;
+  const trophies=['😢','😅','🙂','😊','🎉','🏆'];
+  const msgs=['다시 도전!','조금 더 공부해봐요!','잘하고 있어요!','꽤 잘했어요!','거의 완벽해요!','완벽해요! 🏆'];
+  const lvl=Math.min(5,Math.floor(pct/20));
+  document.getElementById('r-trophy').textContent=trophies[lvl];
+  document.getElementById('r-msg').textContent=msgs[lvl];
+}
+
+load();
+renderCard();
+</script>
+</body>
+</html>
