@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- 링크 공유 시 표시되는 미리보기(Open Graph) 설정 -->
     <meta property="og:title" content="씨유에탑 · 수능특강 16강 어휘">
     <meta property="og:description" content="여기를 눌러 링크를 확인하세요.">
     <meta property="og:type" content="website">
@@ -79,7 +78,7 @@
     <div class="app-container">
         <header>
             <div class="brand">씨유에탑 ✦ 영어단어장</div>
-            <div class="subtitle">수능특강 16강 어휘 · 총 101단어</div>
+            <div class="subtitle">수능특강 16강어휘 · 총 101단어</div>
         </header>
 
         <div class="tabs">
@@ -258,9 +257,9 @@ settlement|ˈsetlmənt|정착 해결|명사`;
         let quizSet = [], quizIdx = 0, score = 0, flashWords = [];
 
         function init() {
+            // 압축된 데이터를 파싱하여 자바스크립트 배열로 변환
             const lines = csvData.trim().split('\n');
-            // 단어장별로 진도가 따로 저장되도록 저장소 키를 변경합니다.
-            const saved = JSON.parse(localStorage.getItem('cutop_progress_su16') || '{}');
+            const saved = JSON.parse(localStorage.getItem('cutop_progress_v3') || '{}');
             
             words = lines.map((line, idx) => {
                 const parts = line.split('|');
@@ -282,7 +281,7 @@ settlement|ˈsetlmənt|정착 해결|명사`;
         function save() {
             const data = {};
             words.forEach(w => { if(w.status || w.fav) data[w.id] = { status: w.status, fav: w.fav }; });
-            localStorage.setItem('cutop_progress_su16', JSON.stringify(data));
+            localStorage.setItem('cutop_progress_v3', JSON.stringify(data));
             updateFilterStats();
         }
 
@@ -365,7 +364,7 @@ settlement|ˈsetlmənt|정착 해결|명사`;
         }
 
         function markStatusList(id, status) {
-            words[id].status = words[id].status === status ? '' : status; 
+            words[id].status = words[id].status === status ? '' : status; // 토글 기능
             save();
             renderList();
         }
