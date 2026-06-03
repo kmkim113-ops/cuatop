@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>씨유에탑 · 수능특강 15강 어휘</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--primary:#2563EB;--primary-light:#EFF6FF;--primary-dark:#1D4ED8;--success:#10B981;--danger:#EF4444;--warning:#F59E0B;--bg:#F8FAFC;--card:#FFFFFF;--border:#E2E8F0;--text:#1E293B;--text-sub:#64748B;--text-muted:#94A3B8;--radius:14px;--shadow:0 2px 12px rgba(37,99,235,0.08)}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);max-width:420px;margin:0 auto;min-height:100vh}
+  .header{background:var(--primary);color:#fff;padding:18px 16px 14px;position:sticky;top:0;z-index:100}
+  .header-brand{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:3px}
+  .header-title{font-size:18px;font-weight:700;line-height:1.2}
+  .header-sub{font-size:12px;opacity:.75;margin-top:3px}
+  .header-search{margin-top:10px;position:relative}
+  .header-search input{width:100%;padding:8px 14px 8px 34px;border-radius:8px;border:none;background:rgba(255,255,255,0.18);color:#fff;font-size:13px;font-family:'Nunito',sans-serif;outline:none}
+  .header-search input::placeholder{color:rgba(255,255,255,0.6)}
+  .header-search .ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.7}
+  .tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:114px;z-index:99}
+  .tab-btn{flex:1;padding:11px 4px;font-size:12px;font-weight:600;color:var(--text-sub);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;font-family:'Noto Sans KR',sans-serif}
+  .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary)}
+  .segment-bar{background:var(--card);border-bottom:1px solid var(--border);padding:8px 12px;overflow-x:auto;white-space:nowrap;position:sticky;top:157px;z-index:98;scrollbar-width:none}
+  .segment-bar::-webkit-scrollbar{display:none}
+  .seg-btn{display:inline-block;padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);font-size:11px;font-weight:600;color:var(--text-sub);background:none;margin-right:6px;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;transition:all .15s}
+  .seg-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+  .filter-bar{display:flex;gap:6px;padding:10px 12px 6px;background:var(--bg);overflow-x:auto;scrollbar-width:none}
+  .filter-bar::-webkit-scrollbar{display:none}
+  .filter-btn{flex-shrink:0;padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);font-size:11px;font-weight:600;color:var(--text-sub);background:var(--card);cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s}
+  .filter-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+  .stats-bar{padding:6px 12px 10px;display:flex;align-items:center;gap:8px}
+  .progress-wrap{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+  .progress-fill{height:100%;background:var(--primary);border-radius:3px;transition:width .3s}
+  .stats-text{font-size:11px;color:var(--text-muted);font-family:'Nunito',sans-serif;white-space:nowrap}
+  .word-list{padding:0 12px 80px}
+  .word-card{background:var(--card);border-radius:var(--radius);margin-bottom:8px;box-shadow:var(--shadow);overflow:hidden;border:1.5px solid var(--border)}
+  .word-card.known{border-left:4px solid var(--success)}
+  .word-card.unknown{border-left:4px solid var(--danger)}
+  .word-card.skipped{border-left:4px solid var(--warning)}
+  .wc-header{display:flex;align-items:center;padding:11px 12px 9px;gap:8px}
+  .wc-num{font-size:10px;color:var(--text-muted);font-family:'Nunito',sans-serif;font-weight:700;min-width:22px}
+  .wc-word{font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:var(--text);flex:1}
+  .wc-pos{font-size:10px;color:var(--primary);background:var(--primary-light);padding:2px 6px;border-radius:4px;font-weight:600;white-space:nowrap}
+  .wc-fav{background:none;border:none;font-size:16px;cursor:pointer;padding:0 2px;line-height:1}
+  .wc-body{padding:0 12px 10px}
+  .wc-phonetic{font-size:12px;color:var(--text-muted);font-family:'Nunito',sans-serif;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .wc-speak{background:none;border:none;font-size:13px;cursor:pointer;padding:0}
+  .wc-meaning{font-size:13px;color:var(--text);font-weight:500}
+  .wc-actions{display:flex;gap:6px;padding:8px 12px 10px;border-top:1px solid var(--border);background:#FAFBFC}
+  .wc-act-btn{flex:1;padding:6px 4px;border-radius:8px;border:1.5px solid var(--border);font-size:11px;font-weight:600;cursor:pointer;background:var(--card);font-family:'Noto Sans KR',sans-serif;transition:all .15s}
+  .wc-act-btn.known{background:#ECFDF5;border-color:var(--success);color:var(--success)}
+  .wc-act-btn.unknown{background:#FEF2F2;border-color:var(--danger);color:var(--danger)}
+  .wc-act-btn.skipped{background:#FFFBEB;border-color:var(--warning);color:#92400E}
+  .flash-section{padding:12px 12px 80px}
+  .flash-counter{text-align:center;font-size:12px;color:var(--text-muted);font-family:'Nunito',sans-serif;font-weight:600;margin-bottom:10px}
+  .flash-card{background:var(--card);border-radius:18px;box-shadow:0 4px 24px rgba(37,99,235,0.12);border:1.5px solid var(--border);min-height:180px;display:flex;flex-direction:column;cursor:pointer;user-select:none}
+  .flash-card-front{padding:28px 24px 20px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+  .flash-word{font-family:'Nunito',sans-serif;font-size:26px;font-weight:800;color:var(--text);text-align:center}
+  .flash-phonetic{font-size:13px;color:var(--text-muted);text-align:center;font-family:'Nunito',sans-serif;display:flex;align-items:center;gap:8px}
+  .flash-pos{font-size:11px;color:var(--primary);background:var(--primary-light);padding:3px 10px;border-radius:20px;font-weight:600}
+  .flash-tap-hint{font-size:11px;color:var(--text-muted);margin-top:6px}
+  .flash-meaning-box{padding:14px 20px 16px;border-top:1px solid var(--border);background:#F0F7FF;border-radius:0 0 18px 18px;display:none}
+  .flash-meaning-box.show{display:block}
+  .flash-meaning-text{font-size:16px;font-weight:600;color:var(--primary-dark);text-align:center}
+  .flash-nav{display:flex;align-items:center;gap:10px;margin-top:14px}
+  .flash-nav-btn{flex:1;padding:12px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);font-size:18px;cursor:pointer;text-align:center;transition:background .15s}
+  .flash-nav-btn:active{background:var(--primary-light)}
+  .flash-act-row{display:flex;gap:8px;margin-top:10px}
+  .flash-act-btn{flex:1;padding:10px;border-radius:10px;border:1.5px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;background:var(--card);font-family:'Noto Sans KR',sans-serif;transition:all .15s}
+  .flash-act-btn.known{background:#ECFDF5;border-color:var(--success);color:var(--success)}
+  .flash-act-btn.unknown{background:#FEF2F2;border-color:var(--danger);color:var(--danger)}
+  .flash-act-btn.skip{background:#FFFBEB;border-color:var(--warning);color:#92400E}
+  .quiz-section{padding:12px 12px 80px}
+  .quiz-header{text-align:center;margin-bottom:16px}
+  .quiz-score-badge{display:inline-block;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--primary);background:var(--primary-light);padding:4px 14px;border-radius:20px;margin-bottom:10px}
+  .quiz-progress{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:16px}
+  .quiz-progress-fill{height:100%;background:var(--primary);border-radius:2px;transition:width .3s}
+  .quiz-question{background:var(--card);border-radius:var(--radius);padding:22px 18px;box-shadow:var(--shadow);border:1.5px solid var(--border);margin-bottom:14px;text-align:center}
+  .quiz-q-label{font-size:11px;color:var(--text-muted);margin-bottom:6px;font-family:'Nunito',sans-serif}
+  .quiz-q-word{font-family:'Nunito',sans-serif;font-size:24px;font-weight:800;color:var(--text)}
+  .quiz-q-phonetic{font-size:12px;color:var(--text-muted);margin-top:6px;font-family:'Nunito',sans-serif}
+  .quiz-options{display:flex;flex-direction:column;gap:8px}
+  .quiz-opt{padding:13px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);font-size:13px;font-weight:500;cursor:pointer;text-align:left;font-family:'Noto Sans KR',sans-serif;transition:all .15s}
+  .quiz-opt:active{background:var(--primary-light)}
+  .quiz-opt.correct{background:#ECFDF5;border-color:var(--success);color:#065F46}
+  .quiz-opt.wrong{background:#FEF2F2;border-color:var(--danger);color:#991B1B}
+  .quiz-result{text-align:center;padding:30px 20px}
+  .quiz-emoji{font-size:56px;margin-bottom:12px}
+  .quiz-result-score{font-family:'Nunito',sans-serif;font-size:32px;font-weight:800;color:var(--primary);margin-bottom:8px}
+  .quiz-result-msg{font-size:14px;color:var(--text-sub);margin-bottom:20px}
+  .quiz-restart-btn{display:inline-block;padding:12px 28px;background:var(--primary);color:#fff;border-radius:10px;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
+  .quiz-start{text-align:center;padding:40px 20px}
+  .quiz-start-btn{display:inline-block;padding:14px 36px;background:var(--primary);color:#fff;border-radius:12px;border:none;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
+  .empty{text-align:center;padding:50px 20px;color:var(--text-muted)}
+  .empty-icon{font-size:36px;margin-bottom:10px}
+  .empty-text{font-size:13px}
+  .touch-area{touch-action:pan-y}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-brand">씨유에탑 ✦ 영어단어장</div>
+  <div class="header-title">수능특강 15강 어휘</div>
+  <div class="header-sub" id="headerSub">총 117단어</div>
+  <div class="header-search">
+    <span class="ico">🔍</span>
+    <input type="text" id="searchInput" placeholder="단어 검색 (영어 / 한글)">
+  </div>
+</div>
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('list')">단어목록</button>
+  <button class="tab-btn" onclick="switchTab('flash')">플래시카드</button>
+  <button class="tab-btn" onclick="switchTab('quiz')">퀴즈</button>
+</div>
+<div class="segment-bar" id="segmentBar"></div>
+<div id="app"></div>
+<script>
+const RAW=[
+{word:"destination",phonetic:"ˌdestɪˈneɪʃn",meaning:"목적지, 행선지",pos:"명사"},
+{word:"literacy",phonetic:"ˈlɪtərəsi",meaning:"읽고 쓰는 능력, 문해력",pos:"명사"},
+{word:"illiteracy",phonetic:"ɪˈlɪtərəsi",meaning:"읽고 쓰는 능력 (문맹)",pos:"명사"},
+{word:"authentic",phonetic:"ɔːˈθentɪk",meaning:"진정한, 진짜의",pos:"형용사"},
+{word:"genuine",phonetic:"ˈdʒenjuɪn",meaning:"진정한",pos:"형용사"},
+{word:"real",phonetic:"riːəl",meaning:"진짜의",pos:"형용사"},
+{word:"fake",phonetic:"feɪk",meaning:"진정한 (가짜의)",pos:"형용사"},
+{word:"artificial",phonetic:"ˌɑːrtɪˈfɪʃl",meaning:"진정한 (인공적인)",pos:"형용사"},
+{word:"critical",phonetic:"ˈkrɪtɪkl",meaning:"비판적인; 중요한",pos:"형용사"},
+{word:"analytical",phonetic:"ˌænəˈlɪtɪkl",meaning:"비판적인",pos:"형용사"},
+{word:"crucial",phonetic:"ˈkruːʃl",meaning:"중요한",pos:"형용사"},
+{word:"superficial",phonetic:"ˌsuːpərˈfɪʃl",meaning:"피상적인, 겉으로만 보이는",pos:"형용사"},
+{word:"shallow",phonetic:"ˈʃæloʊ",meaning:"피상적인",pos:"형용사"},
+{word:"profound",phonetic:"prəˈfaʊnd",meaning:"피상적인 (심오한)",pos:"형용사"},
+{word:"deep",phonetic:"diːp",meaning:"피상적인 (깊은)",pos:"형용사"},
+{word:"evaluate",phonetic:"ɪˈvæljueɪt",meaning:"평가하다",pos:"동사"},
+{word:"assess",phonetic:"əˈses",meaning:"평가하다",pos:"동사"},
+{word:"appraise",phonetic:"əˈpreɪz",meaning:"평가하다",pos:"동사"},
+{word:"interaction",phonetic:"ˌɪntərˈækʃn",meaning:"상호 작용",pos:"명사"},
+{word:"interplay",phonetic:"ˈɪntərpleɪ",meaning:"상호 작용",pos:"명사"},
+{word:"credibility",phonetic:"ˌkredəˈbɪləti",meaning:"신뢰성",pos:"명사"},
+{word:"reliability",phonetic:"rɪˌlaɪəˈbɪləti",meaning:"신뢰성",pos:"명사"},
+{word:"inhabitant",phonetic:"ɪnˈhæbɪtənt",meaning:"거주자, 주민",pos:"명사"},
+{word:"resident",phonetic:"ˈrezɪdənt",meaning:"주민",pos:"명사"},
+{word:"dweller",phonetic:"ˈdwelər",meaning:"거주자",pos:"명사"},
+{word:"distinguish",phonetic:"dɪˈstɪŋɡwɪʃ",meaning:"구별하다",pos:"동사"},
+{word:"differentiate",phonetic:"ˌdɪfəˈrenʃieɪt",meaning:"구별하다",pos:"동사"},
+{word:"stage",phonetic:"steɪdʒ",meaning:"무대에 올리다, 연출하다, 단계",pos:"동사/명사"},
+{word:"misinformation",phonetic:"ˌmɪsɪnfərˈmeɪʃn",meaning:"오보, 잘못된 정보",pos:"명사"},
+{word:"fact",phonetic:"fækt",meaning:"오보 (사실)",pos:"명사"},
+{word:"truth",phonetic:"truːθ",meaning:"잘못된 정보 (진실)",pos:"명사"},
+{word:"rear",phonetic:"rɪər",meaning:"뒤쪽의, 기르다",pos:"형용사/동사"},
+{word:"back",phonetic:"bæk",meaning:"뒤쪽의",pos:"형용사"},
+{word:"hind",phonetic:"haɪnd",meaning:"뒤쪽의",pos:"형용사"},
+{word:"front",phonetic:"frʌnt",meaning:"뒤쪽의 (앞쪽의)",pos:"형용사"},
+{word:"bias",phonetic:"ˈbaɪəs",meaning:"편견, 선입관",pos:"명사"},
+{word:"prejudice",phonetic:"ˈpredʒʊdɪs",meaning:"선입관",pos:"명사"},
+{word:"monitor",phonetic:"ˈmɑːnɪtər",meaning:"감시하다, 관찰하다",pos:"동사"},
+{word:"observe",phonetic:"əbˈzɜːrv",meaning:"감시하다",pos:"동사"},
+{word:"watch",phonetic:"wɑːtʃ",meaning:"관찰하다",pos:"동사"},
+{word:"verify",phonetic:"ˈverɪfaɪ",meaning:"검증하다, 확인하다",pos:"동사"},
+{word:"confirm",phonetic:"kənˈfɜːrm",meaning:"확인하다",pos:"동사"},
+{word:"performance",phonetic:"pərˈfɔːrməns",meaning:"공연; 수행, 실적",pos:"명사"},
+{word:"manipulate",phonetic:"məˈnɪpjuleɪt",meaning:"조작하다, 다루다",pos:"동사"},
+{word:"control",phonetic:"kənˈtroʊl",meaning:"조작하다",pos:"동사"},
+{word:"influence",phonetic:"ˈɪnfluəns",meaning:"다루다",pos:"동사"},
+{word:"promote",phonetic:"prəˈmoʊt",meaning:"홍보하다, 승진시키다, 촉진하다",pos:"동사"},
+{word:"advertise",phonetic:"ˈædvərtaɪz",meaning:"홍보하다",pos:"동사"},
+{word:"encourage",phonetic:"ɪnˈkɜːrɪdʒ",meaning:"촉진하다",pos:"동사"},
+{word:"objective",phonetic:"əbˈdʒektɪv",meaning:"객관적인; 목표",pos:"형용사/명사"},
+{word:"subjective",phonetic:"səbˈdʒektɪv",meaning:"객관적인 (주관적인)",pos:"형용사"},
+{word:"circadian",phonetic:"sɜːrˈkeɪdiən",meaning:"24시간 주기의 (생물학적 리듬)",pos:"형용사"},
+{word:"biodiversity",phonetic:"ˌbaɪoʊdaɪˈvɜːrsəti",meaning:"생물 다양성",pos:"명사"},
+{word:"regulate",phonetic:"ˈreɡjuleɪt",meaning:"조절하다, 규제하다",pos:"동사"},
+{word:"adjust",phonetic:"əˈdʒʌst",meaning:"규제하다",pos:"동사"},
+{word:"ecosystem",phonetic:"ˈiːkoʊsɪstəm",meaning:"생태계",pos:"명사"},
+{word:"resilience",phonetic:"rɪˈzɪliəns",meaning:"회복력, 탄력성",pos:"명사"},
+{word:"flexibility",phonetic:"ˌfleksəˈbɪləti",meaning:"회복력",pos:"명사"},
+{word:"alertness",phonetic:"əˈlɜːrtnəs",meaning:"각성도, 기민함",pos:"명사"},
+{word:"wakefulness",phonetic:"ˈweɪkflnəs",meaning:"각성도",pos:"명사"},
+{word:"invasive",phonetic:"ɪnˈveɪsɪv",meaning:"침입하는, 급속히 퍼지는",pos:"형용사"},
+{word:"intrusive",phonetic:"ɪnˈtruːsɪv",meaning:"침입하는",pos:"형용사"},
+{word:"internal",phonetic:"ɪnˈtɜːrnl",meaning:"내부의",pos:"형용사"},
+{word:"inner",phonetic:"ˈɪnər",meaning:"내부의",pos:"형용사"},
+{word:"external",phonetic:"ɪkˈstɜːrnl",meaning:"내부의 (외부의)",pos:"형용사"},
+{word:"native",phonetic:"ˈneɪtɪv",meaning:"토착의, 원산의",pos:"형용사"},
+{word:"indigenous",phonetic:"ɪnˈdɪdʒənəs",meaning:"토착의",pos:"형용사"},
+{word:"foreign",phonetic:"ˈfɔːrən",meaning:"토착의 (외래의)",pos:"형용사"},
+{word:"exotic",phonetic:"ɪɡˈzɑːtɪk",meaning:"원산의 (이국적인)",pos:"형용사"},
+{word:"disrupt",phonetic:"dɪsˈrʌpt",meaning:"방해하다, 지장을 주다",pos:"동사"},
+{word:"disturb",phonetic:"dɪsˈtɜːrb",meaning:"방해하다",pos:"동사"},
+{word:"interrupt",phonetic:"ˌɪntəˈrʌpt",meaning:"지장을 주다",pos:"동사"},
+{word:"disruption",phonetic:"dɪsˈrʌpʃn",meaning:"붕괴, 혼란",pos:"명사"},
+{word:"disturbance",phonetic:"dɪsˈtɜːrbəns",meaning:"혼란",pos:"명사"},
+{word:"man-made",phonetic:"ˈmæn ˈmeɪd",meaning:"인공적인",pos:"형용사"},
+{word:"natural",phonetic:"ˈnætʃrəl",meaning:"인공적인 (자연적인)",pos:"형용사"},
+{word:"extinction",phonetic:"ɪkˈstɪŋkʃn",meaning:"멸종, 소멸",pos:"명사"},
+{word:"secretion",phonetic:"sɪˈkriːʃn",meaning:"분비(물)",pos:"명사"},
+{word:"conservation",phonetic:"ˌkɑːnsərˈveɪʃn",meaning:"보존, 보호",pos:"명사"},
+{word:"preservation",phonetic:"ˌprezərˈveɪʃn",meaning:"보호",pos:"명사"},
+{word:"exposure",phonetic:"ɪkˈspoʊʒər",meaning:"노출",pos:"명사"},
+{word:"disclosure",phonetic:"dɪsˈkloʊʒər",meaning:"노출 (폭로)",pos:"명사"},
+{word:"vulnerable",phonetic:"ˈvʌlnərəbl",meaning:"취약한",pos:"형용사"},
+{word:"susceptible",phonetic:"səˈseptəbl",meaning:"취약한",pos:"형용사"},
+{word:"immune",phonetic:"ɪˈmjuːn",meaning:"취약한 (면역이 있는)",pos:"형용사"},
+{word:"strong",phonetic:"strɔːŋ",meaning:"취약한 (강한)",pos:"형용사"},
+{word:"insomnia",phonetic:"ɪnˈsɑːmniə",meaning:"불면증",pos:"명사"},
+{word:"mechanism",phonetic:"ˈmekənɪzəm",meaning:"기제, 작동 원리",pos:"명사"},
+{word:"maintenance",phonetic:"ˈmeɪntənəns",meaning:"유지, 지속",pos:"명사"},
+{word:"upkeep",phonetic:"ˈʌpkiːp",meaning:"유지",pos:"명사"},
+{word:"collaboration",phonetic:"kəˌlæbəˈreɪʃn",meaning:"협력, 공동 작업",pos:"명사"},
+{word:"cooperation",phonetic:"koʊˌɑːpəˈreɪʃn",meaning:"협력",pos:"명사"},
+{word:"competitive",phonetic:"kəmˈpetətɪv",meaning:"경쟁적인, 경쟁력 있는",pos:"형용사"},
+{word:"advantage",phonetic:"ədˈvæntɪdʒ",meaning:"이점, 우위",pos:"명사"},
+{word:"benefit",phonetic:"ˈbenɪfɪt",meaning:"이점",pos:"명사"},
+{word:"edge",phonetic:"edʒ",meaning:"우위",pos:"명사"},
+{word:"disadvantage",phonetic:"ˌdɪsədˈvæntɪdʒ",meaning:"이점 (불이익)",pos:"명사"},
+{word:"innovative",phonetic:"ˈɪnəveɪtɪv",meaning:"혁신적인",pos:"형용사"},
+{word:"creative",phonetic:"kriˈeɪtɪv",meaning:"혁신적인",pos:"형용사"},
+{word:"novel",phonetic:"ˈnɑːvl",meaning:"혁신적인",pos:"형용사"},
+{word:"integrate",phonetic:"ˈɪntɪɡreɪt",meaning:"통합하다",pos:"동사"},
+{word:"merge",phonetic:"mɜːrdʒ",meaning:"통합하다",pos:"동사"},
+{word:"combine",phonetic:"kəmˈbaɪn",meaning:"통합하다",pos:"동사"},
+{word:"expertise",phonetic:"ˌekspɜːrˈtiːz",meaning:"전문 지식, 기술",pos:"명사"},
+{word:"proficiency",phonetic:"prəˈfɪʃnsi",meaning:"전문 지식",pos:"명사"},
+{word:"barrier",phonetic:"ˈbæriər",meaning:"장벽, 장애물",pos:"명사"},
+{word:"obstacle",phonetic:"ˈɑːbstəkl",meaning:"장벽",pos:"명사"},
+{word:"hurdle",phonetic:"ˈhɜːrdl",meaning:"장애물",pos:"명사"},
+{word:"facilitate",phonetic:"fəˈsɪlɪteɪt",meaning:"촉진하다, 용이하게 하다",pos:"동사"},
+{word:"aid",phonetic:"eɪd",meaning:"용이하게 하다",pos:"동사"},
+{word:"hinder",phonetic:"ˈhɪndər",meaning:"촉진하다 (방해하다)",pos:"동사"},
+{word:"isolation",phonetic:"ˌaɪsəˈleɪʃn",meaning:"고립, 격리",pos:"명사"},
+{word:"separation",phonetic:"ˌsepəˈreɪʃn",meaning:"격리",pos:"명사"},
+{word:"synergy",phonetic:"ˈsɪnərdʒi",meaning:"동반 상승효과, 시너지",pos:"명사"}
+];
+
+let words=RAW.map((w,i)=>({...w,id:i,fav:false,status:''}));
+let currentTab='list',currentFilter='all',currentSeg=0,searchQuery='';
+let flashIdx=0,flashShowMeaning=false,flashTouchStartX=0,quizState=null;
+
+function loadStorage(){try{const s=JSON.parse(localStorage.getItem('cutop_suteuk15')||'{}');words.forEach(w=>{if(s[w.id]){w.fav=s[w.id].fav||false;w.status=s[w.id].status||''}});}catch(e){}}
+function saveStorage(){try{const d={};words.forEach(w=>{d[w.id]={fav:w.fav,status:w.status}});localStorage.setItem('cutop_suteuk15',JSON.stringify(d));}catch(e){}}
+loadStorage();
+
+const SEGS=[];
+for(let i=0;i<words.length;i+=10)SEGS.push({start:i,end:Math.min(i+9,words.length-1),label:`${i+1}-${Math.min(i+10,words.length)}`});
+
+function buildSegmentBar(){const bar=document.getElementById('segmentBar');let h=`<button class="seg-btn ${currentSeg===0?'active':''}" onclick="selectSeg(0)">전체</button>`;SEGS.forEach((s,i)=>h+=`<button class="seg-btn ${currentSeg===i+1?'active':''}" onclick="selectSeg(${i+1})">${s.label}</button>`);bar.innerHTML=h;}
+function selectSeg(n){currentSeg=n;flashIdx=0;flashShowMeaning=false;buildSegmentBar();render();}
+function getSegWords(){if(currentSeg===0)return words;const s=SEGS[currentSeg-1];return words.slice(s.start,s.end+1);}
+function getFilteredWords(){let l=getSegWords();if(currentFilter==='unknown')l=l.filter(w=>w.status==='unknown');else if(currentFilter==='fav')l=l.filter(w=>w.fav);if(searchQuery){const q=searchQuery.toLowerCase();l=l.filter(w=>w.word.toLowerCase().includes(q)||w.meaning.includes(q));}return l;}
+function speak(t){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function setStatus(id,s){const w=words.find(x=>x.id===id);if(w){w.status=w.status===s?'':s;saveStorage();render();}}
+function toggleFav(id){const w=words.find(x=>x.id===id);if(w){w.fav=!w.fav;saveStorage();render();}}
+function getStats(){const seg=getSegWords();const k=seg.filter(w=>w.status==='known').length,u=seg.filter(w=>w.status==='unknown').length,t=seg.length;return{known:k,unknown:u,total:t,pct:t?Math.round(k/t*100):0};}
+function updateHeaderSub(){const st=getStats();const sl=currentSeg===0?`총 ${RAW.length}단어`:`${SEGS[currentSeg-1].label}번 · ${st.total}단어`;document.getElementById('headerSub').textContent=`수능특강 15강 어휘 · ${sl}`;}
+function render(){updateHeaderSub();buildSegmentBar();const app=document.getElementById('app');if(currentTab==='list')renderList(app);else if(currentTab==='flash')renderFlash(app);else renderQuiz(app);}
+function switchTab(t){currentTab=t;document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['list','flash','quiz'][i]===t));flashIdx=0;flashShowMeaning=false;render();}
+
+function renderList(app){
+  const st=getStats(),list=getFilteredWords(),seg=getSegWords();
+  let h=`<div class="filter-bar"><button class="filter-btn ${currentFilter==='all'?'active':''}" onclick="setFilter('all')">전체 ${seg.length}</button><button class="filter-btn ${currentFilter==='unknown'?'active':''}" onclick="setFilter('unknown')">모르는 단어 ${seg.filter(w=>w.status==='unknown').length}</button><button class="filter-btn ${currentFilter==='fav'?'active':''}" onclick="setFilter('fav')">⭐ 즐겨찾기 ${seg.filter(w=>w.fav).length}</button></div>
+  <div class="stats-bar"><div class="progress-wrap"><div class="progress-fill" style="width:${st.pct}%"></div></div><div class="stats-text">✅${st.known} ❌${st.unknown} / ${st.total}</div></div><div class="word-list">`;
+  if(!list.length)h+=`<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">해당하는 단어가 없습니다</div></div>`;
+  else list.forEach(w=>{const g=words.indexOf(w)+1,e=w.word.replace(/'/g,"\\'");h+=`<div class="word-card ${w.status}"><div class="wc-header"><span class="wc-num">${g}</span><span class="wc-word">${w.word}</span><span class="wc-pos">${w.pos}</span><button class="wc-fav" onclick="toggleFav(${w.id})">${w.fav?'⭐':'☆'}</button></div><div class="wc-body"><div class="wc-phonetic"><span>[${w.phonetic}]</span><button class="wc-speak" onclick="speak('${e}')">🔊</button></div><div class="wc-meaning">${w.meaning}</div></div><div class="wc-actions"><button class="wc-act-btn ${w.status==='known'?'known':''}" onclick="setStatus(${w.id},'known')">✅ 알아요</button><button class="wc-act-btn ${w.status==='unknown'?'unknown':''}" onclick="setStatus(${w.id},'unknown')">❌ 모름</button><button class="wc-act-btn ${w.status==='skipped'?'skipped':''}" onclick="setStatus(${w.id},'skipped')">⏭ 건너뜀</button></div></div>`;});
+  h+=`</div>`;app.innerHTML=h;
+}
+function setFilter(f){currentFilter=f;render();}
+
+function renderFlash(app){
+  const list=getFilteredWords();if(flashIdx>=list.length)flashIdx=0;const st=getStats();
+  let h=`<div class="filter-bar"><button class="filter-btn ${currentFilter==='all'?'active':''}" onclick="setFilter('all')">전체</button><button class="filter-btn ${currentFilter==='unknown'?'active':''}" onclick="setFilter('unknown')">모르는 단어</button><button class="filter-btn ${currentFilter==='fav'?'active':''}" onclick="setFilter('fav')">⭐ 즐겨찾기</button></div>
+  <div class="stats-bar"><div class="progress-wrap"><div class="progress-fill" style="width:${st.pct}%"></div></div><div class="stats-text">✅${st.known} / ${st.total}</div></div><div class="flash-section">`;
+  if(!list.length)h+=`<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">해당하는 단어가 없습니다</div></div>`;
+  else{const w=list[flashIdx],e=w.word.replace(/'/g,"\\'");h+=`<div class="flash-counter">${flashIdx+1} / ${list.length}</div><div class="flash-card touch-area" id="flashCard" onclick="toggleFlashMeaning()"><div class="flash-card-front"><div class="flash-word">${w.word}</div><div class="flash-phonetic">[${w.phonetic}]<button class="wc-speak" onclick="event.stopPropagation();speak('${e}')">🔊</button></div><div class="flash-pos">${w.pos}</div>${!flashShowMeaning?'<div class="flash-tap-hint">탭하면 뜻 확인</div>':''}</div><div class="flash-meaning-box ${flashShowMeaning?'show':''}"><div class="flash-meaning-text">${w.meaning}</div></div></div><div class="flash-nav"><button class="flash-nav-btn" onclick="flashMove(-1)">◀</button><button class="flash-nav-btn" style="flex:2;font-size:13px;font-family:'Noto Sans KR',sans-serif;font-weight:600;" onclick="toggleFlashMeaning()">${flashShowMeaning?'뜻 숨기기':'뜻 보기'}</button><button class="flash-nav-btn" onclick="flashMove(1)">▶</button></div><div class="flash-act-row"><button class="flash-act-btn ${w.status==='known'?'known':''}" onclick="setFlashStatus(${w.id},'known')">✅ 알아요</button><button class="flash-act-btn ${w.status==='unknown'?'unknown':''}" onclick="setFlashStatus(${w.id},'unknown')">❌ 모름</button><button class="flash-act-btn ${w.status==='skipped'?'skip':''}" onclick="setFlashStatus(${w.id},'skipped')">⏭ 건너뜀</button></div>`;}
+  h+=`</div>`;app.innerHTML=h;
+  const fc=document.getElementById('flashCard');if(fc){fc.addEventListener('touchstart',e=>{flashTouchStartX=e.touches[0].clientX;},{passive:true});fc.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-flashTouchStartX;if(Math.abs(dx)>50)flashMove(dx<0?1:-1);},{passive:true});}
+}
+function toggleFlashMeaning(){const l=getFilteredWords();flashShowMeaning=!flashShowMeaning;if(flashShowMeaning)speak(l[flashIdx].word);render();}
+function flashMove(d){const l=getFilteredWords();flashIdx=(flashIdx+d+l.length)%l.length;flashShowMeaning=false;render();}
+function setFlashStatus(id,s){const w=words.find(x=>x.id===id);if(w){w.status=w.status===s?'':s;saveStorage();render();}}
+
+function startQuiz(){const pool=getFilteredWords();if(pool.length<4){alert('퀴즈를 위해 최소 4개 이상의 단어가 필요합니다.');return;}const shuffled=[...pool].sort(()=>Math.random()-0.5).slice(0,Math.min(10,pool.length));quizState={questions:shuffled,current:0,score:0,answered:false,done:false};render();}
+function answerQuiz(ci){if(!quizState||quizState.answered||quizState.done)return;const q=quizState.questions[quizState.current];quizState.answered=true;quizState.selectedIdx=ci;if(quizState.options[ci]===q.meaning)quizState.score++;render();setTimeout(()=>{quizState.answered=false;quizState.current++;if(quizState.current>=quizState.questions.length)quizState.done=true;render();},900);}
+function renderQuiz(app){
+  let h=`<div class="filter-bar"><button class="filter-btn ${currentFilter==='all'?'active':''}" onclick="setFilter('all')">전체</button><button class="filter-btn ${currentFilter==='unknown'?'active':''}" onclick="setFilter('unknown')">모르는 단어</button><button class="filter-btn ${currentFilter==='fav'?'active':''}" onclick="setFilter('fav')">⭐ 즐겨찾기</button></div><div class="quiz-section">`;
+  if(!quizState){h+=`<div class="quiz-start"><p style="font-size:14px;color:var(--text-sub);margin-bottom:20px;">10문제 · 4지선다<br>현재 필터 단어에서 출제</p><button class="quiz-start-btn" onclick="startQuiz()">퀴즈 시작 🚀</button></div>`;}
+  else if(quizState.done){const pct=Math.round(quizState.score/quizState.questions.length*100),em=pct>=90?'🎉':pct>=70?'😊':pct>=50?'🤔':'😅';h+=`<div class="quiz-result"><div class="quiz-emoji">${em}</div><div class="quiz-result-score">${quizState.score} / ${quizState.questions.length}</div><div class="quiz-result-msg">${pct}점 · ${pct>=90?'완벽해요!':pct>=70?'잘했어요!':pct>=50?'조금 더 연습해요':'다시 도전해봐요'}</div><button class="quiz-restart-btn" onclick="quizState=null;render()">다시 풀기</button></div>`;}
+  else{
+    const q=quizState.questions[quizState.current];
+    if(!quizState.options||quizState.currentQ!==quizState.current){quizState.currentQ=quizState.current;const pool=getFilteredWords(),wr=pool.filter(w=>w.meaning!==q.meaning).sort(()=>Math.random()-0.5).slice(0,3).map(w=>w.meaning);quizState.options=[...wr,q.meaning].sort(()=>Math.random()-0.5);}
+    const pct=Math.round(quizState.current/quizState.questions.length*100);
+    h+=`<div class="quiz-header"><div class="quiz-score-badge">✅ ${quizState.score}점</div></div><div class="quiz-progress"><div class="quiz-progress-fill" style="width:${pct}%"></div></div><div class="quiz-question"><div class="quiz-q-label">문제 ${quizState.current+1} / ${quizState.questions.length} — 뜻을 고르세요</div><div class="quiz-q-word">${q.word}</div><div class="quiz-q-phonetic">[${q.phonetic}]</div></div><div class="quiz-options">`;
+    quizState.options.forEach((opt,i)=>{let cls='';if(quizState.answered){if(opt===q.meaning)cls='correct';else if(i===quizState.selectedIdx)cls='wrong';}h+=`<button class="quiz-opt ${cls}" onclick="answerQuiz(${i})">${opt}</button>`;});
+    h+=`</div>`;
+  }
+  h+=`</div>`;app.innerHTML=h;
+}
+
+document.getElementById('searchInput').addEventListener('input',function(){searchQuery=this.value.trim();currentTab='list';document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===0));render();});
+buildSegmentBar();render();
+</script>
+</body>
+</html>
