@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
+    <!-- 링크 공유 시 표시되는 미리보기(Open Graph) 설정 -->
     <meta property="og:title" content="씨유에탑 · 26년 고3 수능단어">
     <meta property="og:description" content="여기를 눌러 링크를 확인하세요.">
     <meta property="og:type" content="website">
@@ -57,7 +58,7 @@
         .fav-btn.active { color: #F59E0B; }
 
         .flash-container { padding: 25px 20px; display: none; flex: 1; flex-direction: column; align-items: center; justify-content: center; }
-        .card { width: 100%; min-height: 280px; background: white; border: 1px solid var(--border); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); position: relative; }
+        .card { width: 100%; min-height: 280px; background: white; border: 1px solid var(--border); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); position: relative; user-select: none; }
         .card .eng { font-size: 2.4rem; font-weight: 700; color: var(--primary); }
         .card .mean-area { margin-top: 25px; border-top: 1px dashed var(--border); width: 100%; padding-top: 25px; display: none; }
         .card .mean-area.show { display: block; }
@@ -109,7 +110,7 @@
         </div>
 
         <div id="flashView" class="view flash-container">
-            <div class="card" onclick="toggleMean()">
+            <div class="card" onclick="toggleMean()" ontouchstart="handleTouchStart(event)" ontouchend="handleTouchEnd(event)">
                 <div class="audio-btn" style="position:absolute; top:20px; right:20px" onclick="speakCurrent(event)">🔊</div>
                 <div class="eng" id="cardEng"></div>
                 <div id="cardPhonetic" style="color:var(--text-sub); margin-top:5px;"></div>
@@ -563,6 +564,11 @@ reluctantly|rɪˈlʌktəntli|마지못해|부사`;
         let quizSet = [], quizIdx = 0, score = 0, flashWords = [];
         const saveKey = 'cutop_progress_' + encodeURIComponent('26년 고3 수능단어').substring(0, 20);
 
+        // 스와이프 감지를 위한 변수
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isSwiping = false;
+
         function init() {
             const lines = csvData.trim().split('\n');
             const saved = JSON.parse(localStorage.getItem(saveKey) || '{}');
@@ -708,6 +714,7 @@ reluctantly|rɪˈlʌktəntli|마지못해|부사`;
         }
 
         function toggleMean() { 
+            if(isSwiping) return; // 스와이프 중일 때는 클릭 동작(의미 보기) 방지
             if(!flashWords.length) return;
             const area = document.getElementById('cardMeanArea');
             if(!area.classList.contains('show')) { 
@@ -727,6 +734,26 @@ reluctantly|rɪˈlʌktəntli|마지못해|부사`;
             if(!flashWords.length) return; 
             currentIndex = (currentIndex + step + flashWords.length) % flashWords.length; 
             showCard(); 
+        }
+
+        // 터치 시작 이벤트 핸들러
+        function handleTouchStart(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            isSwiping = false; // 플래그 초기화
+        }
+
+        // 터치 종료 이벤트 핸들러
+        function handleTouchEnd(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            const swipeThreshold = 50; // 이 픽셀 이상 움직이면 스와이프로 인식
+            
+            if (touchStartX - touchEndX > swipeThreshold) {
+                isSwiping = true;
+                moveCard(1); // 왼쪽으로 밀었을 때: 다음 카드
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                isSwiping = true;
+                moveCard(-1); // 오른쪽으로 밀었을 때: 이전 카드
+            }
         }
 
         function startQuiz() {
