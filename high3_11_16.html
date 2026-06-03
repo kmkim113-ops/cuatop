@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>씨유에탑 수특 11강-16강</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #2563EB;
+  --primary-light: #EFF6FF;
+  --primary-dark: #1D4ED8;
+  --success: #16A34A;
+  --success-light: #F0FDF4;
+  --danger: #DC2626;
+  --danger-light: #FEF2F2;
+  --warning: #D97706;
+  --warning-light: #FFFBEB;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-500: #6B7280;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --radius: 14px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--gray-50);
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+  color: var(--gray-900);
+}
+
+/* HEADER */
+.header {
+  background: var(--primary);
+  padding: 18px 16px 14px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+}
+.brand {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px; font-weight: 700;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.header-title {
+  font-size: 16px; font-weight: 700;
+  color: #fff; line-height: 1.3;
+}
+.header-sub {
+  font-size: 12px; color: rgba(255,255,255,0.8);
+  margin-top: 2px;
+}
+.progress-bar-wrap {
+  margin-top: 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 99px; height: 5px; overflow: hidden;
+}
+.progress-bar {
+  background: #fff; border-radius: 99px;
+  height: 100%; transition: width 0.4s ease;
+}
+.progress-stats {
+  display: flex; justify-content: space-between;
+  margin-top: 5px; font-size: 10.5px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* TABS */
+.tabs {
+  display: flex; background: #fff;
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky; top: 88px; z-index: 90;
+  overflow-x: auto;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: none; padding: 10px 14px;
+  font-size: 12.5px; font-weight: 600;
+  color: var(--gray-500); cursor: pointer;
+  border-bottom: 2.5px solid transparent;
+  white-space: nowrap; transition: all 0.2s;
+  font-family: 'Nunito', sans-serif;
+}
+.tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+/* SEARCH */
+.search-wrap {
+  padding: 10px 12px;
+  background: #fff; border-bottom: 1px solid var(--gray-100);
+}
+.search-input {
+  width: 100%; padding: 9px 12px 9px 36px;
+  border: 1.5px solid var(--gray-200); border-radius: 99px;
+  font-size: 13px; outline: none; font-family: 'Noto Sans KR';
+  background: var(--gray-50);
+  transition: border-color 0.2s;
+}
+.search-input:focus { border-color: var(--primary); background: #fff; }
+.search-wrap { position: relative; }
+.search-icon {
+  position: absolute; left: 22px; top: 50%;
+  transform: translateY(-50%); color: var(--gray-500);
+  font-size: 14px; pointer-events: none;
+}
+
+/* FILTER TABS */
+.filter-tabs {
+  display: flex; gap: 6px; padding: 10px 12px;
+  background: #fff; border-bottom: 1px solid var(--gray-100);
+  overflow-x: auto;
+}
+.filter-tabs::-webkit-scrollbar { display: none; }
+.ftab {
+  flex: none; padding: 5px 12px; border-radius: 99px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  border: 1.5px solid var(--gray-200);
+  color: var(--gray-700); background: #fff;
+  transition: all 0.2s; font-family: 'Nunito', sans-serif;
+}
+.ftab.active {
+  background: var(--primary); color: #fff; border-color: var(--primary);
+}
+
+/* WORD LIST */
+.word-list { padding: 8px 12px 80px; }
+.word-card {
+  background: #fff; border-radius: var(--radius);
+  border: 1.5px solid var(--gray-100);
+  margin-bottom: 8px; overflow: hidden;
+  box-shadow: var(--shadow); transition: box-shadow 0.2s;
+}
+.word-card-header {
+  display: flex; align-items: center;
+  padding: 12px 14px; gap: 10px; cursor: pointer;
+}
+.word-card-header:active { background: var(--gray-50); }
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: var(--gray-200); transition: background 0.2s;
+}
+.status-dot.know { background: var(--success); }
+.status-dot.dunno { background: var(--danger); }
+.word-main { flex: 1; min-width: 0; }
+.word-en {
+  font-family: 'Nunito', sans-serif;
+  font-size: 15.5px; font-weight: 700;
+  color: var(--gray-900); line-height: 1.2;
+}
+.word-phonetic {
+  font-size: 11px; color: var(--gray-500);
+  margin-top: 1px; font-style: italic;
+}
+.word-pos-badge {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 99px;
+  background: var(--primary-light); color: var(--primary);
+  font-family: 'Nunito', sans-serif; flex-shrink: 0;
+}
+.fav-btn {
+  font-size: 18px; cursor: pointer; flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.fav-btn:active { transform: scale(1.3); }
+.speak-btn {
+  font-size: 16px; cursor: pointer; flex-shrink: 0;
+  color: var(--gray-500); padding: 2px;
+}
+
+.word-meaning-reveal {
+  background: var(--primary-light);
+  border-top: 1.5px solid var(--gray-100);
+  padding: 10px 14px;
+  display: none;
+}
+.word-meaning-reveal.open { display: block; }
+.word-meaning-text {
+  font-size: 14.5px; font-weight: 700;
+  color: var(--primary-dark); line-height: 1.5;
+}
+.word-status-btns {
+  display: flex; gap: 6px; margin-top: 8px;
+}
+.ws-btn {
+  flex: 1; padding: 6px 0; border-radius: 99px;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  border: 1.5px solid; text-align: center;
+  font-family: 'Nunito', sans-serif; transition: all 0.15s;
+}
+.ws-btn:active { transform: scale(0.96); }
+.ws-btn.know { border-color: var(--success); color: var(--success); background: var(--success-light); }
+.ws-btn.dunno { border-color: var(--danger); color: var(--danger); background: var(--danger-light); }
+.ws-btn.skip { border-color: var(--gray-300); color: var(--gray-500); background: #fff; }
+.ws-btn.active-know { background: var(--success); color: #fff; border-color: var(--success); }
+.ws-btn.active-dunno { background: var(--danger); color: #fff; border-color: var(--danger); }
+
+/* FLASHCARD VIEW */
+.flashcard-view {
+  display: none;
+  padding: 16px 12px 80px;
+}
+.flashcard-view.active { display: block; }
+.fc-counter {
+  text-align: center; font-size: 13px;
+  color: var(--gray-500); font-family: 'Nunito', sans-serif;
+  font-weight: 700; margin-bottom: 12px;
+}
+.fc-card {
+  background: #fff; border-radius: 20px;
+  padding: 36px 20px 28px;
+  box-shadow: var(--shadow-md);
+  text-align: center; cursor: pointer;
+  min-height: 220px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative;
+  border: 1.5px solid var(--gray-100);
+  user-select: none;
+}
+.fc-word {
+  font-family: 'Nunito', sans-serif;
+  font-size: 28px; font-weight: 800;
+  color: var(--primary); margin-bottom: 6px;
+  line-height: 1.2;
+}
+.fc-phonetic {
+  font-size: 13px; color: var(--gray-500);
+  font-style: italic; margin-bottom: 8px;
+}
+.fc-pos { font-size: 12px; color: var(--gray-500); }
+.fc-speak {
+  position: absolute; top: 14px; right: 16px;
+  font-size: 22px; cursor: pointer; color: var(--primary);
+}
+.fc-fav {
+  position: absolute; top: 14px; left: 16px;
+  font-size: 22px; cursor: pointer;
+}
+.fc-meaning {
+  margin-top: 16px; padding: 14px 16px;
+  background: var(--primary-light); border-radius: 12px;
+  width: 100%;
+}
+.fc-meaning-text {
+  font-size: 16px; font-weight: 700;
+  color: var(--primary-dark); text-align: center;
+}
+.fc-hint {
+  font-size: 12px; color: var(--gray-500);
+  margin-top: 10px;
+}
+.fc-actions {
+  display: flex; gap: 8px; margin-top: 16px;
+}
+.fc-btn {
+  flex: 1; padding: 12px 0; border-radius: 12px;
+  font-size: 13.5px; font-weight: 700; cursor: pointer;
+  border: none; font-family: 'Nunito', sans-serif;
+  transition: all 0.15s;
+}
+.fc-btn:active { transform: scale(0.96); }
+.fc-btn.know { background: var(--success); color: #fff; }
+.fc-btn.dunno { background: var(--danger); color: #fff; }
+.fc-btn.skip { background: var(--gray-100); color: var(--gray-700); }
+.fc-nav {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-top: 14px;
+}
+.fc-nav-btn {
+  padding: 8px 20px; background: var(--gray-100);
+  border-radius: 99px; font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  color: var(--gray-700); transition: all 0.15s;
+  border: none;
+}
+.fc-nav-btn:active { background: var(--gray-200); }
+.fc-swipe-hint {
+  text-align: center; font-size: 11px;
+  color: var(--gray-500); margin-top: 8px;
+}
+
+/* QUIZ VIEW */
+.quiz-view {
+  display: none;
+  padding: 16px 12px 80px;
+}
+.quiz-view.active { display: block; }
+.quiz-header {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 16px;
+}
+.quiz-progress { font-size: 13px; color: var(--gray-500); font-family: 'Nunito', sans-serif; font-weight: 700; }
+.quiz-score-badge {
+  background: var(--primary-light); color: var(--primary);
+  padding: 4px 12px; border-radius: 99px;
+  font-size: 12px; font-weight: 700; font-family: 'Nunito', sans-serif;
+}
+.quiz-word {
+  background: var(--primary); color: #fff;
+  border-radius: 16px; padding: 24px 20px;
+  text-align: center; margin-bottom: 16px;
+}
+.quiz-word-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 26px; font-weight: 800; margin-bottom: 6px;
+}
+.quiz-word-ph { font-size: 13px; opacity: 0.8; font-style: italic; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  padding: 14px 16px; border-radius: 12px;
+  border: 1.5px solid var(--gray-200);
+  background: #fff; font-size: 14px; font-weight: 600;
+  cursor: pointer; text-align: left;
+  transition: all 0.15s; font-family: 'Noto Sans KR';
+}
+.quiz-opt:active { transform: scale(0.98); }
+.quiz-opt.correct { background: var(--success-light); border-color: var(--success); color: var(--success); }
+.quiz-opt.wrong { background: var(--danger-light); border-color: var(--danger); color: var(--danger); }
+.quiz-next {
+  margin-top: 14px; width: 100%;
+  padding: 13px; background: var(--primary); color: #fff;
+  border: none; border-radius: 12px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  font-family: 'Nunito', sans-serif; display: none;
+  transition: background 0.2s;
+}
+.quiz-next:active { background: var(--primary-dark); }
+
+/* QUIZ RESULT */
+.quiz-result {
+  display: none; text-align: center;
+  padding: 20px 0;
+}
+.quiz-result.show { display: block; }
+.result-emoji { font-size: 56px; margin-bottom: 10px; }
+.result-score {
+  font-family: 'Nunito', sans-serif;
+  font-size: 42px; font-weight: 800; color: var(--primary);
+}
+.result-label { font-size: 15px; color: var(--gray-500); margin-bottom: 20px; }
+.result-msg { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+.result-retry {
+  padding: 13px 32px; background: var(--primary); color: #fff;
+  border: none; border-radius: 12px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* LIST VIEW */
+.list-view { display: none; }
+.list-view.active { display: block; }
+
+/* FLOATING BTN */
+.float-quiz-btn {
+  position: fixed; bottom: 20px; right: 20px;
+  background: var(--primary); color: #fff;
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+  cursor: pointer; z-index: 200;
+  transition: transform 0.2s;
+}
+.float-quiz-btn:active { transform: scale(0.9); }
+
+.empty-state {
+  text-align: center; padding: 48px 20px;
+  color: var(--gray-500);
+}
+.empty-state .icon { font-size: 40px; margin-bottom: 8px; }
+.empty-state p { font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">씨유에탑 ✦ 영어단어장</div>
+  <div class="header-title">수능특강 11강–16강</div>
+  <div class="header-sub">동의어/반의어 포함 · 총 <span id="totalCount">0</span>단어</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  </div>
+  <div class="progress-stats">
+    <span>✅ <span id="knowCount">0</span> 알아요</span>
+    <span>❌ <span id="dunnoCount">0</span> 모름</span>
+    <span>⭐ <span id="favCount">0</span> 즐겨찾기</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchView('list')" id="tabList">📋 단어목록</div>
+  <div class="tab" onclick="switchView('flash')" id="tabFlash">🃏 플래시카드</div>
+  <div class="tab" onclick="switchView('quiz')" id="tabQuiz">📝 퀴즈</div>
+</div>
+
+<!-- LIST VIEW -->
+<div class="list-view active" id="listView">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="searchInput" type="search" placeholder="단어 또는 뜻 검색..." oninput="renderList()">
+  </div>
+  <div class="filter-tabs">
+    <div class="ftab active" onclick="setFilter('all')" id="ftAll">전체</div>
+    <div class="ftab" onclick="setFilter('dunno')" id="ftDunno">모르는 단어</div>
+    <div class="ftab" onclick="setFilter('fav')" id="ftFav">⭐ 즐겨찾기</div>
+  </div>
+  <div class="word-list" id="wordList"></div>
+</div>
+
+<!-- FLASHCARD VIEW -->
+<div class="flashcard-view" id="flashView">
+  <div class="fc-counter" id="fcCounter">0 / 0</div>
+  <div class="fc-card" id="fcCard" onclick="revealMeaning()">
+    <span class="fc-fav" id="fcFav" onclick="event.stopPropagation();toggleFavFC()">🤍</span>
+    <button class="fc-speak" onclick="event.stopPropagation();speakFC()" title="발음">🔊</button>
+    <div class="fc-word" id="fcWord">-</div>
+    <div class="fc-phonetic" id="fcPhonetic">-</div>
+    <div class="fc-pos" id="fcPos">-</div>
+    <div class="fc-hint" id="fcHint">탭하면 뜻이 보여요 👆</div>
+  </div>
+  <div id="fcMeaningWrap" style="display:none; margin-top:10px;">
+    <div class="fc-meaning">
+      <div class="fc-meaning-text" id="fcMeaning">-</div>
+    </div>
+    <div class="fc-actions">
+      <button class="fc-btn dunno" onclick="markFC('dunno')">❌ 모름</button>
+      <button class="fc-btn skip" onclick="nextFC()">건너뜀</button>
+      <button class="fc-btn know" onclick="markFC('know')">✅ 알아요</button>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-nav-btn" onclick="prevFC()">← 이전</button>
+    <div class="fc-swipe-hint">좌우 스와이프로 이동</div>
+    <button class="fc-nav-btn" onclick="nextFC()">다음 →</button>
+  </div>
+  <div class="filter-tabs" style="margin-top:12px;">
+    <div class="ftab active" onclick="setFCFilter('all')" id="fcftAll">전체</div>
+    <div class="ftab" onclick="setFCFilter('dunno')" id="fcftDunno">모르는 단어</div>
+    <div class="ftab" onclick="setFCFilter('fav')" id="fcftFav">⭐ 즐겨찾기</div>
+  </div>
+</div>
+
+<!-- QUIZ VIEW -->
+<div class="quiz-view" id="quizView">
+  <div id="quizContent">
+    <div class="quiz-header">
+      <div class="quiz-progress" id="quizProgress">1 / 10</div>
+      <div class="quiz-score-badge" id="quizScoreBadge">점수: 0</div>
+    </div>
+    <div class="quiz-word" id="quizWordBox">
+      <div class="quiz-word-text" id="quizWordText">-</div>
+      <div class="quiz-word-ph" id="quizWordPh">-</div>
+    </div>
+    <div class="quiz-options" id="quizOptions"></div>
+    <button class="quiz-next" id="quizNext" onclick="nextQuiz()">다음 문제 →</button>
+  </div>
+  <div class="quiz-result" id="quizResult">
+    <div class="result-emoji" id="resultEmoji">🎉</div>
+    <div class="result-score" id="resultScore">0/10</div>
+    <div class="result-label">점수</div>
+    <div class="result-msg" id="resultMsg"></div>
+    <button class="result-retry" onclick="startQuiz()">다시 풀기 🔄</button>
+  </div>
+</div>
+
+<script>
+const WORDS_RAW = [{"word": "exceptionally", "phonetic": "ɪkˈsepʃənəli", "meaning": "대단히, 예외적으로", "pos": "부사"}, {"word": "remarkably", "phonetic": "rɪˈmɑːrkəbli", "meaning": "대단히, 예외적으로", "pos": "부사"}, {"word": "application", "phonetic": "ˌæplɪˈkeɪʃn", "meaning": "적용; 신청", "pos": "명사"}, {"word": "utilization", "phonetic": "ˌjuːtələˈzeɪʃn", "meaning": "적용; 신청", "pos": "명사"}, {"word": "request", "phonetic": "rɪˈkwest", "meaning": "적용; 신청", "pos": "명사"}, {"word": "adapt to", "phonetic": "əˈdæpt tuː", "meaning": "-에 적응하다", "pos": "동사구"}, {"word": "adjust to", "phonetic": "əˈdʒʌst tuː", "meaning": "-에 적응하다", "pos": "동사구"}, {"word": "metaphor", "phonetic": "ˈmetəfɔːr", "meaning": "은유, 비유", "pos": "명사"}, {"word": "assign", "phonetic": "əˈsaɪn", "meaning": "배정하다, 할당하다", "pos": "동사"}, {"word": "allocate", "phonetic": "ˈæləkeɪt", "meaning": "배정하다, 할당하다", "pos": "동사"}, {"word": "allot", "phonetic": "əˈlɑːt", "meaning": "배정하다, 할당하다", "pos": "동사"}, {"word": "confront", "phonetic": "kənˈfrʌnt", "meaning": "직면하다, 맞서다", "pos": "동사"}, {"word": "face", "phonetic": "feɪs", "meaning": "직면하다, 맞서다", "pos": "동사"}, {"word": "encounter", "phonetic": "ɪnˈkaʊntər", "meaning": "직면하다, 맞서다", "pos": "동사"}, {"word": "accumulate", "phonetic": "əˈkjuːmjəleɪt", "meaning": "축적하다, 모으다", "pos": "동사"}, {"word": "amass", "phonetic": "əˈmæs", "meaning": "축적하다, 모으다", "pos": "동사"}, {"word": "gather", "phonetic": "ˈɡæðər", "meaning": "축적하다, 모으다", "pos": "동사"}, {"word": "avoid", "phonetic": "əˈvɔɪd", "meaning": "피하다", "pos": "동사"}, {"word": "verbatim", "phonetic": "vɜːrˈbeɪtɪm", "meaning": "말 그대로, 글자 그대로", "pos": "부사"}, {"word": "word for word", "phonetic": "wɜːrd fɔːr wɜːrd", "meaning": "말 그대로, 글자 그대로", "pos": "부사구"}, {"word": "disperse", "phonetic": "dɪˈspɜːrs", "meaning": "분산시키다", "pos": "동사"}, {"word": "encyclopedia", "phonetic": "ɪnˌsaɪkləˈpiːdiə", "meaning": "백과사전", "pos": "명사"}, {"word": "exceed", "phonetic": "ɪkˈsiːd", "meaning": "능가하다, 넘어서다", "pos": "동사"}, {"word": "surpass", "phonetic": "sərˈpæs", "meaning": "능가하다, 넘어서다", "pos": "동사"}, {"word": "locate", "phonetic": "ˈloʊkeɪt", "meaning": "찾아내다 위치시키다", "pos": "동사"}, {"word": "find", "phonetic": "faɪnd", "meaning": "찾아내다 위치시키다", "pos": "동사"}, {"word": "spot", "phonetic": "spɑːt", "meaning": "찾아내다 위치시키다", "pos": "동사"}, {"word": "capacity", "phonetic": "kəˈpæsəti", "meaning": "능력, 용량", "pos": "명사"}, {"word": "ability", "phonetic": "əˈbɪləti", "meaning": "능력, 용량", "pos": "명사"}, {"word": "volume", "phonetic": "ˈvɑːljuː", "meaning": "능력, 용량", "pos": "명사"}, {"word": "comparison", "phonetic": "kəmˈpærɪsn", "meaning": "비교", "pos": "명사"}, {"word": "contrast", "phonetic": "ˈkɑːntræst", "meaning": "비교", "pos": "명사"}, {"word": "arrangement", "phonetic": "əˈreɪndʒmənt", "meaning": "배열; 준비; 합의", "pos": "명사"}, {"word": "preparation", "phonetic": "ˌprepəˈreɪʃn", "meaning": "배열; 준비; 합의", "pos": "명사"}, {"word": "agreement", "phonetic": "əˈɡriːmənt", "meaning": "배열; 준비; 합의", "pos": "명사"}, {"word": "conclusion", "phonetic": "kənˈkluːʒn", "meaning": "결론", "pos": "명사"}, {"word": "deduction", "phonetic": "dɪˈdʌkʃn", "meaning": "결론", "pos": "명사"}, {"word": "ecological", "phonetic": "ˌiːkəˈlɑːdʒɪkl", "meaning": "생태학적인", "pos": "형용사"}, {"word": "mention", "phonetic": "ˈmenʃn", "meaning": "언급하다", "pos": "동사"}, {"word": "refer to", "phonetic": "rɪˈfɜːr tuː", "meaning": "언급하다", "pos": "동사구"}, {"word": "adaptive", "phonetic": "əˈdæptɪv", "meaning": "적용의, 적응할 수 있는", "pos": "형용사"}, {"word": "tool", "phonetic": "tuːl", "meaning": "도구, 수단", "pos": "명사"}, {"word": "instrument", "phonetic": "ˈɪnstrəmənt", "meaning": "도구, 수단", "pos": "명사"}, {"word": "implement", "phonetic": "ˈɪmplɪment", "meaning": "도구, 수단", "pos": "명사"}, {"word": "format", "phonetic": "ˈfɔːrmæt", "meaning": "형식, 구성 방식", "pos": "명사"}, {"word": "urban", "phonetic": "ˈɜːrbən", "meaning": "도시의", "pos": "형용사"}, {"word": "rural", "phonetic": "ˈrʊrəl", "meaning": "시골의", "pos": "형용사"}, {"word": "basis", "phonetic": "ˈbeɪsɪs", "meaning": "기초, 근거", "pos": "명사"}, {"word": "foundation", "phonetic": "faʊnˈdeɪʃn", "meaning": "기초, 근거", "pos": "명사"}, {"word": "reformist", "phonetic": "rɪˈfɔːrmɪst", "meaning": "개혁주의적인", "pos": "형용사"}, {"word": "conservative", "phonetic": "kənˈsɜːrvətɪv", "meaning": "보수적인", "pos": "형용사"}, {"word": "equitable", "phonetic": "ˈekwɪtəbl", "meaning": "공정한", "pos": "형용사"}, {"word": "fair", "phonetic": "fer", "meaning": "공정한", "pos": "형용사"}, {"word": "just", "phonetic": "dʒʌst", "meaning": "공정한", "pos": "형용사"}, {"word": "unfair", "phonetic": "ʌnˈfer", "meaning": "불공정한", "pos": "형용사"}, {"word": "rotate", "phonetic": "ˈroʊteɪt", "meaning": "회전하다 순환하다", "pos": "동사"}, {"word": "revolve", "phonetic": "rɪˈvɑːlv", "meaning": "회전하다 순환하다", "pos": "동사"}, {"word": "spin", "phonetic": "spɪn", "meaning": "회전하다 순환하다", "pos": "동사"}, {"word": "variation", "phonetic": "ˌweriˈeɪʃn", "meaning": "변이, 차이", "pos": "명사"}, {"word": "difference", "phonetic": "ˈdɪfrəns", "meaning": "변이, 차이", "pos": "명사"}, {"word": "neat", "phonetic": "niːt", "meaning": "깔끔한, 정돈된", "pos": "형용사"}, {"word": "tidy", "phonetic": "ˈtaɪdi", "meaning": "깔끔한, 정돈된", "pos": "형용사"}, {"word": "messy", "phonetic": "ˈmesi", "meaning": "지저분한", "pos": "형용사"}, {"word": "monetary", "phonetic": "ˈmɑːnɪteri", "meaning": "화폐의, 금전적인", "pos": "형용사"}, {"word": "financial", "phonetic": "faɪˈnænʃl", "meaning": "화폐의, 금전적인", "pos": "형용사"}, {"word": "boundary", "phonetic": "ˈbaʊndəri", "meaning": "경계(선)", "pos": "명사"}, {"word": "border", "phonetic": "ˈbɔːrdər", "meaning": "경계(선), 국경", "pos": "명사"}, {"word": "calculation", "phonetic": "ˌkælkjuˈleɪʃn", "meaning": "계산, 추산", "pos": "명사"}, {"word": "marginalise", "phonetic": "ˈmɑːrdʒɪnəlaɪz", "meaning": "소외시키다, 주변부로 몰다", "pos": "동사"}, {"word": "sideline", "phonetic": "ˈsaɪdlaɪn", "meaning": "소외시키다, 주변부로 몰다", "pos": "동사"}, {"word": "conventional", "phonetic": "kənˈvenʃənl", "meaning": "관습적인, 전통적인", "pos": "형용사"}, {"word": "traditional", "phonetic": "trəˈdɪʃənl", "meaning": "관습적인, 전통적인", "pos": "형용사"}, {"word": "unconventional", "phonetic": "ˌʌnkənˈvenʃənl", "meaning": "비관습적인", "pos": "형용사"}, {"word": "sociologist", "phonetic": "ˌsoʊʃiˈɑːlədʒɪst", "meaning": "사회학자", "pos": "명사"}, {"word": "distinct", "phonetic": "dɪˈstɪŋkt", "meaning": "뚜렷한, 별개의", "pos": "형용사"}, {"word": "clear", "phonetic": "klɪər", "meaning": "명확한, 분명한", "pos": "형용사"}, {"word": "separate", "phonetic": "ˈseprət", "meaning": "별개의", "pos": "형용사"}, {"word": "vague", "phonetic": "veɪɡ", "meaning": "모호한", "pos": "형용사"}, {"word": "racialization", "phonetic": "ˌreɪʃəlaɪˈzeɪʃn", "meaning": "인종화", "pos": "명사"}, {"word": "retailer", "phonetic": "ˈriːteɪlər", "meaning": "소매업자", "pos": "명사"}, {"word": "account", "phonetic": "əˈkaʊnt", "meaning": "설명, 기술", "pos": "명사"}, {"word": "explanation", "phonetic": "ˌekspləˈneɪʃn", "meaning": "설명, 기술", "pos": "명사"}, {"word": "transport", "phonetic": "trænsˈpɔːrt", "meaning": "수송하다, 운송하다", "pos": "동사"}, {"word": "convey", "phonetic": "kənˈveɪ", "meaning": "수송하다, 운송하다", "pos": "동사"}, {"word": "in terms of", "phonetic": "ɪn tɜːrmz əv", "meaning": "-라는 측면에서, ~에 관하여", "pos": "전치사구"}, {"word": "involve", "phonetic": "ɪnˈvɑːlv", "meaning": "수반하다, 포함하다", "pos": "동사"}, {"word": "entail", "phonetic": "ɪnˈteɪl", "meaning": "수반하다, 포함하다", "pos": "동사"}, {"word": "civilized", "phonetic": "ˈsɪvəlaɪzd", "meaning": "문명화된", "pos": "형용사"}, {"word": "savage", "phonetic": "ˈsævɪdʒ", "meaning": "야만적인", "pos": "형용사"}, {"word": "barbaric", "phonetic": "bɑːrˈbærɪk", "meaning": "미개한", "pos": "형용사"}, {"word": "genetically", "phonetic": "dʒəˈnetɪkli", "meaning": "유전적으로", "pos": "부사"}, {"word": "highlight", "phonetic": "ˈhaɪlaɪt", "meaning": "강조하다", "pos": "동사"}, {"word": "underscore", "phonetic": "ˌʌndərˈskɔːr", "meaning": "강조하다 (강화하다)", "pos": "동사"}, {"word": "downplay", "phonetic": "ˈdaʊnpleɪ", "meaning": "경시하다", "pos": "동사"}, {"word": "contribute to", "phonetic": "kənˈtrɪbjuːt tuː", "meaning": "~의 원인이 되다, 기여하다", "pos": "동사구"}, {"word": "observation", "phonetic": "ˌɑːbzərˈveɪʃn", "meaning": "관찰, 소견", "pos": "명사"}, {"word": "remark", "phonetic": "rɪˈmɑːrk", "meaning": "관찰, 소견", "pos": "명사"}, {"word": "overlook", "phonetic": "ˌoʊvərˈlʊk", "meaning": "간과하다", "pos": "동사"}, {"word": "neglect", "phonetic": "nɪˈɡlekt", "meaning": "간과하다", "pos": "동사"}, {"word": "miss", "phonetic": "mɪs", "meaning": "간과하다", "pos": "동사"}, {"word": "incidence", "phonetic": "ˈɪnsɪdəns", "meaning": "발생률, 빈도", "pos": "명사"}, {"word": "obesity", "phonetic": "oʊˈbiːsəti", "meaning": "비만", "pos": "명사"}, {"word": "in parallel", "phonetic": "ɪn ˈpærəlel", "meaning": "나란히, 동시에", "pos": "부사구"}, {"word": "portion", "phonetic": "ˈpɔːrʃn", "meaning": "1인분, 부분", "pos": "명사"}, {"word": "coincidence", "phonetic": "koʊˈɪnsɪdəns", "meaning": "우연의 일치", "pos": "명사"}, {"word": "distortion", "phonetic": "dɪˈstɔːrʃn", "meaning": "왜곡", "pos": "명사"}, {"word": "consistently", "phonetic": "kənˈsɪstəntli", "meaning": "일관되게, 지속적으로", "pos": "부사"}, {"word": "constantly", "phonetic": "ˈkɑːnstəntli", "meaning": "끊임없이", "pos": "부사"}, {"word": "inconsistently", "phonetic": "ˌɪnkənˈsɪstəntli", "meaning": "비일관되게", "pos": "부사"}, {"word": "unintentionally", "phonetic": "ˌʌnɪnˈtenʃənəli", "meaning": "의도치 않게, 무심코", "pos": "부사"}, {"word": "accidentally", "phonetic": "ˌæksɪˈdentəli", "meaning": "의도치 않게, 무심코", "pos": "부사"}, {"word": "deliberately", "phonetic": "dɪˈlɪbərətli", "meaning": "의도적으로", "pos": "부사"}, {"word": "ultimately", "phonetic": "ˈʌltɪmətli", "meaning": "궁극적으로, 결국", "pos": "부사"}, {"word": "eventually", "phonetic": "ɪˈventʃuəli", "meaning": "궁극적으로, 결국", "pos": "부사"}, {"word": "ethics", "phonetic": "ˈeθɪks", "meaning": "윤리, 도덕", "pos": "명사"}, {"word": "morality", "phonetic": "məˈræləti", "meaning": "윤리, 도덕", "pos": "명사"}, {"word": "moral outrage", "phonetic": "ˈmɔːrəl ˈaʊtreɪdʒ", "meaning": "도덕적 분노", "pos": "명사"}, {"word": "willingly", "phonetic": "ˈwɪlɪŋli", "meaning": "기꺼이, 자진해서", "pos": "부사"}, {"word": "readily", "phonetic": "ˈredɪli", "meaning": "손쉽게, 기꺼이", "pos": "부사"}, {"word": "reluctantly", "phonetic": "rɪˈlʌktəntli", "meaning": "마지못해", "pos": "부사"}, {"word": "punish", "phonetic": "ˈpʌnɪʃ", "meaning": "처벌하다", "pos": "동사"}, {"word": "penalize", "phonetic": "ˈpiːnəlaɪz", "meaning": "처벌하다", "pos": "동사"}, {"word": "reward", "phonetic": "rɪˈwɔːrd", "meaning": "보상하다", "pos": "동사"}, {"word": "irrationality", "phonetic": "ɪˌræʃəˈnæləti", "meaning": "비합리성", "pos": "명사"}, {"word": "unreasonableness", "phonetic": "ʌnˈriːznəblnəs", "meaning": "비합리성", "pos": "명사"}, {"word": "rationality", "phonetic": "ˌræʃəˈnæləti", "meaning": "합리성", "pos": "명사"}, {"word": "cast aside", "phonetic": "kæst əˈsaɪd", "meaning": "~을 버리다, 제쳐놓다", "pos": "동사구"}, {"word": "discard", "phonetic": "dɪˈskɑːrd", "meaning": "~을 버리다, 제쳐놓다", "pos": "동사"}, {"word": "ignore", "phonetic": "ɪɡˈnɔːr", "meaning": "무시하다, 버리다", "pos": "동사"}, {"word": "cooperative", "phonetic": "koʊˈɑːpərətɪv", "meaning": "협력적인", "pos": "형용사"}, {"word": "collaborative", "phonetic": "kəˈlæbəreɪtɪv", "meaning": "협력적인", "pos": "형용사"}, {"word": "competitive", "phonetic": "kəmˈpetətɪv", "meaning": "경쟁적인, 경쟁력 있는", "pos": "형용사"}, {"word": "universal", "phonetic": "ˌjuːnɪˈvɜːrsl", "meaning": "보편적인, 전 세계적인", "pos": "형용사"}, {"word": "general", "phonetic": "ˈdʒenrəl", "meaning": "보편적인", "pos": "형용사"}, {"word": "widespread", "phonetic": "ˈwaɪdspred", "meaning": "광범위한", "pos": "형용사"}, {"word": "specific", "phonetic": "spəˈsɪfɪk", "meaning": "특정한, 구체적인", "pos": "형용사"}, {"word": "particular", "phonetic": "pərˈtɪkjələr", "meaning": "특별한", "pos": "형용사"}, {"word": "absence", "phonetic": "ˈæbsəns", "meaning": "부재, 없음", "pos": "명사"}, {"word": "lack", "phonetic": "læk", "meaning": "부재, 없음", "pos": "명사"}, {"word": "presence", "phonetic": "ˈprezns", "meaning": "존재", "pos": "명사"}, {"word": "momentarily", "phonetic": "ˌmoʊmənˈterəli", "meaning": "일시적으로, 잠깐", "pos": "부사"}, {"word": "temporarily", "phonetic": "ˈtempərerəli", "meaning": "일시적으로, 잠깐", "pos": "부사"}, {"word": "permanently", "phonetic": "ˈpɜːrmənəntli", "meaning": "영구적으로", "pos": "부사"}, {"word": "selfish", "phonetic": "ˈselfɪʃ", "meaning": "이기적인", "pos": "형용사"}, {"word": "egotistic", "phonetic": "ˌiːɡoʊˈtɪstɪk", "meaning": "이기적인", "pos": "형용사"}, {"word": "altruistic", "phonetic": "ˌæltruˈɪstɪk", "meaning": "이타적인", "pos": "형용사"}, {"word": "justify", "phonetic": "ˈdʒʌstɪfaɪ", "meaning": "정당화하다", "pos": "동사"}, {"word": "validate", "phonetic": "ˈvælɪdeɪt", "meaning": "정당화하다", "pos": "동사"}, {"word": "excuse", "phonetic": "ɪkˈskjuːz", "meaning": "정당화하다", "pos": "동사"}, {"word": "betray", "phonetic": "bɪˈtreɪ", "meaning": "배신하다", "pos": "동사"}, {"word": "acknowledge", "phonetic": "əkˈnɑːlɪdʒ", "meaning": "인정하다", "pos": "동사"}, {"word": "admit", "phonetic": "ədˈmɪt", "meaning": "인정하다", "pos": "동사"}, {"word": "recognize", "phonetic": "ˈrekəɡnaɪz", "meaning": "인정하다", "pos": "동사"}, {"word": "deny", "phonetic": "dɪˈnaɪ", "meaning": "부인하다", "pos": "동사"}, {"word": "enforce", "phonetic": "ɪnˈfɔːrs", "meaning": "시행하다, 집행하다", "pos": "동사"}, {"word": "violation", "phonetic": "ˌvaɪəˈleɪʃn", "meaning": "위반, 침해", "pos": "명사"}, {"word": "breach", "phonetic": "briːtʃ", "meaning": "위반, 침해", "pos": "명사"}, {"word": "infringement", "phonetic": "ɪnˈfrɪndʒmənt", "meaning": "위반, 침해", "pos": "명사"}, {"word": "stability", "phonetic": "stəˈbɪləti", "meaning": "안정성", "pos": "명사"}, {"word": "instability", "phonetic": "ˌɪnstəˈbɪləti", "meaning": "불안정성", "pos": "명사"}, {"word": "condemn", "phonetic": "kənˈdem", "meaning": "비난하다", "pos": "동사"}, {"word": "criticize", "phonetic": "ˈkrɪtɪsaɪz", "meaning": "비난하다", "pos": "동사"}, {"word": "praise", "phonetic": "preɪz", "meaning": "칭찬하다", "pos": "동사"}, {"word": "benefit", "phonetic": "ˈbenɪfɪt", "meaning": "이익, 혜택", "pos": "동사/명사"}, {"word": "profit", "phonetic": "ˈprɑːfɪt", "meaning": "이익, 혜택", "pos": "동사/명사"}, {"word": "principle", "phonetic": "ˈprɪnsəpl", "meaning": "원칙, 신조", "pos": "명사"}, {"word": "counterproductive", "phonetic": "ˌkaʊntərprəˈdʌktɪv", "meaning": "역효과를 낳는", "pos": "형용사"}, {"word": "harmful", "phonetic": "ˈhɑːrmfl", "meaning": "해로운", "pos": "형용사"}, {"word": "productive", "phonetic": "prəˈdʌktɪv", "meaning": "생산적인", "pos": "형용사"}, {"word": "effective", "phonetic": "ɪˈfektɪv", "meaning": "효과적인", "pos": "형용사"}, {"word": "beneficial", "phonetic": "ˌbenɪˈfɪʃl", "meaning": "유익한, 이로운", "pos": "형용사"}, {"word": "advantageous", "phonetic": "ˌædvənˈteɪdʒəs", "meaning": "유익한, 이로운", "pos": "형용사"}, {"word": "detrimental", "phonetic": "ˌdetrɪˈmentl", "meaning": "해로운", "pos": "형용사"}, {"word": "artificial", "phonetic": "ˌɑːrtɪˈfɪʃl", "meaning": "인공적인", "pos": "형용사"}, {"word": "synthetic", "phonetic": "sɪnˈθetɪk", "meaning": "인공적인", "pos": "형용사"}, {"word": "natural", "phonetic": "ˈnætʃrəl", "meaning": "자연적인", "pos": "형용사"}, {"word": "poisonous", "phonetic": "ˈpɔɪzənəs", "meaning": "독성이 있는", "pos": "형용사"}, {"word": "toxic", "phonetic": "ˈtɑːksɪk", "meaning": "독성이 있는", "pos": "형용사"}, {"word": "deadly", "phonetic": "ˈdedli", "meaning": "치명적인", "pos": "형용사"}, {"word": "harmless", "phonetic": "ˈhɑːrmləs", "meaning": "무해한", "pos": "형용사"}, {"word": "substance", "phonetic": "ˈsʌbstəns", "meaning": "물질, 본질", "pos": "명사"}, {"word": "material", "phonetic": "məˈtɪriəl", "meaning": "물질", "pos": "명사"}, {"word": "detect", "phonetic": "dɪˈtekt", "meaning": "감지하다, 발견하다", "pos": "동사"}, {"word": "notice", "phonetic": "ˈnoʊtɪs", "meaning": "감지하다, 발견하다", "pos": "동사"}, {"word": "evade", "phonetic": "ɪˈveɪd", "meaning": "피하다", "pos": "동사"}, {"word": "shun", "phonetic": "ʃʌn", "meaning": "피하다", "pos": "동사"}, {"word": "seek", "phonetic": "siːk", "meaning": "추구하다", "pos": "동사"}, {"word": "mechanism", "phonetic": "ˈmekənɪzəm", "meaning": "기제, 메커니즘", "pos": "명사"}, {"word": "evolutionary", "phonetic": "ˌevəˈluːʃəneri", "meaning": "진화의, 발달의", "pos": "형용사"}, {"word": "survival", "phonetic": "sərˈvaɪvl", "meaning": "생존", "pos": "명사"}, {"word": "dietary supplement", "phonetic": "ˈdaɪətəri ˈsʌplɪmənt", "meaning": "식이 보충제", "pos": "명사"}, {"word": "diagnose", "phonetic": "ˌdaɪəɡˈnoʊz", "meaning": "진단하다", "pos": "동사"}, {"word": "mitigate", "phonetic": "ˈmɪtɪɡeɪt", "meaning": "완화하다, 경감하다", "pos": "동사"}, {"word": "alleviate", "phonetic": "əˈliːvieɪt", "meaning": "완화하다, 경감하다", "pos": "동사"}, {"word": "ease", "phonetic": "iːz", "meaning": "완화하다, 경감하다", "pos": "동사"}, {"word": "aggravate", "phonetic": "ˈæɡrəveɪt", "meaning": "악화시키다", "pos": "동사"}, {"word": "worsen", "phonetic": "ˈwɜːrsn", "meaning": "악화시키다", "pos": "동사"}, {"word": "approval", "phonetic": "əˈpruːvl", "meaning": "승인, 허가", "pos": "명사"}, {"word": "permission", "phonetic": "pərˈmɪʃn", "meaning": "승인, 허가", "pos": "명사"}, {"word": "rejection", "phonetic": "rɪˈdʒekʃn", "meaning": "거절", "pos": "명사"}, {"word": "refusal", "phonetic": "rɪˈfjuːzl", "meaning": "거부", "pos": "명사"}, {"word": "regulation", "phonetic": "ˌreɡjuˈleɪʃn", "meaning": "규제, 규정", "pos": "명사"}, {"word": "rule", "phonetic": "ruːl", "meaning": "규제, 규정", "pos": "명사"}, {"word": "control", "phonetic": "kənˈtroʊl", "meaning": "규제, 조절", "pos": "명사/동사"}, {"word": "subsequently", "phonetic": "ˈsʌbsɪkwəntli", "meaning": "그 후에, 나중에", "pos": "부사"}, {"word": "later", "phonetic": "ˈleɪtər", "meaning": "그 후에, 나중에", "pos": "부사"}, {"word": "afterwards", "phonetic": "ˈæftərwərdz", "meaning": "그 후에, 나중에", "pos": "부사"}, {"word": "previously", "phonetic": "ˈpriːviəsli", "meaning": "이전에", "pos": "부사"}, {"word": "side effect", "phonetic": "saɪd ɪˈfekt", "meaning": "부작용", "pos": "명사"}, {"word": "adverse effect", "phonetic": "ædˈvɜːrs ɪˈfekt", "meaning": "부작용", "pos": "명사"}, {"word": "verify", "phonetic": "ˈverɪfaɪ", "meaning": "검증하다, 확인하다", "pos": "동사"}, {"word": "confirm", "phonetic": "kənˈfɜːrm", "meaning": "확인하다, 확증하다", "pos": "동사"}, {"word": "strict", "phonetic": "strɪkt", "meaning": "엄격한", "pos": "형용사"}, {"word": "stern", "phonetic": "stɜːrn", "meaning": "엄격한", "pos": "형용사"}, {"word": "rigorous", "phonetic": "ˈrɪɡərəs", "meaning": "엄격한", "pos": "형용사"}, {"word": "lenient", "phonetic": "ˈliːniənt", "meaning": "관대한", "pos": "형용사"}, {"word": "prevent", "phonetic": "prɪˈvent", "meaning": "막다, 예방하다", "pos": "동사"}, {"word": "stop", "phonetic": "stɑːp", "meaning": "막다, 예방하다", "pos": "동사"}, {"word": "inhibit", "phonetic": "ɪnˈhɪbɪt", "meaning": "막다, 억제하다", "pos": "동사"}, {"word": "disposable", "phonetic": "dɪˈspoʊzəbl", "meaning": "일회용의, 처분 가능한", "pos": "형용사"}, {"word": "as opposed to", "phonetic": "æz əˈpoʊzd tuː", "meaning": "~와는 대조적으로", "pos": "전치사구"}, {"word": "in contrast to", "phonetic": "ɪn ˈkɑːntræst tuː", "meaning": "~와는 대조적으로", "pos": "전치사구"}, {"word": "significance", "phonetic": "sɪɡˈnɪfɪkəns", "meaning": "중요성, 의미", "pos": "명사"}, {"word": "importance", "phonetic": "ɪmˈpɔːrtns", "meaning": "중요성, 의미", "pos": "명사"}, {"word": "insignificance", "phonetic": "ˌɪnsɪɡˈnɪfɪkəns", "meaning": "무의미, 하찮음", "pos": "명사"}, {"word": "reassess", "phonetic": "ˌriːəˈses", "meaning": "재평가하다", "pos": "동사"}, {"word": "reevaluate", "phonetic": "ˌriːɪˈvæljueɪt", "meaning": "재평가하다", "pos": "동사"}, {"word": "activate", "phonetic": "ˈæktɪveɪt", "meaning": "활성화하다", "pos": "동사"}, {"word": "trigger", "phonetic": "ˈtrɪɡər", "meaning": "활성화하다", "pos": "동사"}, {"word": "start", "phonetic": "stɑːrt", "meaning": "시작하다", "pos": "동사"}, {"word": "deactivate", "phonetic": "diˈæktɪveɪt", "meaning": "비활성화하다", "pos": "동사"}, {"word": "sustain", "phonetic": "səˈsteɪn", "meaning": "유지하다, 지속하다", "pos": "동사"}, {"word": "maintain", "phonetic": "meɪnˈteɪn", "meaning": "유지하다, 지속하다", "pos": "동사"}, {"word": "resource", "phonetic": "ˈriːsɔːrs", "meaning": "자원", "pos": "명사"}, {"word": "abundance", "phonetic": "əˈbʌndəns", "meaning": "풍부함", "pos": "명사"}, {"word": "plenty", "phonetic": "ˈplenti", "meaning": "풍부함", "pos": "명사"}, {"word": "scarcity", "phonetic": "ˈskersəti", "meaning": "부족", "pos": "명사"}, {"word": "cherish", "phonetic": "ˈtʃerɪʃ", "meaning": "소중히 여기다", "pos": "동사"}, {"word": "value", "phonetic": "ˈvæljuː", "meaning": "소중히 여기다", "pos": "동사"}, {"word": "treasure", "phonetic": "ˈtreʒər", "meaning": "소중히 여기다", "pos": "동사"}, {"word": "throwaway", "phonetic": "ˈθroʊəweɪ", "meaning": "버리는, 일회용의", "pos": "형용사"}, {"word": "surplus", "phonetic": "ˈsɜːrpləs", "meaning": "잉여, 과잉", "pos": "명사"}, {"word": "excess", "phonetic": "ɪkˈses", "meaning": "잉여, 과잉", "pos": "명사"}, {"word": "shortage", "phonetic": "ˈʃɔːrtɪdʒ", "meaning": "부족", "pos": "명사"}, {"word": "deficit", "phonetic": "ˈdefəsɪt", "meaning": "적자", "pos": "명사"}, {"word": "grain", "phonetic": "ɡreɪn", "meaning": "곡물, 낟알", "pos": "명사"}, {"word": "secrecy", "phonetic": "ˈsiːkrəsi", "meaning": "비밀(성), 은밀함", "pos": "명사"}, {"word": "confidentiality", "phonetic": "ˌkɑːnfɪˌdenʃiˈæləti", "meaning": "비밀(성), 은밀함", "pos": "명사"}, {"word": "loyalty", "phonetic": "ˈlɔɪəlti", "meaning": "충성심", "pos": "명사"}, {"word": "allegiance", "phonetic": "əˈliːdʒəns", "meaning": "충성심", "pos": "명사"}, {"word": "betrayal", "phonetic": "bɪˈtreɪəl", "meaning": "배신", "pos": "명사"}, {"word": "disloyalty", "phonetic": "dɪsˈlɔɪəlti", "meaning": "불충", "pos": "명사"}, {"word": "emerge", "phonetic": "ɪˈmɜːrdʒ", "meaning": "나타나다, 생겨나다", "pos": "동사"}, {"word": "appear", "phonetic": "əˈpɪr", "meaning": "나타나다, 생겨나다", "pos": "동사"}, {"word": "arise", "phonetic": "əˈraɪz", "meaning": "나타나다, 생겨나다", "pos": "동사"}, {"word": "disappear", "phonetic": "ˌdɪsəˈpɪr", "meaning": "사라지다", "pos": "동사"}, {"word": "vanish", "phonetic": "ˈvænɪʃ", "meaning": "소멸하다", "pos": "동사"}, {"word": "hierarchy", "phonetic": "ˈhaɪərɑːrki", "meaning": "계급(제), 위계", "pos": "명사"}, {"word": "ranking", "phonetic": "ˈræŋkɪŋ", "meaning": "계급(제), 위계", "pos": "명사"}, {"word": "social order", "phonetic": "ˈsoʊʃl ˈɔːrdər", "meaning": "계급(제), 위계", "pos": "명사구"}, {"word": "unstable", "phonetic": "ʌnˈsteɪbl", "meaning": "불안정한", "pos": "형용사"}, {"word": "shaky", "phonetic": "ˈʃeɪki", "meaning": "불안정한", "pos": "형용사"}, {"word": "insecure", "phonetic": "ˌɪnsɪˈkjʊr", "meaning": "불안정한", "pos": "형용사"}, {"word": "stable", "phonetic": "ˈsteɪbl", "meaning": "안정적인", "pos": "형용사"}, {"word": "steady", "phonetic": "ˈstedi", "meaning": "고정된, 안정된", "pos": "형용사"}, {"word": "variable", "phonetic": "ˈverɪəbl", "meaning": "변수; 변동하는", "pos": "명사/형용사"}, {"word": "changeable", "phonetic": "ˈtʃeɪndʒəbl", "meaning": "변화하는, 유동적인", "pos": "형용사"}, {"word": "constant", "phonetic": "ˈkɑːnstənt", "meaning": "일정한, 상수", "pos": "명사/형용사"}, {"word": "minimize", "phonetic": "ˈmɪnɪmaɪz", "meaning": "최소화하다", "pos": "동사"}, {"word": "maximize", "phonetic": "ˈmæksɪmaɪz", "meaning": "극대화하다", "pos": "동사"}, {"word": "commodity", "phonetic": "kəˈmɑːdəti", "meaning": "상품, 물품", "pos": "명사"}, {"word": "merchandise", "phonetic": "ˈmɜːrtʃəndaɪz", "meaning": "상품, 물품", "pos": "명사"}, {"word": "goods", "phonetic": "ɡʊdz", "meaning": "상품, 물품", "pos": "명사"}, {"word": "transition", "phonetic": "trænˈzɪʃn", "meaning": "변천, 이행", "pos": "명사"}, {"word": "change", "phonetic": "tʃeɪndʒ", "meaning": "변화, 이행", "pos": "명사"}, {"word": "shift", "phonetic": "ʃɪft", "meaning": "이동, 변화", "pos": "명사"}, {"word": "for the sake of", "phonetic": "fɔːr ðə seɪk ʌv", "meaning": "-을 위하여", "pos": "전치사구"}, {"word": "condense", "phonetic": "kənˈdens", "meaning": "응축하다, 요약하다", "pos": "동사"}, {"word": "compress", "phonetic": "kəmˈpres", "meaning": "응축하다, 요약하다", "pos": "동사"}, {"word": "expand", "phonetic": "ɪkˈspænd", "meaning": "확장하다", "pos": "동사"}, {"word": "address", "phonetic": "əˈdres", "meaning": "다루다", "pos": "동사"}, {"word": "deal with", "phonetic": "diːl wɪð", "meaning": "다루다", "pos": "동사구"}, {"word": "handle", "phonetic": "ˈhændl", "meaning": "다루다", "pos": "동사"}, {"word": "coincidental", "phonetic": "koʊˌɪnsɪˈdentl", "meaning": "우연의 일치인", "pos": "형용사"}, {"word": "accidental", "phonetic": "ˌæksɪˈdentl", "meaning": "우연의 일치인", "pos": "형용사"}, {"word": "intentional", "phonetic": "ɪnˈtenʃənl", "meaning": "의도적인", "pos": "형용사"}, {"word": "deliberate", "phonetic": "dɪˈlɪbərət", "meaning": "계획적인", "pos": "형용사"}, {"word": "regularity", "phonetic": "ˌreɡjuˈlærəti", "meaning": "규칙성", "pos": "명사"}, {"word": "irregularity", "phonetic": "ɪˌreɡjuˈlærəti", "meaning": "불규칙성", "pos": "명사"}, {"word": "organization", "phonetic": "ˌɔːrɡənəˈzeɪʃn", "meaning": "배열, 배치", "pos": "명사"}, {"word": "necessity", "phonetic": "nəˈsesəti", "meaning": "필요(성), 필연성", "pos": "명사"}, {"word": "requirement", "phonetic": "rɪˈkwaɪərmənt", "meaning": "필요(성), 필연성", "pos": "명사"}, {"word": "outcome", "phonetic": "ˈaʊtkʌm", "meaning": "결과", "pos": "명사"}, {"word": "result", "phonetic": "rɪˈzʌlt", "meaning": "결과, 결말", "pos": "명사"}, {"word": "consequence", "phonetic": "ˈkɑːnsəkwens", "meaning": "결과, 중요성", "pos": "명사"}, {"word": "occur", "phonetic": "əˈkɜːr", "meaning": "일어나다, 발생하다", "pos": "동사"}, {"word": "happen", "phonetic": "ˈhæpən", "meaning": "일어나다, 발생하다", "pos": "동사"}, {"word": "take place", "phonetic": "teɪk pleɪs", "meaning": "일어나다, 발생하다", "pos": "동사구"}, {"word": "puzzle", "phonetic": "ˈpʌzl", "meaning": "곤혹스럽게 하다", "pos": "동사/명사"}, {"word": "confuse", "phonetic": "kənˈfjuːz", "meaning": "혼란시키다", "pos": "동사/명사"}, {"word": "baffle", "phonetic": "ˈbæfl", "meaning": "당혹스럽게 하다", "pos": "동사/명사"}, {"word": "prolific", "phonetic": "prəˈlɪfɪk", "meaning": "다작의, 생산력이 풍부한", "pos": "형용사"}, {"word": "fertile", "phonetic": "ˈfɜːrtl", "meaning": "다작의, 생산력이 풍부한", "pos": "형용사"}, {"word": "internal", "phonetic": "ɪnˈtɜːrnl", "meaning": "내적인, 내부의", "pos": "형용사"}, {"word": "inner", "phonetic": "ˈɪnər", "meaning": "내적인, 내부의", "pos": "형용사"}, {"word": "interior", "phonetic": "ɪnˈtɪriər", "meaning": "내적인, 내부의", "pos": "형용사"}, {"word": "external", "phonetic": "ɪkˈstɜːrnl", "meaning": "외적인", "pos": "형용사"}, {"word": "generator", "phonetic": "ˈdʒenəreɪtər", "meaning": "생성기, 발생기", "pos": "명사"}, {"word": "sensation", "phonetic": "senˈseɪʃn", "meaning": "감각, 느낌", "pos": "명사"}, {"word": "feeling", "phonetic": "ˈfiːlɪŋ", "meaning": "감각, 느낌", "pos": "명사"}, {"word": "sense", "phonetic": "sens", "meaning": "감각, 느낌", "pos": "명사"}, {"word": "brainstorm", "phonetic": "ˈbreɪnstɔːrm", "meaning": "브레인스토밍하다", "pos": "동사"}, {"word": "faculty", "phonetic": "ˈfæklti", "meaning": "기능, 능력", "pos": "명사"}, {"word": "modification", "phonetic": "ˌmɑːdɪfɪˈkeɪʃn", "meaning": "변형, 변이", "pos": "명사"}, {"word": "interpret", "phonetic": "ɪnˈtɜːrprɪt", "meaning": "해석하다", "pos": "동사"}, {"word": "construe", "phonetic": "kənˈstruː", "meaning": "해석하다", "pos": "동사"}, {"word": "quantity", "phonetic": "ˈkwɑːntəti", "meaning": "양, 수량", "pos": "명사"}, {"word": "quality", "phonetic": "ˈkwɑːləti", "meaning": "질", "pos": "명사"}, {"word": "yield", "phonetic": "jiːld", "meaning": "산출하다, 양보하다", "pos": "동사"}, {"word": "produce", "phonetic": "prəˈduːs", "meaning": "산출하다", "pos": "동사"}, {"word": "surrender", "phonetic": "səˈrendər", "meaning": "항복하다", "pos": "동사"}, {"word": "odds", "phonetic": "ɑːdz", "meaning": "확률, 가능성", "pos": "명사"}, {"word": "probability", "phonetic": "ˌprɑːbəˈbɪləti", "meaning": "확률, 가능성", "pos": "명사"}, {"word": "chances", "phonetic": "ˈtʃænsɪz", "meaning": "확률, 가능성", "pos": "명사"}, {"word": "refute", "phonetic": "rɪˈfjuːt", "meaning": "반박하다", "pos": "동사"}, {"word": "coolly", "phonetic": "ˈkuːlli", "meaning": "냉담하게, 차분하게", "pos": "부사"}, {"word": "calmly", "phonetic": "ˈkɑːmli", "meaning": "냉담하게, 차분하게", "pos": "부사"}, {"word": "passionately", "phonetic": "ˈpæʃənətli", "meaning": "열정적으로", "pos": "부사"}, {"word": "unconsciously", "phonetic": "ʌnˈkɑːnʃəsli", "meaning": "무의식적으로", "pos": "부사"}, {"word": "unknowingly", "phonetic": "ʌnˈnoʊɪŋli", "meaning": "무의식적으로", "pos": "부사"}, {"word": "consciously", "phonetic": "ˈkɑːnʃəsli", "meaning": "의식적으로", "pos": "부사"}, {"word": "distinguish", "phonetic": "dɪˈstɪŋɡwɪʃ", "meaning": "구별하다, 식별하다", "pos": "동사"}, {"word": "differentiate", "phonetic": "ˌdɪfəˈrenʃieɪt", "meaning": "구별하다, 식별하다", "pos": "동사"}, {"word": "discriminate", "phonetic": "dɪˈskrɪmɪneɪt", "meaning": "구별하다, 식별하다", "pos": "동사"}, {"word": "prioritize", "phonetic": "praɪˈɔːrətaɪz", "meaning": "우선시하다", "pos": "동사"}, {"word": "perceive", "phonetic": "pərˈsiːv", "meaning": "인식하다, 지각하다", "pos": "동사"}, {"word": "bodily", "phonetic": "ˈbɑːdɪli", "meaning": "신체의", "pos": "형용사"}, {"word": "physical", "phonetic": "ˈfɪzɪkl", "meaning": "신체의", "pos": "형용사"}, {"word": "interaction", "phonetic": "ˌɪntərˈækʃn", "meaning": "상호 작용", "pos": "명사"}, {"word": "interplay", "phonetic": "ˈɪntərpleɪ", "meaning": "상호 작용", "pos": "명사"}, {"word": "subtly", "phonetic": "ˈsʌtli", "meaning": "미묘하게", "pos": "부사"}, {"word": "delicately", "phonetic": "ˈdelɪkətli", "meaning": "미묘하게", "pos": "부사"}, {"word": "critical", "phonetic": "ˈkrɪtɪkl", "meaning": "결정적인, 중요한", "pos": "형용사"}, {"word": "crucial", "phonetic": "ˈkruːʃl", "meaning": "결정적인, 중요한", "pos": "형용사"}, {"word": "vital", "phonetic": "ˈvaɪtl", "meaning": "결정적인, 중요한", "pos": "형용사"}, {"word": "criticism", "phonetic": "ˈkrɪtɪsɪzəm", "meaning": "비판", "pos": "명사"}, {"word": "disapproval", "phonetic": "ˌdɪsəˈpruːvl", "meaning": "비판", "pos": "명사"}, {"word": "overextension", "phonetic": "ˌoʊvərikˈstenʃn", "meaning": "과도한 확장", "pos": "명사"}, {"word": "dehumanization", "phonetic": "diːˌhjuːmənəˈzeɪʃn", "meaning": "비인간화", "pos": "명사"}, {"word": "caution", "phonetic": "ˈkɔːʃn", "meaning": "경고하다; 주의", "pos": "동사/명사"}, {"word": "warn", "phonetic": "wɔːrn", "meaning": "경고하다", "pos": "동사"}, {"word": "primarily", "phonetic": "praɪˈmerəli", "meaning": "주로, 근본적으로", "pos": "부사"}, {"word": "chiefly", "phonetic": "ˈtʃiːfli", "meaning": "주로, 근본적으로", "pos": "부사"}, {"word": "mainly", "phonetic": "ˈmeɪnli", "meaning": "주로, 근본적으로", "pos": "부사"}, {"word": "navigate", "phonetic": "ˈnævɪɡeɪt", "meaning": "길을 찾다, 항해하다", "pos": "동사"}, {"word": "dependency", "phonetic": "dɪˈpendənsi", "meaning": "의존", "pos": "명사"}, {"word": "reliance", "phonetic": "rɪˈlaɪəns", "meaning": "의존", "pos": "명사"}, {"word": "independence", "phonetic": "ˌɪndɪˈpendəns", "meaning": "독립", "pos": "명사"}, {"word": "erode", "phonetic": "ɪˈroʊd", "meaning": "침식하다, 약화시키다", "pos": "동사"}, {"word": "wear away", "phonetic": "wer əˈweɪ", "meaning": "침식하다, 약화시키다", "pos": "동사구"}, {"word": "weaken", "phonetic": "ˈwiːkən", "meaning": "침식하다, 약화시키다", "pos": "동사"}, {"word": "skill", "phonetic": "skɪl", "meaning": "기술, 기량", "pos": "명사"}, {"word": "replace", "phonetic": "rɪˈpleɪs", "meaning": "대체하다", "pos": "동사"}, {"word": "substitute", "phonetic": "ˈsʌbstɪtuːt", "meaning": "대체하다", "pos": "동사"}, {"word": "randomness", "phonetic": "ˈrændəmnəs", "meaning": "무작위성, 임의성", "pos": "명사"}, {"word": "displacement", "phonetic": "dɪsˈpleɪsmənt", "meaning": "이동, 배수량", "pos": "명사"}, {"word": "predictability", "phonetic": "prɪˌdɪktəˈbɪləti", "meaning": "예측 가능성", "pos": "명사"}, {"word": "structure", "phonetic": "ˈstrʌktʃər", "meaning": "구조화하다, 구조", "pos": "동사/명사"}, {"word": "organize", "phonetic": "ˈɔːrɡənaɪz", "meaning": "구조화하다", "pos": "동사"}, {"word": "innovation", "phonetic": "ˌɪnəˈveɪʃn", "meaning": "혁신", "pos": "명사"}, {"word": "revolution", "phonetic": "ˌrevəˈluːʃn", "meaning": "혁신", "pos": "명사"}, {"word": "stagnation", "phonetic": "stæɡˈneɪʃn", "meaning": "정체", "pos": "명사"}, {"word": "tendency", "phonetic": "ˈtendənsi", "meaning": "경향, 추세", "pos": "명사"}, {"word": "inclination", "phonetic": "ˌɪnklɪˈneɪʃn", "meaning": "경향, 추세", "pos": "명사"}, {"word": "obsolete", "phonetic": "ˌɑːbsəˈliːt", "meaning": "구식의, 더 이상 쓸모없는", "pos": "형용사"}, {"word": "outdated", "phonetic": "ˌaʊtˈdeɪtɪd", "meaning": "구식의, 더 이상 쓸모없는", "pos": "형용사"}, {"word": "modern", "phonetic": "ˈmɑːdərn", "meaning": "현대적인", "pos": "형용사"}, {"word": "current", "phonetic": "ˈkɜːrənt", "meaning": "현재의", "pos": "형용사"}, {"word": "perspective", "phonetic": "pərˈspektɪv", "meaning": "관점; 원근법", "pos": "명사"}, {"word": "viewpoint", "phonetic": "ˈvjuːpɔɪnt", "meaning": "관점; 원근법", "pos": "명사"}, {"word": "endure", "phonetic": "ɪnˈdʊr", "meaning": "견디다", "pos": "동사"}, {"word": "persist", "phonetic": "pərˈsɪst", "meaning": "지속되다", "pos": "동사"}, {"word": "last", "phonetic": "læst", "meaning": "지속되다", "pos": "동사"}, {"word": "resistance", "phonetic": "rɪˈzɪstəns", "meaning": "저항", "pos": "명사"}, {"word": "opposition", "phonetic": "ˌɑːpəˈzɪʃn", "meaning": "저항", "pos": "명사"}, {"word": "acceptance", "phonetic": "əkˈseptəns", "meaning": "수용", "pos": "명사"}, {"word": "reproduce", "phonetic": "ˌriːprəˈduːs", "meaning": "번식하다", "pos": "동사"}, {"word": "integrate", "phonetic": "ˈɪntɪɡreɪt", "meaning": "통합하다", "pos": "동사"}, {"word": "combine", "phonetic": "kəmˈbaɪn", "meaning": "통합하다", "pos": "동사"}, {"word": "merge", "phonetic": "mɜːrdʒ", "meaning": "통합하다", "pos": "동사"}, {"word": "inherit", "phonetic": "ɪnˈherɪt", "meaning": "물려받다, 유전하다", "pos": "동사"}, {"word": "potential", "phonetic": "pəˈtenʃl", "meaning": "잠재적인; 잠재력", "pos": "형용사/명사"}, {"word": "possible", "phonetic": "ˈpɑːsəbl", "meaning": "잠재적인", "pos": "형용사"}, {"word": "pattern", "phonetic": "ˈpætərn", "meaning": "패턴, 양식", "pos": "명사"}, {"word": "chaos", "phonetic": "ˈkeɪɑːs", "meaning": "혼돈", "pos": "명사"}, {"word": "disorder", "phonetic": "dɪsˈɔːrdər", "meaning": "무질서", "pos": "명사"}, {"word": "stimulus", "phonetic": "ˈstɪmjələs", "meaning": "자극", "pos": "명사"}, {"word": "incentive", "phonetic": "ɪnˈsentɪv", "meaning": "자극", "pos": "명사"}, {"word": "constraint", "phonetic": "kənˈstreɪnt", "meaning": "제약, 제한", "pos": "명사"}, {"word": "restriction", "phonetic": "rɪˈstrɪkʃn", "meaning": "제약, 제한", "pos": "명사"}, {"word": "limitation", "phonetic": "ˌlɪmɪˈteɪʃn", "meaning": "제약, 제한", "pos": "명사"}, {"word": "adaptation", "phonetic": "ˌædæpˈteɪʃn", "meaning": "적응; 각색", "pos": "명사"}, {"word": "implication", "phonetic": "ˌɪmplɪˈkeɪʃn", "meaning": "함축, 영향, 결과", "pos": "명사"}, {"word": "inference", "phonetic": "ˈɪnfərəns", "meaning": "함축, 영향, 결과", "pos": "명사"}, {"word": "transform", "phonetic": "trænsˈfɔːrm", "meaning": "변형시키다, 바꾸다", "pos": "동사"}, {"word": "alter", "phonetic": "ˈɔːltər", "meaning": "변형시키다, 바꾸다", "pos": "동사"}, {"word": "institution", "phonetic": "ˌɪnstɪˈtuːʃn", "meaning": "제도, 관습; 기관", "pos": "명사"}, {"word": "system", "phonetic": "ˈsɪstəm", "meaning": "제도, 관습; 기관", "pos": "명사"}, {"word": "establishment", "phonetic": "ɪˈstæblɪʃmənt", "meaning": "제도, 관습; 기관", "pos": "명사"}, {"word": "aesthetic", "phonetic": "esˈθetɪk", "meaning": "미적인, 심미적인", "pos": "형용사"}, {"word": "artistic", "phonetic": "ɑːrˈtɪstɪk", "meaning": "미적인, 심미적인", "pos": "형용사"}, {"word": "conformity", "phonetic": "kənˈfɔːrməti", "meaning": "순응, 따름", "pos": "명사"}, {"word": "compliance", "phonetic": "kəmˈplaɪəns", "meaning": "순응, 따름", "pos": "명사"}, {"word": "rebellion", "phonetic": "rɪˈbeljən", "meaning": "반란", "pos": "명사"}, {"word": "subjective", "phonetic": "səbˈdʒektɪv", "meaning": "주관적인", "pos": "형용사"}, {"word": "personal", "phonetic": "ˈpɜːrsənl", "meaning": "주관적인", "pos": "형용사"}, {"word": "objective", "phonetic": "əbˈdʒektɪv", "meaning": "객관적인", "pos": "형용사"}, {"word": "impose", "phonetic": "ɪmˈpoʊz", "meaning": "시행하다, 강요하다", "pos": "동사"}, {"word": "criterion", "phonetic": "kraɪˈtɪriən", "meaning": "기준, 척도", "pos": "명사"}, {"word": "standard", "phonetic": "ˈstændərd", "meaning": "기준, 척도", "pos": "명사"}, {"word": "sanction", "phonetic": "ˈsæŋkʃn", "meaning": "제재, 처벌; 승인하다", "pos": "명사/동사"}, {"word": "penalty", "phonetic": "ˈpenəlti", "meaning": "제재, 처벌", "pos": "명사"}, {"word": "appraise", "phonetic": "əˈpreɪz", "meaning": "평가하다", "pos": "동사"}, {"word": "internalize", "phonetic": "ɪnˈtɜːrnəlaɪz", "meaning": "내면화하다", "pos": "동사"}, {"word": "watch", "phonetic": "wɑːtʃ", "meaning": "감시하다, 관찰하다", "pos": "동사"}, {"word": "consensus", "phonetic": "kənˈsensəs", "meaning": "합의, 일치", "pos": "명사"}, {"word": "disagreement", "phonetic": "ˌdɪsəˈɡriːmənt", "meaning": "불일치, 의견 차이", "pos": "명사"}, {"word": "deviate", "phonetic": "ˈdiːvieɪt", "meaning": "일탈하다, 벗어나다", "pos": "동사"}, {"word": "stray", "phonetic": "streɪ", "meaning": "일탈하다, 벗어나다", "pos": "동사"}, {"word": "diverge", "phonetic": "daɪˈvɜːrdʒ", "meaning": "일탈하다, 벗어나다", "pos": "동사"}, {"word": "validity", "phonetic": "vəˈlɪdəti", "meaning": "타당성, 유효함", "pos": "명사"}, {"word": "explicit", "phonetic": "ɪkˈsplɪsɪt", "meaning": "명시적인, 분명한", "pos": "형용사"}, {"word": "implicit", "phonetic": "ɪmˈplɪsɪt", "meaning": "암묵적인", "pos": "형용사"}, {"word": "implicitly", "phonetic": "ɪmˈplɪsɪtli", "meaning": "암묵적으로, 무언중에", "pos": "부사"}, {"word": "derive from", "phonetic": "dɪˈraɪv frʌm", "meaning": "~에서 유래하다, 얻다", "pos": "동사구"}, {"word": "originate from", "phonetic": "əˈrɪdʒɪneɪt frʌm", "meaning": "~에서 유래하다, 얻다", "pos": "동사구"}, {"word": "mutual", "phonetic": "ˈmjuːtʃuəl", "meaning": "상호 간의, 서로의", "pos": "형용사"}, {"word": "reciprocal", "phonetic": "rɪˈsɪprəkl", "meaning": "상호 간의, 서로의", "pos": "형용사"}, {"word": "objectivity", "phonetic": "ˌɑːbdʒekˈtɪvəti", "meaning": "객관성", "pos": "명사"}, {"word": "organism", "phonetic": "ˈɔːrɡənɪzəm", "meaning": "유기체, 생물", "pos": "명사"}, {"word": "living thing", "phonetic": "ˈlɪvɪŋ θɪŋ", "meaning": "유기체, 생물", "pos": "명사구"}, {"word": "habitat", "phonetic": "ˈhæbɪtæt", "meaning": "서식지", "pos": "명사"}, {"word": "environment", "phonetic": "ɪnˈvaɪrənmənt", "meaning": "서식지", "pos": "명사"}, {"word": "home", "phonetic": "hoʊm", "meaning": "서식지", "pos": "명사"}, {"word": "exploit", "phonetic": "ɪkˈsplɔɪt", "meaning": "이용하다, 착취하다", "pos": "동사"}, {"word": "utilize", "phonetic": "ˈjuːtəlaɪz", "meaning": "이용하다, 착취하다", "pos": "동사"}, {"word": "use", "phonetic": "juːz", "meaning": "이용하다, 착취하다", "pos": "동사"}, {"word": "scarce", "phonetic": "skers", "meaning": "부족한, 희귀한", "pos": "형용사"}, {"word": "rare", "phonetic": "rer", "meaning": "부족한, 희귀한", "pos": "형용사"}, {"word": "insufficient", "phonetic": "ˌɪnsəˈfɪʃnt", "meaning": "부족한, 희귀한", "pos": "형용사"}, {"word": "abundant", "phonetic": "əˈbʌndənt", "meaning": "풍부한", "pos": "형용사"}, {"word": "compete", "phonetic": "kəmˈpiːt", "meaning": "경쟁하다", "pos": "동사"}, {"word": "contend", "phonetic": "kənˈtend", "meaning": "경쟁하다", "pos": "동사"}, {"word": "vie", "phonetic": "vaɪ", "meaning": "경쟁하다", "pos": "동사"}, {"word": "advantage", "phonetic": "ədˈvæntɪdʒ", "meaning": "이점, 우위", "pos": "명사"}, {"word": "disadvantage", "phonetic": "ˌdɪsədˈvæntɪdʒ", "meaning": "불이익, 단점", "pos": "명사"}, {"word": "specialization", "phonetic": "ˌspeʃəlaɪˈzeɪʃn", "meaning": "전문화, 특수화", "pos": "명사"}, {"word": "diversity", "phonetic": "daɪˈvɜːrsəti", "meaning": "다양성", "pos": "명사"}, {"word": "variety", "phonetic": "vəˈraɪəti", "meaning": "다양성", "pos": "명사"}, {"word": "niche", "phonetic": "nɪtʃ", "meaning": "생태적 지위, 틈새", "pos": "명사"}, {"word": "coexist", "phonetic": "ˌkoʊɪɡˈzɪst", "meaning": "공존하다", "pos": "동사"}, {"word": "destination", "phonetic": "ˌdestɪˈneɪʃn", "meaning": "목적지, 행선지", "pos": "명사"}, {"word": "literacy", "phonetic": "ˈlɪtərəsi", "meaning": "읽고 쓰는 능력, 문해력", "pos": "명사"}, {"word": "illiteracy", "phonetic": "ɪˈlɪtərəsi", "meaning": "문맹", "pos": "명사"}, {"word": "authentic", "phonetic": "ɔːˈθentɪk", "meaning": "진정한, 진짜의", "pos": "형용사"}, {"word": "genuine", "phonetic": "ˈdʒenjuɪn", "meaning": "진정한, 진짜의", "pos": "형용사"}, {"word": "real", "phonetic": "riːəl", "meaning": "진정한, 진짜의", "pos": "형용사"}, {"word": "fake", "phonetic": "feɪk", "meaning": "가짜의", "pos": "형용사"}, {"word": "analytical", "phonetic": "ˌænəˈlɪtɪkl", "meaning": "비판적인; 분석적인", "pos": "형용사"}, {"word": "superficial", "phonetic": "ˌsuːpərˈfɪʃl", "meaning": "피상적인, 겉으로만 보이는", "pos": "형용사"}, {"word": "shallow", "phonetic": "ˈʃæloʊ", "meaning": "피상적인, 겉으로만 보이는", "pos": "형용사"}, {"word": "profound", "phonetic": "prəˈfaʊnd", "meaning": "심오한", "pos": "형용사"}, {"word": "deep", "phonetic": "diːp", "meaning": "깊은, 심오한", "pos": "형용사"}, {"word": "credibility", "phonetic": "ˌkredəˈbɪləti", "meaning": "신뢰성", "pos": "명사"}, {"word": "reliability", "phonetic": "rɪˌlaɪəˈbɪləti", "meaning": "신뢰성", "pos": "명사"}, {"word": "inhabitant", "phonetic": "ɪnˈhæbɪtənt", "meaning": "거주자, 주민", "pos": "명사"}, {"word": "resident", "phonetic": "ˈrezɪdənt", "meaning": "거주자, 주민", "pos": "명사"}, {"word": "dweller", "phonetic": "ˈdwelər", "meaning": "거주자, 주민", "pos": "명사"}, {"word": "stage", "phonetic": "steɪdʒ", "meaning": "무대에 올리다, 연출하다", "pos": "동사/명사"}, {"word": "misinformation", "phonetic": "ˌmɪsɪnfərˈmeɪʃn", "meaning": "오보, 잘못된 정보", "pos": "명사"}, {"word": "fact", "phonetic": "fækt", "meaning": "사실", "pos": "명사"}, {"word": "truth", "phonetic": "truːθ", "meaning": "진실", "pos": "명사"}, {"word": "rear", "phonetic": "rɪər", "meaning": "뒤쪽의, 기르다", "pos": "형용사/동사"}, {"word": "back", "phonetic": "bæk", "meaning": "뒤쪽의", "pos": "형용사/동사"}, {"word": "hind", "phonetic": "haɪnd", "meaning": "뒤쪽의", "pos": "형용사"}, {"word": "front", "phonetic": "frʌnt", "meaning": "앞쪽의", "pos": "형용사"}, {"word": "bias", "phonetic": "ˈbaɪəs", "meaning": "편견, 선입관", "pos": "명사"}, {"word": "prejudice", "phonetic": "ˈpredʒʊdɪs", "meaning": "편견, 선입관", "pos": "명사"}, {"word": "performance", "phonetic": "pərˈfɔːrməns", "meaning": "공연; 수행, 실적", "pos": "명사"}, {"word": "manipulate", "phonetic": "məˈnɪpjuleɪt", "meaning": "조작하다, 다루다", "pos": "동사"}, {"word": "influence", "phonetic": "ˈɪnfluəns", "meaning": "조작하다, 다루다", "pos": "동사"}, {"word": "promote", "phonetic": "prəˈmoʊt", "meaning": "홍보하다, 촉진하다", "pos": "동사"}, {"word": "advertise", "phonetic": "ˈædvərtaɪz", "meaning": "홍보하다", "pos": "동사"}, {"word": "encourage", "phonetic": "ɪnˈkɜːrɪdʒ", "meaning": "촉진하다", "pos": "동사"}, {"word": "circadian", "phonetic": "sɜːrˈkeɪdiən", "meaning": "24시간 주기의", "pos": "형용사"}, {"word": "biodiversity", "phonetic": "ˌbaɪoʊdaɪˈvɜːrsəti", "meaning": "생물 다양성", "pos": "명사"}, {"word": "regulate", "phonetic": "ˈreɡjuleɪt", "meaning": "조절하다, 규제하다", "pos": "동사"}, {"word": "adjust", "phonetic": "əˈdʒʌst", "meaning": "조절하다, 조정하다", "pos": "동사"}, {"word": "ecosystem", "phonetic": "ˈiːkoʊsɪstəm", "meaning": "생태계", "pos": "명사"}, {"word": "resilience", "phonetic": "rɪˈzɪliəns", "meaning": "회복력, 탄력성", "pos": "명사"}, {"word": "flexibility", "phonetic": "ˌfleksəˈbɪləti", "meaning": "회복력, 탄력성", "pos": "명사"}, {"word": "alertness", "phonetic": "əˈlɜːrtnəs", "meaning": "각성도, 기민함", "pos": "명사"}, {"word": "wakefulness", "phonetic": "ˈweɪkflnəs", "meaning": "각성도, 기민함", "pos": "명사"}, {"word": "invasive", "phonetic": "ɪnˈveɪsɪv", "meaning": "침입하는, 급속히 퍼지는", "pos": "형용사"}, {"word": "intrusive", "phonetic": "ɪnˈtruːsɪv", "meaning": "침입하는, 급속히 퍼지는", "pos": "형용사"}, {"word": "native", "phonetic": "ˈneɪtɪv", "meaning": "토착의, 원산의", "pos": "형용사"}, {"word": "indigenous", "phonetic": "ɪnˈdɪdʒənəs", "meaning": "토착의, 원산의", "pos": "형용사"}, {"word": "foreign", "phonetic": "ˈfɔːrən", "meaning": "외래의", "pos": "형용사"}, {"word": "exotic", "phonetic": "ɪɡˈzɑːtɪk", "meaning": "이국적인", "pos": "형용사"}, {"word": "disrupt", "phonetic": "dɪsˈrʌpt", "meaning": "방해하다, 지장을 주다", "pos": "동사"}, {"word": "disturb", "phonetic": "dɪsˈtɜːrb", "meaning": "방해하다, 지장을 주다", "pos": "동사"}, {"word": "interrupt", "phonetic": "ˌɪntəˈrʌpt", "meaning": "방해하다, 지장을 주다", "pos": "동사"}, {"word": "disruption", "phonetic": "dɪsˈrʌpʃn", "meaning": "붕괴, 혼란", "pos": "명사"}, {"word": "disturbance", "phonetic": "dɪsˈtɜːrbəns", "meaning": "붕괴, 혼란", "pos": "명사"}, {"word": "man-made", "phonetic": "ˈmæn ˈmeɪd", "meaning": "인공적인", "pos": "형용사"}, {"word": "extinction", "phonetic": "ɪkˈstɪŋkʃn", "meaning": "멸종, 소멸", "pos": "명사"}, {"word": "secretion", "phonetic": "sɪˈkriːʃn", "meaning": "분비(물)", "pos": "명사"}, {"word": "conservation", "phonetic": "ˌkɑːnsərˈveɪʃn", "meaning": "보존, 보호", "pos": "명사"}, {"word": "preservation", "phonetic": "ˌprezərˈveɪʃn", "meaning": "보존, 보호", "pos": "명사"}, {"word": "exposure", "phonetic": "ɪkˈspoʊʒər", "meaning": "노출", "pos": "명사"}, {"word": "disclosure", "phonetic": "dɪsˈkloʊʒər", "meaning": "폭로", "pos": "명사"}, {"word": "vulnerable", "phonetic": "ˈvʌlnərəbl", "meaning": "취약한", "pos": "형용사"}, {"word": "susceptible", "phonetic": "səˈseptəbl", "meaning": "취약한", "pos": "형용사"}, {"word": "immune", "phonetic": "ɪˈmjuːn", "meaning": "면역이 있는", "pos": "형용사"}, {"word": "insomnia", "phonetic": "ɪnˈsɑːmniə", "meaning": "불면증", "pos": "명사"}, {"word": "maintenance", "phonetic": "ˈmeɪntənəns", "meaning": "유지, 지속", "pos": "명사"}, {"word": "upkeep", "phonetic": "ˈʌpkiːp", "meaning": "유지, 지속", "pos": "명사"}, {"word": "collaboration", "phonetic": "kəˌlæbəˈreɪʃn", "meaning": "협력, 공동 작업", "pos": "명사"}, {"word": "cooperation", "phonetic": "koʊˌɑːpəˈreɪʃn", "meaning": "협력, 공동 작업", "pos": "명사"}, {"word": "edge", "phonetic": "edʒ", "meaning": "이점, 우위", "pos": "명사"}, {"word": "innovative", "phonetic": "ˈɪnəveɪtɪv", "meaning": "혁신적인", "pos": "형용사"}, {"word": "creative", "phonetic": "kriˈeɪtɪv", "meaning": "혁신적인", "pos": "형용사"}, {"word": "novel", "phonetic": "ˈnɑːvl", "meaning": "혁신적인", "pos": "형용사"}, {"word": "expertise", "phonetic": "ˌekspɜːrˈtiːz", "meaning": "전문 지식, 기술", "pos": "명사"}, {"word": "proficiency", "phonetic": "prəˈfɪʃnsi", "meaning": "전문 지식, 기술", "pos": "명사"}, {"word": "barrier", "phonetic": "ˈbæriər", "meaning": "장벽, 장애물", "pos": "명사"}, {"word": "obstacle", "phonetic": "ˈɑːbstəkl", "meaning": "장벽, 장애물", "pos": "명사"}, {"word": "hurdle", "phonetic": "ˈhɜːrdl", "meaning": "장벽, 장애물", "pos": "명사"}, {"word": "facilitate", "phonetic": "fəˈsɪlɪteɪt", "meaning": "촉진하다", "pos": "동사"}, {"word": "aid", "phonetic": "eɪd", "meaning": "돕다", "pos": "동사"}, {"word": "hinder", "phonetic": "ˈhɪndər", "meaning": "방해하다", "pos": "동사"}, {"word": "isolation", "phonetic": "ˌaɪsəˈleɪʃn", "meaning": "고립, 격리", "pos": "명사"}, {"word": "separation", "phonetic": "ˌsepəˈreɪʃn", "meaning": "고립, 격리", "pos": "명사"}, {"word": "synergy", "phonetic": "ˈsɪnərdʒi", "meaning": "동반 상승효과, 시너지", "pos": "명사"}, {"word": "embody", "phonetic": "ɪmˈbɑːdi", "meaning": "구현하다, 체화하다", "pos": "동사"}, {"word": "personify", "phonetic": "pərˈsɑːnɪfaɪ", "meaning": "구현하다, 체화하다", "pos": "동사"}, {"word": "represent", "phonetic": "ˌreprɪˈzent", "meaning": "구현하다, 체화하다", "pos": "동사"}, {"word": "perceptual", "phonetic": "pərˈseptʃuəl", "meaning": "지각의, 인식의", "pos": "형용사"}, {"word": "extraordinarily", "phonetic": "ɪkˈstrɔːrdənerəli", "meaning": "비상하게, 엄청나게", "pos": "부사"}, {"word": "repetitive", "phonetic": "rɪˈpetətɪv", "meaning": "반복적인", "pos": "형용사"}, {"word": "recurrent", "phonetic": "rɪˈkɜːrənt", "meaning": "반복적인", "pos": "형용사"}, {"word": "continuously", "phonetic": "kənˈtɪnjuəsli", "meaning": "끊임없이", "pos": "부사"}, {"word": "easily", "phonetic": "ˈiːzəli", "meaning": "손쉽게, 기꺼이", "pos": "부사"}, {"word": "uncertainty", "phonetic": "ʌnˈsɜːrtnti", "meaning": "불확실성", "pos": "명사"}, {"word": "certainty", "phonetic": "ˈsɜːrtnti", "meaning": "확실성", "pos": "명사"}, {"word": "indefinite", "phonetic": "ɪnˈdefɪnət", "meaning": "무기한의, 불명확한", "pos": "형용사"}, {"word": "definite", "phonetic": "ˈdefɪnət", "meaning": "명확한", "pos": "형용사"}, {"word": "limited", "phonetic": "ˈlɪmɪtɪd", "meaning": "한정된", "pos": "형용사"}, {"word": "resolve", "phonetic": "rɪˈzɑːlv", "meaning": "해결하다, 결심하다", "pos": "동사"}, {"word": "solve", "phonetic": "sɑːlv", "meaning": "해결하다", "pos": "동사"}, {"word": "multiple", "phonetic": "ˈmʌltɪpl", "meaning": "다수의, 다양한", "pos": "형용사"}, {"word": "numerous", "phonetic": "ˈnuːmərəs", "meaning": "다수의, 다양한", "pos": "형용사"}, {"word": "neural", "phonetic": "ˈnʊrəl", "meaning": "신경(계)의", "pos": "형용사"}, {"word": "circuit", "phonetic": "ˈsɜːrkɪt", "meaning": "회로, 순환", "pos": "명사"}, {"word": "interpretation", "phonetic": "ɪnˌtɜːrprɪˈteɪʃn", "meaning": "해석, 이해", "pos": "명사"}, {"word": "unconscious", "phonetic": "ʌnˈkɑːnʃəs", "meaning": "무의식적인", "pos": "형용사"}, {"word": "conscious", "phonetic": "ˈkɑːnʃəs", "meaning": "의식적인", "pos": "형용사"}, {"word": "immense", "phonetic": "ɪˈmens", "meaning": "거대한, 엄청난", "pos": "형용사"}, {"word": "huge", "phonetic": "hjuːdʒ", "meaning": "거대한, 엄청난", "pos": "형용사"}, {"word": "vast", "phonetic": "væst", "meaning": "거대한, 엄청난", "pos": "형용사"}, {"word": "automatic", "phonetic": "ˌɔːtəˈmætɪk", "meaning": "자동적인, 무의식적인", "pos": "형용사"}, {"word": "involuntary", "phonetic": "ɪnˈvɑːlənteri", "meaning": "자동적인, 무의식적인", "pos": "형용사"}, {"word": "procedure", "phonetic": "prəˈsiːdʒər", "meaning": "절차, 순서", "pos": "명사"}, {"word": "process", "phonetic": "ˈprɑːses", "meaning": "절차, 순서", "pos": "명사"}, {"word": "sensory", "phonetic": "ˈsensəri", "meaning": "감각의", "pos": "형용사"}, {"word": "academia", "phonetic": "ˌækəˈdiːmiə", "meaning": "학계", "pos": "명사"}, {"word": "come up with", "phonetic": "kʌm ʌp wɪð", "meaning": "~을 생각해 내다, 제안하다", "pos": "동사구"}, {"word": "devise", "phonetic": "dɪˈvaɪz", "meaning": "~을 생각해 내다, 제안하다", "pos": "동사"}, {"word": "invent", "phonetic": "ɪnˈvent", "meaning": "~을 생각해 내다, 제안하다", "pos": "동사"}, {"word": "hypothesis", "phonetic": "haɪˈpɑːθəsɪs", "meaning": "가설", "pos": "명사"}, {"word": "theory", "phonetic": "ˈθiːəri", "meaning": "가설", "pos": "명사"}, {"word": "assumption", "phonetic": "əˈsʌmpʃn", "meaning": "가설", "pos": "명사"}, {"word": "majority", "phonetic": "məˈdʒɔːrəti", "meaning": "대다수", "pos": "명사"}, {"word": "minority", "phonetic": "maɪˈnɔːrəti", "meaning": "소수", "pos": "명사"}, {"word": "groundbreaking", "phonetic": "ˈɡraʊndbreɪkɪŋ", "meaning": "획기적인, 혁신적인", "pos": "형용사"}, {"word": "manuscript", "phonetic": "ˈmænjuskrɪpt", "meaning": "원고", "pos": "명사"}, {"word": "peer review", "phonetic": "pɪər rɪˈvjuː", "meaning": "동료 심사", "pos": "명사"}, {"word": "revise", "phonetic": "rɪˈvaɪz", "meaning": "수정하다", "pos": "동사"}, {"word": "amend", "phonetic": "əˈmend", "meaning": "수정하다", "pos": "동사"}, {"word": "modify", "phonetic": "ˈmɑːdɪfaɪ", "meaning": "수정하다", "pos": "동사"}, {"word": "publication", "phonetic": "ˌpʌblɪˈkeɪʃn", "meaning": "출판, 발행", "pos": "명사"}, {"word": "reject", "phonetic": "rɪˈdʒekt", "meaning": "거절하다", "pos": "동사"}, {"word": "turn down", "phonetic": "tɜːrn daʊn", "meaning": "거절하다", "pos": "동사구"}, {"word": "accept", "phonetic": "ækˈsept", "meaning": "수용하다", "pos": "동사"}, {"word": "finalize", "phonetic": "ˈfaɪnəlaɪz", "meaning": "마무리하다, 완결 짓다", "pos": "동사"}, {"word": "complete", "phonetic": "kəmˈpliːt", "meaning": "마무리하다, 완결 짓다", "pos": "동사"}, {"word": "combination", "phonetic": "ˌkɑːmbɪˈneɪʃn", "meaning": "조합, 결합", "pos": "명사"}, {"word": "mixture", "phonetic": "ˈmɪkstʃər", "meaning": "조합, 결합", "pos": "명사"}, {"word": "contribution", "phonetic": "ˌkɑːntrɪˈbjuːʃn", "meaning": "기여, 공헌", "pos": "명사"}, {"word": "donation", "phonetic": "doʊˈneɪʃn", "meaning": "기여, 공헌", "pos": "명사"}, {"word": "inhabitable", "phonetic": "ɪnˈhæbɪtəbl", "meaning": "거주 가능한", "pos": "형용사"}, {"word": "uninhabitable", "phonetic": "ˌʌnɪnˈhæbɪtəbl", "meaning": "거주 불가능한", "pos": "형용사"}, {"word": "imitate", "phonetic": "ˈɪmɪteɪt", "meaning": "모방하다", "pos": "동사"}, {"word": "mimic", "phonetic": "ˈmɪmɪk", "meaning": "모방하다", "pos": "동사"}, {"word": "copy", "phonetic": "ˈkɑːpi", "meaning": "모방하다", "pos": "동사"}, {"word": "reflect", "phonetic": "rɪˈflekt", "meaning": "반영하다, 반사하다", "pos": "동사"}, {"word": "mirror", "phonetic": "ˈmɪrər", "meaning": "반영하다, 반사하다", "pos": "동사"}, {"word": "positive", "phonetic": "ˈpɑːzətɪv", "meaning": "긍정적인", "pos": "형용사"}, {"word": "negative", "phonetic": "ˈneɡətɪv", "meaning": "부정적인", "pos": "형용사"}, {"word": "territory", "phonetic": "ˈterətɔːri", "meaning": "영토, 영역", "pos": "명사"}, {"word": "region", "phonetic": "ˈriːdʒən", "meaning": "영토, 영역", "pos": "명사"}, {"word": "area", "phonetic": "ˈeriə", "meaning": "영토, 영역", "pos": "명사"}, {"word": "self-esteem", "phonetic": "self ɪˈstiːm", "meaning": "자존감", "pos": "명사"}, {"word": "self-respect", "phonetic": "self rɪˈspekt", "meaning": "자존감", "pos": "명사"}, {"word": "negotiation", "phonetic": "nɪˌɡoʊʃiˈeɪʃn", "meaning": "협상", "pos": "명사"}, {"word": "bargaining", "phonetic": "ˈbɑːrɡənɪŋ", "meaning": "협상", "pos": "명사"}, {"word": "boost", "phonetic": "buːst", "meaning": "신장시키다, 북돋우다", "pos": "동사"}, {"word": "enhance", "phonetic": "ɪnˈhæns", "meaning": "신장시키다, 북돋우다", "pos": "동사"}, {"word": "raise", "phonetic": "reɪz", "meaning": "신장시키다, 북돋우다", "pos": "동사"}, {"word": "compromise", "phonetic": "ˈkɑːmprəmaɪz", "meaning": "타협하다; 타협", "pos": "동사/명사"}, {"word": "threaten", "phonetic": "ˈθretn", "meaning": "위협하다", "pos": "동사"}, {"word": "intimidate", "phonetic": "ɪnˈtɪmɪdeɪt", "meaning": "위협하다", "pos": "동사"}, {"word": "superior", "phonetic": "suːˈpɪriər", "meaning": "우월한, 상급의", "pos": "형용사"}, {"word": "inferior", "phonetic": "ɪnˈfɪriər", "meaning": "열등한", "pos": "형용사"}, {"word": "relevant", "phonetic": "ˈreləvənt", "meaning": "관련 있는, 적절한", "pos": "형용사"}, {"word": "pertinent", "phonetic": "ˈpɜːrtnənt", "meaning": "관련 있는, 적절한", "pos": "형용사"}, {"word": "irrelevant", "phonetic": "ɪˈreləvənt", "meaning": "관련 없는", "pos": "형용사"}, {"word": "settlement", "phonetic": "ˈsetlmənt", "meaning": "정착, 해결", "pos": "명사"}];
+const STORAGE_KEY = 'cutop_suteuk_1116';
+
+let words = [];
+let currentFilter = 'all';
+let fcFilter = 'all';
+let fcDeck = [];
+let fcIdx = 0;
+let fcMeaningShown = false;
+
+// Quiz state
+let quizWords = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const state = JSON.parse(saved);
+      words = WORDS_RAW.map((w, i) => ({
+        ...w,
+        fav: state[i]?.fav || false,
+        status: state[i]?.status || ''
+      }));
+    } else {
+      words = WORDS_RAW.map(w => ({...w, fav: false, status: ''}));
+    }
+  } catch(e) {
+    words = WORDS_RAW.map(w => ({...w, fav: false, status: ''}));
+  }
+}
+
+function saveState() {
+  const state = words.map(w => ({fav: w.fav, status: w.status}));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateHeader();
+}
+
+function updateHeader() {
+  const know = words.filter(w => w.status === 'know').length;
+  const dunno = words.filter(w => w.status === 'dunno').length;
+  const fav = words.filter(w => w.fav).length;
+  const done = know + dunno;
+  document.getElementById('knowCount').textContent = know;
+  document.getElementById('dunnoCount').textContent = dunno;
+  document.getElementById('favCount').textContent = fav;
+  document.getElementById('totalCount').textContent = words.length;
+  document.getElementById('progressBar').style.width = (done/words.length*100) + '%';
+}
+
+function getFilteredWords() {
+  const q = document.getElementById('searchInput')?.value?.toLowerCase() || '';
+  return words.filter(w => {
+    const matchFilter = currentFilter === 'all' ? true :
+      currentFilter === 'dunno' ? w.status === 'dunno' :
+      currentFilter === 'fav' ? w.fav : true;
+    const matchSearch = !q || w.word.toLowerCase().includes(q) || w.meaning.toLowerCase().includes(q);
+    return matchFilter && matchSearch;
+  });
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  ['all','dunno','fav'].forEach(x => document.getElementById('ft'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active', x===f));
+  renderList();
+}
+
+function renderList() {
+  const list = getFilteredWords();
+  const container = document.getElementById('wordList');
+  if (!list.length) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>해당하는 단어가 없어요</p></div>';
+    return;
+  }
+  container.innerHTML = list.map((w, i) => {
+    const realIdx = words.indexOf(w);
+    return `<div class="word-card" id="card_${realIdx}">
+      <div class="word-card-header" onclick="toggleCard(${realIdx})">
+        <div class="status-dot ${w.status}"></div>
+        <div class="word-main">
+          <div class="word-en">${w.word}</div>
+          ${w.phonetic ? `<div class="word-phonetic">${w.phonetic}</div>` : ''}
+        </div>
+        ${w.pos ? `<div class="word-pos-badge">${w.pos}</div>` : ''}
+        <span class="fav-btn" onclick="event.stopPropagation();toggleFav(${realIdx})">${w.fav ? '⭐' : '🤍'}</span>
+        <span class="speak-btn" onclick="event.stopPropagation();speak('${w.word}')">🔊</span>
+      </div>
+      <div class="word-meaning-reveal" id="reveal_${realIdx}">
+        <div class="word-meaning-text">${w.meaning}</div>
+        <div class="word-status-btns">
+          <button class="ws-btn know ${w.status==='know'?'active-know':''}" onclick="setStatus(${realIdx},'know')">✅ 알아요</button>
+          <button class="ws-btn skip" onclick="closeCard(${realIdx})">건너뜀</button>
+          <button class="ws-btn dunno ${w.status==='dunno'?'active-dunno':''}" onclick="setStatus(${realIdx},'dunno')">❌ 모름</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(idx) {
+  const reveal = document.getElementById('reveal_'+idx);
+  const isOpen = reveal.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.word-meaning-reveal.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) {
+    reveal.classList.add('open');
+    speak(words[idx].word);
+  }
+}
+
+function closeCard(idx) {
+  document.getElementById('reveal_'+idx)?.classList.remove('open');
+}
+
+function toggleFav(idx) {
+  words[idx].fav = !words[idx].fav;
+  saveState();
+  renderList();
+}
+
+function setStatus(idx, status) {
+  words[idx].status = words[idx].status === status ? '' : status;
+  saveState();
+  renderList();
+  // Auto-advance
+  setTimeout(() => closeCard(idx), 300);
+}
+
+function speak(text) {
+  if (!text) return;
+  try {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.9;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  } catch(e) {}
+}
+
+// FLASHCARD
+function buildFCDeck() {
+  fcDeck = fcFilter === 'all' ? [...words] :
+    fcFilter === 'dunno' ? words.filter(w => w.status === 'dunno') :
+    fcFilter === 'fav' ? words.filter(w => w.fav) : [...words];
+  if (!fcDeck.length && fcFilter !== 'all') {
+    fcDeck = [...words];
+  }
+  fcIdx = 0;
+}
+
+function setFCFilter(f) {
+  fcFilter = f;
+  ['all','dunno','fav'].forEach(x => document.getElementById('fcft'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active', x===f));
+  buildFCDeck();
+  showFC();
+}
+
+function showFC() {
+  if (!fcDeck.length) return;
+  const w = fcDeck[fcIdx];
+  document.getElementById('fcWord').textContent = w.word;
+  document.getElementById('fcPhonetic').textContent = w.phonetic || '';
+  document.getElementById('fcPos').textContent = w.pos || '';
+  document.getElementById('fcMeaning').textContent = w.meaning;
+  document.getElementById('fcFav').textContent = w.fav ? '⭐' : '🤍';
+  document.getElementById('fcHint').style.display = 'block';
+  document.getElementById('fcMeaningWrap').style.display = 'none';
+  document.getElementById('fcCounter').textContent = (fcIdx+1) + ' / ' + fcDeck.length;
+  fcMeaningShown = false;
+  speak(w.word);
+}
+
+function revealMeaning() {
+  if (fcMeaningShown) return;
+  fcMeaningShown = true;
+  document.getElementById('fcMeaningWrap').style.display = 'block';
+  document.getElementById('fcHint').style.display = 'none';
+  speak(fcDeck[fcIdx].word);
+}
+
+function speakFC() {
+  speak(fcDeck[fcIdx]?.word);
+}
+
+function toggleFavFC() {
+  if (!fcDeck.length) return;
+  const w = fcDeck[fcIdx];
+  const realIdx = words.indexOf(w);
+  if (realIdx >= 0) {
+    words[realIdx].fav = !words[realIdx].fav;
+    fcDeck[fcIdx].fav = words[realIdx].fav;
+    saveState();
+    document.getElementById('fcFav').textContent = fcDeck[fcIdx].fav ? '⭐' : '🤍';
+  }
+}
+
+function markFC(status) {
+  if (!fcDeck.length) return;
+  const w = fcDeck[fcIdx];
+  const realIdx = words.indexOf(w);
+  if (realIdx >= 0) {
+    words[realIdx].status = words[realIdx].status === status ? '' : status;
+    saveState();
+  }
+  nextFC();
+}
+
+function nextFC() {
+  if (!fcDeck.length) return;
+  fcIdx = (fcIdx + 1) % fcDeck.length;
+  showFC();
+}
+
+function prevFC() {
+  if (!fcDeck.length) return;
+  fcIdx = (fcIdx - 1 + fcDeck.length) % fcDeck.length;
+  showFC();
+}
+
+// Swipe for flashcard
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive: true});
+document.addEventListener('touchend', e => {
+  if (document.getElementById('flashView').classList.contains('active')) {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? nextFC() : prevFC(); }
+  }
+}, {passive: true});
+
+// QUIZ
+function startQuiz() {
+  const pool = words.filter(w => w.meaning);
+  quizWords = pool.sort(() => Math.random()-0.5).slice(0, Math.min(10, pool.length));
+  quizIdx = 0; quizScore = 0;
+  document.getElementById('quizContent').style.display = 'block';
+  document.getElementById('quizResult').classList.remove('show');
+  showQuiz();
+}
+
+function getWrongOptions(correct, pool) {
+  const others = pool.filter(w => w.meaning !== correct.meaning);
+  const shuffled = others.sort(() => Math.random()-0.5).slice(0, 3);
+  return shuffled.map(w => w.meaning);
+}
+
+function showQuiz() {
+  if (quizIdx >= quizWords.length) { showResult(); return; }
+  const w = quizWords[quizIdx];
+  document.getElementById('quizProgress').textContent = (quizIdx+1) + ' / ' + quizWords.length;
+  document.getElementById('quizScoreBadge').textContent = '점수: ' + quizScore;
+  document.getElementById('quizWordText').textContent = w.word;
+  document.getElementById('quizWordPh').textContent = w.phonetic || '';
+  document.getElementById('quizNext').style.display = 'none';
+  quizAnswered = false;
+  speak(w.word);
+
+  const pool = words.filter(x => x.meaning);
+  const wrong = getWrongOptions(w, pool);
+  const opts = [w.meaning, ...wrong].sort(() => Math.random()-0.5);
+
+  const container = document.getElementById('quizOptions');
+  container.innerHTML = opts.map(opt => `<div class="quiz-opt" onclick="answerQuiz(this,'${opt.replace(/'/g,"\'")}',${opt===w.meaning})">${opt}</div>`).join('');
+}
+
+function answerQuiz(el, ans, correct) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  if (correct) {
+    el.classList.add('correct');
+    quizScore++;
+  } else {
+    el.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt').forEach(opt => {
+      if (opt.textContent === quizWords[quizIdx].meaning) opt.classList.add('correct');
+    });
+  }
+  speak(quizWords[quizIdx].word);
+  document.getElementById('quizNext').style.display = 'block';
+}
+
+function nextQuiz() {
+  quizIdx++;
+  showQuiz();
+}
+
+function showResult() {
+  document.getElementById('quizContent').style.display = 'none';
+  const result = document.getElementById('quizResult');
+  result.classList.add('show');
+  const pct = quizScore / quizWords.length;
+  document.getElementById('resultScore').textContent = quizScore + '/' + quizWords.length;
+  document.getElementById('resultEmoji').textContent = pct >= 0.9 ? '🎉' : pct >= 0.7 ? '😊' : pct >= 0.5 ? '🙂' : '💪';
+  document.getElementById('resultMsg').textContent = pct >= 0.9 ? '완벽해요!' : pct >= 0.7 ? '잘했어요!' : pct >= 0.5 ? '조금 더 연습해요!' : '다시 도전해 보세요!';
+}
+
+function switchView(view) {
+  ['list','flash','quiz'].forEach(v => {
+    document.getElementById(v+'View').classList.toggle('active', v===view);
+    document.getElementById('tab'+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle('active', v===view);
+  });
+  if (view === 'flash') { buildFCDeck(); showFC(); }
+  if (view === 'quiz') startQuiz();
+}
+
+// Init
+loadState();
+updateHeader();
+renderList();
+</script>
+</body>
+</html>
