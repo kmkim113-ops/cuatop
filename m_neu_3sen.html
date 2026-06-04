@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta property="og:title" content="씨유에탑 문장외우기 · 중3능률(김) 3과">
+<meta property="og:description" content="씨유에탑 영어 문장 암기카드 | 중3능률(김) 3과 · 총 33문장">
+<meta property="og:type" content="website">
+<title>씨유에탑 문장외우기 · 중3능률(김) 3과</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:#2563EB;--primary-light:#EFF6FF;--primary-dark:#1D4ED8;
+  --success:#16A34A;--success-light:#F0FDF4;
+  --danger:#DC2626;--danger-light:#FEF2F2;
+  --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+  --gray-300:#D1D5DB;--gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;
+  --radius:14px;--shadow:0 2px 12px rgba(0,0,0,0.08);--shadow-md:0 4px 20px rgba(0,0,0,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--gray-50);max-width:420px;margin:0 auto;min-height:100vh;color:var(--gray-900);}
+.header{background:var(--primary);padding:16px 16px 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(37,99,235,0.3);}
+.brand{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,0.75);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;}
+.header-title{font-size:15px;font-weight:700;color:#fff;line-height:1.3;}
+.header-sub{font-size:12px;color:rgba(255,255,255,0.8);margin-top:2px;}
+.progress-bar-wrap{margin-top:8px;background:rgba(255,255,255,0.2);border-radius:99px;height:5px;overflow:hidden;}
+.progress-bar{background:#fff;border-radius:99px;height:100%;transition:width 0.4s ease;}
+.progress-stats{display:flex;justify-content:space-between;margin-top:4px;font-size:10.5px;color:rgba(255,255,255,0.75);}
+.tabs{display:flex;background:#fff;border-bottom:1px solid var(--gray-200);position:sticky;top:82px;z-index:90;}
+.tab{flex:1;padding:10px 6px;font-size:12px;font-weight:700;color:var(--gray-500);cursor:pointer;border-bottom:2.5px solid transparent;text-align:center;transition:all 0.2s;font-family:'Nunito',sans-serif;white-space:nowrap;}
+.tab.active{color:var(--primary);border-bottom-color:var(--primary);}
+.section-bar{display:flex;gap:5px;padding:8px 10px;background:#fff;border-bottom:1px solid var(--gray-100);overflow-x:auto;position:sticky;top:127px;z-index:80;}
+.section-bar::-webkit-scrollbar{display:none;}
+.sec-btn{flex:none;padding:4px 10px;border-radius:99px;font-size:11.5px;font-weight:700;cursor:pointer;border:1.5px solid var(--gray-200);color:var(--gray-700);background:#fff;transition:all 0.2s;font-family:'Nunito',sans-serif;white-space:nowrap;}
+.sec-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.search-wrap{padding:8px 12px;background:#fff;border-bottom:1px solid var(--gray-100);position:relative;}
+.search-input{width:100%;padding:8px 12px 8px 34px;border:1.5px solid var(--gray-200);border-radius:99px;font-size:13px;outline:none;font-family:'Noto Sans KR';background:var(--gray-50);}
+.search-input:focus{border-color:var(--primary);background:#fff;}
+.search-icon{position:absolute;left:22px;top:50%;transform:translateY(-50%);color:var(--gray-500);font-size:14px;pointer-events:none;}
+.filter-tabs{display:flex;gap:6px;padding:8px 12px;background:#fff;border-bottom:1px solid var(--gray-100);overflow-x:auto;}
+.filter-tabs::-webkit-scrollbar{display:none;}
+.ftab{flex:none;padding:4px 12px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--gray-200);color:var(--gray-700);background:#fff;transition:all 0.2s;font-family:'Nunito',sans-serif;}
+.ftab.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.sent-list{padding:8px 12px 80px;}
+.sent-card{background:#fff;border-radius:var(--radius);border:1.5px solid var(--gray-100);margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow);}
+.sent-card-header{display:flex;align-items:flex-start;padding:12px 14px;gap:10px;cursor:pointer;}
+.sent-card-header:active{background:var(--gray-50);}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--gray-200);margin-top:5px;}
+.status-dot.know{background:var(--success);}
+.status-dot.dunno{background:var(--danger);}
+.sent-num{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;color:var(--primary);flex-shrink:0;margin-top:3px;}
+.sent-en{font-size:14px;font-weight:600;color:var(--gray-900);line-height:1.5;flex:1;}
+.fav-btn{font-size:18px;cursor:pointer;flex-shrink:0;}
+.speak-btn{font-size:16px;cursor:pointer;flex-shrink:0;color:var(--gray-500);}
+.sent-reveal{background:var(--primary-light);border-top:1.5px solid var(--gray-100);padding:10px 14px;display:none;}
+.sent-reveal.open{display:block;}
+.sent-kr{font-size:14px;font-weight:700;color:var(--primary-dark);line-height:1.5;margin-bottom:6px;}
+.sent-note{font-size:12px;color:var(--gray-700);background:#fff;border-radius:8px;padding:6px 10px;border-left:3px solid var(--primary);margin-bottom:8px;}
+.sent-status-btns{display:flex;gap:6px;}
+.ws-btn{flex:1;padding:6px 0;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid;text-align:center;font-family:'Nunito',sans-serif;transition:all 0.15s;}
+.ws-btn.know{border-color:var(--success);color:var(--success);background:var(--success-light);}
+.ws-btn.dunno{border-color:var(--danger);color:var(--danger);background:var(--danger-light);}
+.ws-btn.skip{border-color:var(--gray-300);color:var(--gray-500);background:#fff;}
+.ws-btn.active-know{background:var(--success);color:#fff;border-color:var(--success);}
+.ws-btn.active-dunno{background:var(--danger);color:#fff;border-color:var(--danger);}
+.flash-view{display:none;padding:12px 12px 80px;}
+.flash-view.active{display:block;}
+.fc-counter{text-align:center;font-size:13px;color:var(--gray-500);font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:10px;}
+.fc-card{background:#fff;border-radius:20px;padding:28px 18px 22px;box-shadow:var(--shadow-md);text-align:center;cursor:pointer;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;border:1.5px solid var(--gray-100);user-select:none;}
+.fc-fav{position:absolute;top:12px;left:14px;font-size:20px;cursor:pointer;}
+.fc-speak{position:absolute;top:12px;right:14px;font-size:20px;cursor:pointer;color:var(--primary);background:none;border:none;}
+.fc-num{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;color:var(--primary);margin-bottom:8px;}
+.fc-sentence{font-size:16px;font-weight:700;color:var(--gray-900);line-height:1.6;}
+.fc-hint{font-size:12px;color:var(--gray-500);margin-top:14px;}
+.fc-meaning-wrap{margin-top:10px;}
+.fc-meaning{background:var(--primary-light);border-radius:12px;padding:12px 14px;}
+.fc-kr{font-size:14.5px;font-weight:700;color:var(--primary-dark);line-height:1.5;}
+.fc-note{font-size:12px;color:var(--gray-700);background:#fff;border-radius:8px;padding:6px 10px;border-left:3px solid var(--primary);margin-top:8px;}
+.fc-actions{display:flex;gap:8px;margin-top:12px;}
+.fc-btn{flex:1;padding:11px 0;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Nunito',sans-serif;}
+.fc-btn.know{background:var(--success);color:#fff;}
+.fc-btn.dunno{background:var(--danger);color:#fff;}
+.fc-btn.skip{background:var(--gray-100);color:var(--gray-700);}
+.fc-nav{display:flex;justify-content:space-between;align-items:center;margin-top:12px;}
+.fc-nav-btn{padding:8px 18px;background:var(--gray-100);border-radius:99px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:var(--gray-700);border:none;}
+.quiz-view{display:none;padding:12px 12px 80px;}
+.quiz-view.active{display:block;}
+.quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.quiz-progress{font-size:13px;color:var(--gray-500);font-family:'Nunito',sans-serif;font-weight:700;}
+.quiz-score-badge{background:var(--primary-light);color:var(--primary);padding:4px 12px;border-radius:99px;font-size:12px;font-weight:700;font-family:'Nunito',sans-serif;}
+.quiz-sent-box{background:var(--primary);color:#fff;border-radius:16px;padding:20px 16px;margin-bottom:14px;}
+.quiz-sent-text{font-size:15px;font-weight:700;line-height:1.8;word-break:break-word;}
+.blank{display:inline-block;background:rgba(255,255,255,0.25);border-bottom:2px solid #fff;min-width:70px;border-radius:4px;}
+.quiz-options{display:flex;flex-direction:column;gap:8px;}
+.quiz-opt{padding:13px 14px;border-radius:12px;border:1.5px solid var(--gray-200);background:#fff;font-size:14px;font-weight:600;cursor:pointer;text-align:left;font-family:'Noto Sans KR';}
+.quiz-opt.correct{background:var(--success-light);border-color:var(--success);color:var(--success);}
+.quiz-opt.wrong{background:var(--danger-light);border-color:var(--danger);color:var(--danger);}
+.quiz-next{margin-top:12px;width:100%;padding:13px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;display:none;}
+.quiz-result{display:none;text-align:center;padding:20px 0;}
+.quiz-result.show{display:block;}
+.result-emoji{font-size:56px;margin-bottom:10px;}
+.result-score{font-family:'Nunito',sans-serif;font-size:42px;font-weight:800;color:var(--primary);}
+.result-label{font-size:15px;color:var(--gray-500);margin-bottom:16px;}
+.result-msg{font-size:16px;font-weight:700;margin-bottom:20px;}
+.result-retry{padding:13px 32px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+.empty-state{text-align:center;padding:48px 20px;color:var(--gray-500);}
+.list-view{display:none;}.list-view.active{display:block;}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="brand">씨유에탑 ✦ 문장외우기</div>
+  <div class="header-title">중3능률(김) 3과</div>
+  <div class="header-sub">총 <span id="totalCount">33</span>문장</div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+  <div class="progress-stats">
+    <span>✅ <span id="knowCount">0</span> 외웠어요</span>
+    <span>❌ <span id="dunnoCount">0</span> 모름</span>
+    <span>⭐ <span id="favCount">0</span> 즐겨찾기</span>
+  </div>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="switchView('list')" id="tabList">📋 문장목록</div>
+  <div class="tab" onclick="switchView('flash')" id="tabFlash">🃏 플래시카드</div>
+  <div class="tab" onclick="switchView('quiz')" id="tabQuiz">📝 빈칸퀴즈</div>
+</div>
+<div class="section-bar" id="sectionBar"></div>
+<div class="list-view active" id="listView">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="searchInput" type="search" placeholder="문장 또는 해석 검색..." oninput="renderList()">
+  </div>
+  <div class="filter-tabs">
+    <div class="ftab active" onclick="setFilter('all')" id="ftAll">전체</div>
+    <div class="ftab" onclick="setFilter('dunno')" id="ftDunno">모르는 문장</div>
+    <div class="ftab" onclick="setFilter('fav')" id="ftFav">⭐ 즐겨찾기</div>
+  </div>
+  <div class="sent-list" id="sentList"></div>
+</div>
+<div class="flash-view" id="flashView">
+  <div class="fc-counter" id="fcCounter">0 / 0</div>
+  <div class="fc-card" onclick="revealFC()">
+    <span class="fc-fav" id="fcFav" onclick="event.stopPropagation();toggleFavFC()">🤍</span>
+    <button class="fc-speak" onclick="event.stopPropagation();speakFC()">🔊</button>
+    <div class="fc-num" id="fcNum"></div>
+    <div class="fc-sentence" id="fcSentence">-</div>
+    <div class="fc-hint" id="fcHint">탭하면 해석이 보여요 👆</div>
+  </div>
+  <div class="fc-meaning-wrap" id="fcMeaningWrap" style="display:none">
+    <div class="fc-meaning">
+      <div class="fc-kr" id="fcKr">-</div>
+      <div class="fc-note" id="fcNote" style="display:none"></div>
+    </div>
+    <div class="fc-actions">
+      <button class="fc-btn dunno" onclick="markFC('dunno')">❌ 모름</button>
+      <button class="fc-btn skip" onclick="nextFC()">건너뜀</button>
+      <button class="fc-btn know" onclick="markFC('know')">✅ 외웠어요</button>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-nav-btn" onclick="prevFC()">← 이전</button>
+    <span style="font-size:11px;color:var(--gray-500)">좌우 스와이프</span>
+    <button class="fc-nav-btn" onclick="nextFC()">다음 →</button>
+  </div>
+  <div class="filter-tabs" style="padding:10px 0 0;border:none;background:transparent;">
+    <div class="ftab active" onclick="setFCFilter('all')" id="fcftAll">전체</div>
+    <div class="ftab" onclick="setFCFilter('dunno')" id="fcftDunno">모르는 문장</div>
+    <div class="ftab" onclick="setFCFilter('fav')" id="fcftFav">⭐ 즐겨찾기</div>
+  </div>
+</div>
+<div class="quiz-view" id="quizView">
+  <div id="quizContent">
+    <div class="quiz-header">
+      <div class="quiz-progress" id="quizProgress">1 / 10</div>
+      <div class="quiz-score-badge" id="quizScoreBadge">점수: 0</div>
+    </div>
+    <div class="quiz-sent-box"><div class="quiz-sent-text" id="quizSentText"></div></div>
+    <div class="quiz-options" id="quizOptions"></div>
+    <button class="quiz-next" id="quizNext" onclick="nextQuiz()">다음 문제 →</button>
+  </div>
+  <div class="quiz-result" id="quizResult">
+    <div class="result-emoji" id="resultEmoji">🎉</div>
+    <div class="result-score" id="resultScore">0/10</div>
+    <div class="result-label">점수</div>
+    <div class="result-msg" id="resultMsg"></div>
+    <button class="result-retry" onclick="startQuiz()">다시 풀기 🔄</button>
+  </div>
+</div>
+<script>
+const SENTENCES_RAW=[{"sentence": "One night in February, after I had gone to bed, an earthquake hit.", "translation": "2월 어느 날 밤, 잠자리에 든 후 지진이 일어났다.", "note": "after+과거완료: 시간의 선후 관계 강조"}, {"sentence": "I woke up suddenly because my bed was shaking.", "translation": "침대가 흔들렸기 때문에 나는 갑자기 잠에서 깼다.", "note": "because절: 이유 부사절"}, {"sentence": "I thought my brother was shaking my bed as a joke.", "translation": "나는 남동생이 장난으로 침대를 흔들고 있다고 생각했다.", "note": "thought+과거진행: 간접화법"}, {"sentence": "But then I heard the mirror on my desk fall to the floor and break into pieces.", "translation": "그때 책상 위의 거울이 바닥으로 떨어져 산산조각 나는 소리를 들었다.", "note": "지각동사 hear+목적어+동사원형"}, {"sentence": "I knew it wasn't my brother then, but I still didn't know what exactly was happening.", "translation": "그때 남동생이 아님을 알았지만, 무슨 일이 일어나는지 여전히 몰랐다.", "note": "간접의문문: what+주어+동사"}, {"sentence": "Soon the whole room began to shake violently, and my confusion turned to panic.", "translation": "곧 방 전체가 심하게 흔들리기 시작했고, 혼란스러움이 공포로 변했다.", "note": "turn to: ~으로 변하다"}, {"sentence": "My mom shouted that it was an earthquake and ran into my room.", "translation": "엄마가 지진이라고 소리치며 내 방으로 뛰어들어왔다.", "note": "that절: 직접화법→간접화법"}, {"sentence": "Since it was my first time experiencing an earthquake, I didn't know how to react.", "translation": "지진을 경험하는 것이 처음이었기 때문에 어떻게 반응해야 할지 몰랐다.", "note": "first time+동명사 / how to+동사원형"}, {"sentence": "I just kept saying, \"What should I do?\"", "translation": "나는 그저 '어떻게 해야 하지?'라고 계속 말했다.", "note": "keep+동명사: 계속 ~하다"}, {"sentence": "My mom pulled me and my brother out of bed.", "translation": "엄마는 나와 남동생을 침대 밖으로 끌어냈다.", "note": "pull A out of B: A를 B 밖으로 끌어내다"}, {"sentence": "We ran to the kitchen and crawled under the table.", "translation": "우리는 주방으로 달려가 식탁 아래로 기어들어갔다.", "note": "지진 대피 행동: 튼튼한 탁자 아래로"}, {"sentence": "I could see the light swinging violently and books falling to the floor.", "translation": "전등이 심하게 흔들리고 책들이 바닥으로 떨어지는 것을 볼 수 있었다.", "note": "지각동사 see+목적어+현재분사"}, {"sentence": "Our family picture dropped from the wall and the glass covering it broke.", "translation": "가족사진이 벽에서 떨어지고, 사진을 덮고 있던 유리가 깨졌다.", "note": "현재분사 covering: 명사 수식"}, {"sentence": "A cup tipped over and rolled off the kitchen table.", "translation": "컵이 넘어지며 식탁에서 굴러 떨어졌다.", "note": "tip over: 뒤집히다 / roll off: 굴러 떨어지다"}, {"sentence": "Every second, I could hear something else in the apartment break.", "translation": "매순간 아파트 안 어딘가에서 무언가 부서지는 소리가 들렸다.", "note": "지각동사 hear+목적어+동사원형"}, {"sentence": "I started to worry that the building would collapse.", "translation": "나는 건물이 무너지지 않을까 걱정이 되기 시작했다.", "note": "worry that절 / would: 미래 추측"}, {"sentence": "Then the shaking seemed to stop.", "translation": "그때 흔들림이 멈추는 것 같았다.", "note": "seem to+동사원형: ~인 것 같다"}, {"sentence": "We started crawling toward the door.", "translation": "우리는 문을 향해 기어가기 시작했다.", "note": "start+동명사: ~하기 시작하다"}, {"sentence": "At that moment, my mom's cell phone rang.", "translation": "그 순간, 엄마의 휴대전화가 울렸다.", "note": "at that moment: 그 순간"}, {"sentence": "It was my dad, who was coming home from work.", "translation": "전화는 아빠였는데, 직장에서 집으로 오는 중이었다.", "note": "관계대명사 계속적 용법: , who"}, {"sentence": "He shouted, \"Get out of the building! Take the stairs! Don't take the elevator! Hurry!\"", "translation": "그는 '건물 밖으로 나와요! 계단을 이용해요! 엘리베이터는 안 돼요! 서둘러요!'라고 소리쳤다.", "note": "지진 대피 요령: 계단 이용"}, {"sentence": "\"Where are you? Are you okay?\" my mom asked urgently.", "translation": "'어디예요? 괜찮아요?' 엄마가 다급하게 물었다.", "note": "urgently: 다급하게, 긴박하게"}, {"sentence": "I was driving home when the shaking started, but I pulled over immediately.", "translation": "진동이 시작할 때 집으로 운전 중이었지만 즉시 길가에 차를 세웠다.", "note": "pull over: 차를 길가에 세우다"}, {"sentence": "I'm listening to the radio right now to find out what's going on.", "translation": "지금 무슨 일인지 알아내려고 라디오를 듣고 있어요.", "note": "to부정사 부사적 용법(목적) / 간접의문문"}, {"sentence": "We nervously made our way down the stairs and outside.", "translation": "우리는 초조하게 계단을 내려가 밖으로 나아갔다.", "note": "make one's way: 나아가다"}, {"sentence": "Parts of buildings had fallen and had smashed several cars.", "translation": "건물 일부가 떨어져 몇몇 차들을 박살 냈다.", "note": "과거완료: 과거 이전에 완료된 동작"}, {"sentence": "We went to an open space to avoid more falling pieces.", "translation": "더 떨어지는 조각들을 피하기 위해 공터로 갔다.", "note": "to부정사 부사적 용법(목적) / falling: 현재분사"}, {"sentence": "How could all this have happened in a few minutes?", "translation": "어떻게 이 모든 일이 몇 분 만에 일어날 수 있었을까?", "note": "could have+과거분사: 과거 가능성에 대한 의문"}, {"sentence": "Although I had done many earthquake drills in school, I had never thought I'd experience a real earthquake.", "translation": "학교에서 지진 훈련을 많이 해왔지만, 실제 지진을 경험하리라고는 생각해 본 적이 없었다.", "note": "although 양보절 / 과거완료"}, {"sentence": "I still get scared when I remember that night.", "translation": "나는 그날 밤을 기억하면 여전히 두려워진다.", "note": "get scared: 두려워지다"}, {"sentence": "I can't forget the panic I felt when the furniture was shaking and things were falling to the floor.", "translation": "가구가 흔들리고 물건들이 떨어질 때 느꼈던 공포심을 잊을 수가 없다.", "note": "관계대명사 목적격 생략: the panic (that) I felt"}, {"sentence": "After that night, I began to take earthquake drills seriously.", "translation": "그날 밤 이후, 나는 지진 대피 훈련을 진지하게 받아들이기 시작했다.", "note": "take ~ seriously: ~을 진지하게 받아들이다"}, {"sentence": "I realized that I should be prepared for the next earthquake, which can occur at any time.", "translation": "나는 언제든 발생할 수 있는 다음 지진에 대비해야 한다는 것을 깨달았다.", "note": "관계대명사 계속적 용법: , which / be prepared for: ~에 대비하다"}];
+const SECTIONS=["1-5", "6-10", "11-15", "16-20", "21-25", "26-30", "31-33"];
+const STORAGE_KEY='cutop_sent__3______3_';
+
+let sents=[],currentFilter='all',currentSection='all';
+let fcFilter='all',fcDeck=[],fcIdx=0,fcShown=false;
+let quizItems=[],quizIdx=0,quizScore=0,quizAnswered=false;
+
+const STOPWORDS=new Set(['the','a','an','i','my','me','we','our','you','he','she','it','they',
+  'his','her','its','their','was','were','is','are','be','been','do','did','does',
+  'have','had','has','to','of','in','on','at','for','with','and','but','or','so',
+  'that','this','then','not','no','from','by','as','up','out','into','when','what',
+  'how','could','would','should','just','still','all','more','than','over','under',
+  'down','off','after','before','since','although','which','who','where','there',
+  'here','got','went','came','told','said','asked','knew','thought','began','started',
+  'made','took','heard','felt','looked','ran','pulled','rolled','seemed','realized',
+  'about','very','too','get','can','will','may','must','am']);
+
+function loadState(){
+  try{
+    const saved=localStorage.getItem(STORAGE_KEY);
+    if(saved){const state=JSON.parse(saved);sents=SENTENCES_RAW.map((s,i)=>({...s,fav:state[i]?.fav||false,status:state[i]?.status||''}));}
+    else{sents=SENTENCES_RAW.map(s=>({...s,fav:false,status:''}));}
+  }catch(e){sents=SENTENCES_RAW.map(s=>({...s,fav:false,status:''}));}
+}
+function saveState(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(sents.map(s=>({fav:s.fav,status:s.status}))));
+  updateHeader();
+}
+function updateHeader(){
+  const know=sents.filter(s=>s.status==='know').length;
+  const dunno=sents.filter(s=>s.status==='dunno').length;
+  const fav=sents.filter(s=>s.fav).length;
+  document.getElementById('knowCount').textContent=know;
+  document.getElementById('dunnoCount').textContent=dunno;
+  document.getElementById('favCount').textContent=fav;
+  document.getElementById('progressBar').style.width=((know+dunno)/sents.length*100)+'%';
+}
+function buildSectionBar(){
+  const bar=document.getElementById('sectionBar');
+  let h='<div class="sec-btn active" onclick="setSection(\'all\')" id="sec_all">전체</div>';
+  SECTIONS.forEach((s,i)=>{h+=`<div class="sec-btn" onclick="setSection(${i})" id="sec_${i}">${s}</div>`;});
+  bar.innerHTML=h;
+}
+function setSection(idx){
+  currentSection=idx;
+  document.querySelectorAll('.sec-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec_'+(idx==='all'?'all':idx)).classList.add('active');
+  renderList();
+  if(document.getElementById('flashView').classList.contains('active')){buildFCDeck();showFC();}
+}
+function getFilteredSents(){
+  const q=document.getElementById('searchInput')?.value?.toLowerCase()||'';
+  let arr=sents;
+  if(currentSection!=='all'){const start=currentSection*5,end=start+5;arr=sents.filter((_,i)=>i>=start&&i<end);}
+  return arr.filter(s=>{
+    const mf=currentFilter==='all'?true:currentFilter==='dunno'?s.status==='dunno':s.fav;
+    const ms=!q||s.sentence.toLowerCase().includes(q)||s.translation.toLowerCase().includes(q);
+    return mf&&ms;
+  });
+}
+function setFilter(f){
+  currentFilter=f;
+  ['all','dunno','fav'].forEach(x=>document.getElementById('ft'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active',x===f));
+  renderList();
+}
+function renderList(){
+  const list=getFilteredSents();
+  const container=document.getElementById('sentList');
+  if(!list.length){container.innerHTML='<div class="empty-state"><div style="font-size:36px">🔍</div><p>해당하는 문장이 없어요</p></div>';return;}
+  container.innerHTML=list.map(s=>{
+    const ri=sents.indexOf(s);
+    const noteHtml=s.note?`<div class="sent-note">📌 ${s.note}</div>`:'';
+    return `<div class="sent-card" id="card_${ri}">
+      <div class="sent-card-header" onclick="toggleCard(${ri})">
+        <div class="status-dot ${s.status||''}"></div>
+        <div class="sent-num">${ri+1}</div>
+        <div class="sent-en">${s.sentence}</div>
+        <span class="fav-btn" onclick="event.stopPropagation();toggleFav(${ri})">${s.fav?'⭐':'🤍'}</span>
+        <span class="speak-btn" onclick="event.stopPropagation();speakIdx(${ri})">🔊</span>
+      </div>
+      <div class="sent-reveal" id="reveal_${ri}">
+        <div class="sent-kr">${s.translation}</div>
+        ${noteHtml}
+        <div class="sent-status-btns">
+          <button class="ws-btn know ${s.status==='know'?'active-know':''}" onclick="setStatus(${ri},'know')">✅ 외웠어요</button>
+          <button class="ws-btn skip" onclick="closeCard(${ri})">건너뜀</button>
+          <button class="ws-btn dunno ${s.status==='dunno'?'active-dunno':''}" onclick="setStatus(${ri},'dunno')">❌ 모름</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleCard(idx){
+  const r=document.getElementById('reveal_'+idx);
+  const open=r.classList.contains('open');
+  document.querySelectorAll('.sent-reveal.open').forEach(el=>el.classList.remove('open'));
+  if(!open){r.classList.add('open');speak(sents[idx].sentence);}
+}
+function closeCard(idx){document.getElementById('reveal_'+idx)?.classList.remove('open');}
+function toggleFav(idx){sents[idx].fav=!sents[idx].fav;saveState();renderList();}
+function speakIdx(idx){speak(sents[idx].sentence);}
+function setStatus(idx,status){
+  sents[idx].status=sents[idx].status===status?'':status;
+  saveState();renderList();setTimeout(()=>closeCard(idx),300);
+}
+function speak(text){
+  if(!text)return;
+  try{const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}
+}
+function buildFCDeck(){
+  let base=currentSection==='all'?[...sents]:sents.filter((_,i)=>i>=currentSection*5&&i<currentSection*5+5);
+  fcDeck=fcFilter==='all'?base:fcFilter==='dunno'?base.filter(s=>s.status==='dunno'):base.filter(s=>s.fav);
+  if(!fcDeck.length)fcDeck=base.length?base:[...sents];
+  fcIdx=0;
+}
+function setFCFilter(f){
+  fcFilter=f;
+  ['all','dunno','fav'].forEach(x=>document.getElementById('fcft'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active',x===f));
+  buildFCDeck();showFC();
+}
+function showFC(){
+  if(!fcDeck.length)return;
+  const s=fcDeck[fcIdx];const ri=sents.indexOf(s);
+  document.getElementById('fcNum').textContent=(ri+1)+'번';
+  document.getElementById('fcSentence').textContent=s.sentence;
+  document.getElementById('fcKr').textContent=s.translation;
+  const noteEl=document.getElementById('fcNote');
+  if(s.note){noteEl.textContent='📌 '+s.note;noteEl.style.display='block';}else{noteEl.style.display='none';}
+  document.getElementById('fcFav').textContent=s.fav?'⭐':'🤍';
+  document.getElementById('fcHint').style.display='block';
+  document.getElementById('fcMeaningWrap').style.display='none';
+  document.getElementById('fcCounter').textContent=(fcIdx+1)+' / '+fcDeck.length;
+  fcShown=false;speak(s.sentence);
+}
+function revealFC(){
+  if(fcShown)return;fcShown=true;
+  document.getElementById('fcMeaningWrap').style.display='block';
+  document.getElementById('fcHint').style.display='none';
+  speak(fcDeck[fcIdx].sentence);
+}
+function speakFC(){speak(fcDeck[fcIdx]?.sentence);}
+function toggleFavFC(){
+  if(!fcDeck.length)return;
+  const ri=sents.indexOf(fcDeck[fcIdx]);
+  if(ri>=0){sents[ri].fav=!sents[ri].fav;fcDeck[fcIdx].fav=sents[ri].fav;saveState();document.getElementById('fcFav').textContent=fcDeck[fcIdx].fav?'⭐':'🤍';}
+}
+function markFC(status){
+  if(!fcDeck.length)return;
+  const ri=sents.indexOf(fcDeck[fcIdx]);
+  if(ri>=0){sents[ri].status=sents[ri].status===status?'':status;saveState();}
+  nextFC();
+}
+function nextFC(){if(!fcDeck.length)return;fcIdx=(fcIdx+1)%fcDeck.length;showFC();}
+function prevFC(){if(!fcDeck.length)return;fcIdx=(fcIdx-1+fcDeck.length)%fcDeck.length;showFC();}
+let touchStartX=0;
+document.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(document.getElementById('flashView').classList.contains('active')){
+    const dx=e.changedTouches[0].clientX-touchStartX;
+    if(Math.abs(dx)>50){dx<0?nextFC():prevFC();}
+  }
+},{passive:true});
+function getBlankWord(sentence){
+  const words=sentence.match(/[a-zA-Z']+/g)||[];
+  const cands=words.filter(w=>!STOPWORDS.has(w.toLowerCase())&&w.length>=4);
+  if(!cands.length)return words.find(w=>w.length>=3)||words[0];
+  return cands.reduce((a,b)=>b.length>a.length?b:a);
+}
+function startQuiz(){
+  let pool=currentSection==='all'?[...sents]:sents.filter((_,i)=>i>=currentSection*5&&i<currentSection*5+5);
+  pool=pool.filter(s=>s.sentence);
+  quizItems=pool.sort(()=>Math.random()-0.5).slice(0,Math.min(10,pool.length));
+  quizIdx=0;quizScore=0;
+  document.getElementById('quizContent').style.display='block';
+  document.getElementById('quizResult').classList.remove('show');
+  showQuiz();
+}
+function showQuiz(){
+  if(quizIdx>=quizItems.length){showResult();return;}
+  const s=quizItems[quizIdx];
+  const blank=getBlankWord(s.sentence);
+  document.getElementById('quizProgress').textContent=(quizIdx+1)+' / '+quizItems.length;
+  document.getElementById('quizScoreBadge').textContent='점수: '+quizScore;
+  const escaped=blank.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const display=s.sentence.replace(new RegExp('\\b'+escaped+'\\b','i'),'<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+  document.getElementById('quizSentText').innerHTML=display;
+  document.getElementById('quizNext').style.display='none';
+  quizAnswered=false;speak(s.sentence);
+  const allPool=sents.filter(x=>x.sentence);
+  const others=[...new Set(allPool.map(x=>getBlankWord(x.sentence)).filter(w=>w&&w.toLowerCase()!==blank.toLowerCase()))].sort(()=>Math.random()-0.5).slice(0,3);
+  const opts=[blank,...others].sort(()=>Math.random()-0.5);
+  const cw=blank;
+  document.getElementById('quizOptions').innerHTML=opts.map(o=>`<div class="quiz-opt" onclick="answerQuiz(this,this.textContent,'${cw}')">${o}</div>`).join('');
+}
+function answerQuiz(el,ans,correct){
+  if(quizAnswered)return;quizAnswered=true;
+  if(ans.trim().toLowerCase()===correct.toLowerCase()){el.classList.add('correct');quizScore++;}
+  else{el.classList.add('wrong');document.querySelectorAll('.quiz-opt').forEach(o=>{if(o.textContent.trim().toLowerCase()===correct.toLowerCase())o.classList.add('correct');});}
+  speak(quizItems[quizIdx].sentence);
+  document.getElementById('quizNext').style.display='block';
+}
+function nextQuiz(){quizIdx++;showQuiz();}
+function showResult(){
+  document.getElementById('quizContent').style.display='none';
+  document.getElementById('quizResult').classList.add('show');
+  const pct=quizScore/quizItems.length;
+  document.getElementById('resultScore').textContent=quizScore+'/'+quizItems.length;
+  document.getElementById('resultEmoji').textContent=pct>=0.9?'🎉':pct>=0.7?'😊':pct>=0.5?'🙂':'💪';
+  document.getElementById('resultMsg').textContent=pct>=0.9?'완벽해요!':pct>=0.7?'잘했어요!':pct>=0.5?'조금 더 연습해요!':'다시 도전해 보세요!';
+}
+function switchView(view){
+  ['list','flash','quiz'].forEach(v=>{
+    document.getElementById(v+'View').classList.toggle('active',v===view);
+    document.getElementById('tab'+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle('active',v===view);
+  });
+  if(view==='flash'){buildFCDeck();showFC();}
+  if(view==='quiz')startQuiz();
+}
+loadState();buildSectionBar();updateHeader();renderList();
+
+</script>
+</body>
+</html>
