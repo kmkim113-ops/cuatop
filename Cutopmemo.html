@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="생각노트">
+<title>생각노트</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+body{background:#0f0f1a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#e8e4ff;min-height:100vh}
+.app{max-width:430px;margin:0 auto;padding-bottom:80px}
+
+/* 헤더 */
+.hd{padding:14px 16px 10px;background:#0f0f1a;border-bottom:1px solid #2a2050;position:sticky;top:0;z-index:20}
+.hd-row{display:flex;align-items:center;justify-content:space-between}
+.hd-left{display:flex;align-items:center;gap:8px}
+.badge{font-size:10px;font-weight:700;background:#6d28d9;color:#fff;padding:3px 10px;border-radius:20px}
+.hd h1{font-size:17px;font-weight:700;color:#e8e4ff}
+.memo-cnt{font-size:11px;color:#7c6abf;background:#1a1535;padding:3px 10px;border-radius:20px}
+
+/* 탭 */
+.tabs{display:flex;border-bottom:1px solid #2a2050;background:#0f0f1a;position:sticky;top:53px;z-index:19}
+.tab{flex:1;padding:10px 4px;text-align:center;font-size:10px;cursor:pointer;color:#4a3880;border-bottom:2px solid transparent;font-weight:600}
+.tab.on{color:#c4b5fd;border-bottom-color:#6d28d9}
+.tab em{display:block;font-size:16px;margin-bottom:2px;font-style:normal}
+.sec{padding:14px;display:none}
+.sec.on{display:block}
+
+/* 작성 폼 */
+.form-card{background:#17122e;border:1px solid #2a2050;border-radius:16px;padding:16px;margin-bottom:14px}
+.form-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.form-title{font-size:13px;font-weight:600;color:#c4b5fd}
+.form-mode-badge{font-size:10px;background:rgba(109,40,217,.2);color:#a78bfa;padding:3px 10px;border-radius:20px;border:1px solid #4a3880}
+.field{margin-bottom:10px}
+.field label{display:block;font-size:11px;color:#7c6abf;margin-bottom:5px;font-weight:600}
+.inp{width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid #2a2050;background:#0f0f1a;color:#e8e4ff;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.inp:focus{border-color:#6d28d9}
+.inp.big{min-height:120px;resize:none;line-height:1.6}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.tag-btn{padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;border:1.5px solid #2a2050;background:#0f0f1a;color:#7c6abf;font-weight:600;transition:all .2s}
+.tag-btn.on{background:#6d28d9;border-color:#7c3aed;color:#fff}
+.submit-btn{width:100%;padding:12px;border-radius:12px;background:#6d28d9;border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s}
+.submit-btn:active{background:#5b21b6}
+.cancel-btn{width:100%;padding:10px;border-radius:12px;background:none;border:1px solid #2a2050;color:#7c6abf;font-size:13px;cursor:pointer;margin-top:8px}
+
+/* 필터 */
+.filter-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.filter-chip{padding:6px 14px;border-radius:20px;font-size:11px;cursor:pointer;border:1.5px solid #2a2050;background:#0f0f1a;color:#7c6abf;font-weight:600;transition:all .2s;white-space:nowrap}
+.filter-chip.on{background:#6d28d9;border-color:#7c3aed;color:#fff}
+
+/* 검색 */
+.search-row{display:flex;gap:8px;margin-bottom:12px}
+.search-inp{flex:1;background:#17122e;border:1.5px solid #2a2050;border-radius:10px;padding:9px 14px;color:#e8e4ff;font-size:14px;font-family:inherit;outline:none}
+.search-inp:focus{border-color:#6d28d9}
+.search-x{background:#17122e;border:1px solid #2a2050;border-radius:8px;padding:9px 12px;color:#7c6abf;font-size:13px;cursor:pointer}
+
+/* 메모 카드 */
+.memo-card{background:#17122e;border:1px solid #2a2050;border-radius:14px;padding:14px;margin-bottom:10px;transition:border-color .2s}
+.memo-card:hover{border-color:#4a3880}
+.memo-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;gap:8px}
+.memo-tag{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.tag-idea{background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
+.tag-write{background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3)}
+.tag-todo{background:rgba(248,113,113,.12);color:#f87171;border:1px solid rgba(248,113,113,.3)}
+.tag-etc{background:rgba(167,139,250,.12);color:#a78bfa;border:1px solid rgba(167,139,250,.3)}
+.memo-date{font-size:10px;color:#4a3880;white-space:nowrap}
+.memo-title-text{font-size:15px;font-weight:700;color:#e8e4ff;margin-bottom:6px;line-height:1.4;word-break:break-all}
+.memo-body{font-size:13px;color:#9d8fbf;line-height:1.7;word-break:break-all;white-space:pre-wrap}
+.memo-body.collapsed{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.memo-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.more-btn{font-size:11px;color:#7c6abf;background:none;border:none;cursor:pointer;padding:2px 0}
+.memo-actions{display:flex;gap:6px}
+.act-btn{background:#0f0f1a;border:1px solid #2a2050;border-radius:8px;padding:5px 12px;font-size:11px;cursor:pointer;font-weight:600}
+.act-edit{color:#a78bfa}
+.act-edit:active{background:#2a2050}
+.act-del{color:#f87171}
+.act-del:active{background:rgba(248,113,113,.1)}
+
+/* 통계 */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.stat-box{background:#17122e;border:1px solid #2a2050;border-radius:12px;padding:12px;text-align:center}
+.stat-val{font-size:24px;font-weight:700;color:#e8e4ff;margin-bottom:2px}
+.stat-lbl{font-size:10px;color:#7c6abf;font-weight:600}
+.stat-bar-row{margin-bottom:10px}
+.stat-bar-lbl{display:flex;justify-content:space-between;font-size:11px;color:#4a3880;margin-bottom:4px}
+.stat-bar{height:6px;background:#1a1535;border-radius:3px;overflow:hidden}
+.stat-bar-fill{height:100%;border-radius:3px}
+
+/* 빈 상태 */
+.empty{text-align:center;padding:48px 0;color:#2a2050;font-size:13px}
+.empty em{display:block;font-size:40px;margin-bottom:10px;font-style:normal}
+
+/* 토스트 */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#6d28d9;color:#fff;padding:9px 20px;border-radius:20px;font-size:12px;font-weight:600;opacity:0;transition:all .25s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* 모달 */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:flex-end;justify-content:center}
+.modal-bg.on{display:flex}
+.modal{background:#17122e;border-radius:20px 20px 0 0;padding:20px 16px 36px;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;border-top:1px solid #2a2050}
+.modal-handle{width:36px;height:4px;background:#2a2050;border-radius:2px;margin:0 auto 16px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hd">
+    <div class="hd-row">
+      <div class="hd-left">
+        <span class="badge">MY</span>
+        <h1>✏️ 나의 메모장</h1>
+      </div>
+      <span class="memo-cnt" id="memo-cnt">0개</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on" id="t-write"><em>✏️</em>메모쓰기</div>
+    <div class="tab" id="t-list"><em>📋</em>메모목록</div>
+    <div class="tab" id="t-search"><em>🔍</em>검색</div>
+    <div class="tab" id="t-stat"><em>📊</em>통계</div>
+  </div>
+
+  <!-- 메모 쓰기 -->
+  <div class="sec on" id="sec-write">
+    <div class="form-card">
+      <div class="form-title-row">
+        <span class="form-title" id="form-title-text">📝 새 메모 작성</span>
+        <span class="form-mode-badge" id="form-mode-badge">새 메모</span>
+      </div>
+      <div class="field">
+        <label>제목</label>
+        <input class="inp" type="text" id="inp-title" placeholder="메모 제목을 입력하세요" maxlength="100">
+      </div>
+      <div class="field">
+        <label>내용</label>
+        <textarea class="inp big" id="inp-body" placeholder="아이디어, 글의 소재, 생각나는 것들을 자유롭게 적어보세요...&#10;&#10;지금 떠오르는 것을 잊기 전에!"></textarea>
+      </div>
+      <div class="field">
+        <label>분류 태그</label>
+        <div class="tag-row" id="tag-row">
+          <div class="tag-btn on" data-tag="idea">💡 아이디어</div>
+          <div class="tag-btn" data-tag="write">✍️ 글소재</div>
+          <div class="tag-btn" data-tag="todo">📌 할일</div>
+          <div class="tag-btn" data-tag="etc">💬 기타</div>
+        </div>
+      </div>
+      <button class="submit-btn" id="submit-btn">✅ 메모 저장</button>
+      <button class="cancel-btn" id="cancel-btn" style="display:none">취소</button>
+    </div>
+  </div>
+
+  <!-- 메모 목록 -->
+  <div class="sec" id="sec-list">
+    <div class="filter-row" id="filter-row">
+      <div class="filter-chip on" data-filter="">전체</div>
+      <div class="filter-chip" data-filter="idea">💡 아이디어</div>
+      <div class="filter-chip" data-filter="write">✍️ 글소재</div>
+      <div class="filter-chip" data-filter="todo">📌 할일</div>
+      <div class="filter-chip" data-filter="etc">💬 기타</div>
+    </div>
+    <div id="memo-list"></div>
+  </div>
+
+  <!-- 검색 -->
+  <div class="sec" id="sec-search">
+    <div class="search-row">
+      <input class="search-inp" type="text" id="search-inp" placeholder="제목 또는 내용 검색..." autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="search-x" id="search-x">✕</button>
+    </div>
+    <div id="search-cnt" style="font-size:12px;color:#7c6abf;margin-bottom:8px"></div>
+    <div id="search-res"></div>
+  </div>
+
+  <!-- 통계 -->
+  <div class="sec" id="sec-stat">
+    <div id="stat-body"></div>
+  </div>
+</div>
+
+<!-- 삭제 확인 모달 -->
+<div class="modal-bg" id="del-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:32px;margin-bottom:8px">🗑️</div>
+      <div style="font-size:16px;font-weight:700;color:#e8e4ff;margin-bottom:6px">메모를 삭제할까요?</div>
+      <div style="font-size:13px;color:#7c6abf" id="del-title-preview"></div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button id="del-cancel" style="flex:1;padding:12px;border-radius:10px;background:#0f0f1a;border:1px solid #2a2050;color:#7c6abf;font-size:14px;cursor:pointer">취소</button>
+      <button id="del-confirm" style="flex:1;padding:12px;border-radius:10px;background:rgba(248,113,113,.15);border:1px solid #f87171;color:#f87171;font-size:14px;font-weight:700;cursor:pointer">삭제</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var memos = [];
+var curFilter = '';
+var editId = null;
+var selTag = 'idea';
+var expanded = new Set();
+var delTargetId = null;
+
+var TAG_INFO = {
+  idea: {label:'💡 아이디어', cls:'tag-idea', color:'#fbbf24'},
+  write: {label:'✍️ 글소재', cls:'tag-write', color:'#34d399'},
+  todo: {label:'📌 할일', cls:'tag-todo', color:'#f87171'},
+  etc: {label:'💬 기타', cls:'tag-etc', color:'#a78bfa'}
+};
+
+function save(){try{localStorage.setItem('my_memos',JSON.stringify(memos));}catch(e){}}
+function load(){try{var d=localStorage.getItem('my_memos');if(d)memos=JSON.parse(d);}catch(e){memos=[];}}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on');},2200);}
+function updCnt(){document.getElementById('memo-cnt').textContent=memos.length+'개';}
+function fmtDate(ts){
+  var d=new Date(ts);
+  return d.getFullYear()+'.'+(d.getMonth()+1).toString().padStart(2,'0')+'.'+d.getDate().toString().padStart(2,'0')+' '+d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
+}
+
+// 탭
+var TABS=['write','list','search','stat'];
+TABS.forEach(function(tab){
+  document.getElementById('t-'+tab).addEventListener('click',function(){
+    TABS.forEach(function(t){
+      document.getElementById('t-'+t).classList.toggle('on',t===tab);
+      document.getElementById('sec-'+t).classList.toggle('on',t===tab);
+    });
+    if(tab==='list')renderList();
+    else if(tab==='search')renderSearch();
+    else if(tab==='stat')renderStat();
+  });
+});
+
+// 태그 선택
+document.getElementById('tag-row').addEventListener('click',function(e){
+  var btn=e.target.closest('.tag-btn');
+  if(!btn)return;
+  selTag=btn.dataset.tag;
+  document.querySelectorAll('.tag-btn').forEach(function(b){b.classList.toggle('on',b.dataset.tag===selTag);});
+});
+
+// 저장
+document.getElementById('submit-btn').addEventListener('click',function(){
+  var title=document.getElementById('inp-title').value.trim();
+  var body=document.getElementById('inp-body').value.trim();
+  if(!title){toast('제목을 입력해주세요');document.getElementById('inp-title').focus();return;}
+  if(!body){toast('내용을 입력해주세요');document.getElementById('inp-body').focus();return;}
+  if(editId!==null){
+    var m=memos.find(function(x){return x.id===editId;});
+    if(m){m.title=title;m.body=body;m.tag=selTag;m.updatedAt=Date.now();}
+    editId=null;
+    document.getElementById('form-title-text').textContent='📝 새 메모 작성';
+    document.getElementById('form-mode-badge').textContent='새 메모';
+    document.getElementById('cancel-btn').style.display='none';
+    toast('✅ 수정됐어요!');
+  } else {
+    memos.unshift({id:Date.now(),title:title,body:body,tag:selTag,createdAt:Date.now(),updatedAt:null});
+    toast('✅ 메모 저장됐어요!');
+  }
+  save();updCnt();
+  document.getElementById('inp-title').value='';
+  document.getElementById('inp-body').value='';
+  selTag='idea';
+  document.querySelectorAll('.tag-btn').forEach(function(b){b.classList.toggle('on',b.dataset.tag==='idea');});
+});
+
+// 취소
+document.getElementById('cancel-btn').addEventListener('click',function(){
+  editId=null;
+  document.getElementById('inp-title').value='';
+  document.getElementById('inp-body').value='';
+  document.getElementById('form-title-text').textContent='📝 새 메모 작성';
+  document.getElementById('form-mode-badge').textContent='새 메모';
+  document.getElementById('cancel-btn').style.display='none';
+  selTag='idea';
+  document.querySelectorAll('.tag-btn').forEach(function(b){b.classList.toggle('on',b.dataset.tag==='idea');});
+});
+
+// 필터
+document.getElementById('filter-row').addEventListener('click',function(e){
+  var chip=e.target.closest('.filter-chip');
+  if(!chip)return;
+  curFilter=chip.dataset.filter;
+  document.querySelectorAll('.filter-chip').forEach(function(c){c.classList.toggle('on',c.dataset.filter===curFilter);});
+  renderList();
+});
+
+// 목록 렌더
+function renderList(){
+  var wrap=document.getElementById('memo-list');
+  var filtered=curFilter?memos.filter(function(m){return m.tag===curFilter;}):memos;
+  if(!filtered.length){wrap.innerHTML='<div class="empty"><em>'+(curFilter?TAG_INFO[curFilter].label:'📋')+'</em>'+(curFilter?'이 분류의 메모가 없어요':'메모가 없어요<br>✏️ 탭에서 첫 메모를 남겨보세요')+'</div>';return;}
+  var frag=document.createDocumentFragment();
+  filtered.forEach(function(m){frag.appendChild(makeMemoCard(m));});
+  wrap.innerHTML='';
+  wrap.appendChild(frag);
+}
+
+function makeMemoCard(m, inSearch){
+  var ti=TAG_INFO[m.tag]||TAG_INFO.etc;
+  var isExp=expanded.has(m.id);
+  var longBody=m.body.length>120||m.body.split('\n').length>3;
+
+  var card=document.createElement('div');
+  card.className='memo-card';
+
+  // 헤더
+  var hdr=document.createElement('div');hdr.className='memo-header';
+  var tag=document.createElement('span');tag.className='memo-tag '+ti.cls;tag.textContent=ti.label;
+  var dt=document.createElement('span');dt.className='memo-date';dt.textContent=fmtDate(m.updatedAt||m.createdAt)+(m.updatedAt?' (수정)':'');
+  hdr.appendChild(tag);hdr.appendChild(dt);
+
+  // 제목
+  var titleEl=document.createElement('div');titleEl.className='memo-title-text';titleEl.textContent=m.title;
+
+  // 본문
+  var bodyEl=document.createElement('div');
+  bodyEl.className='memo-body'+(longBody&&!isExp?' collapsed':'');
+  bodyEl.textContent=m.body;
+
+  // 푸터
+  var footer=document.createElement('div');footer.className='memo-footer';
+  var moreBtn=document.createElement('button');moreBtn.className='more-btn';
+  if(longBody){moreBtn.textContent=isExp?'▲ 접기':'▼ 더 보기';moreBtn.addEventListener('click',function(){if(expanded.has(m.id))expanded.delete(m.id);else expanded.add(m.id);if(inSearch)renderSearch();else renderList();});}
+  else{moreBtn.style.visibility='hidden';}
+
+  var acts=document.createElement('div');acts.className='memo-actions';
+  var editBtn=document.createElement('button');editBtn.className='act-btn act-edit';editBtn.textContent='✏️ 수정';
+  editBtn.addEventListener('click',function(){
+    editId=m.id;
+    document.getElementById('inp-title').value=m.title;
+    document.getElementById('inp-body').value=m.body;
+    selTag=m.tag;
+    document.querySelectorAll('.tag-btn').forEach(function(b){b.classList.toggle('on',b.dataset.tag===selTag);});
+    document.getElementById('form-title-text').textContent='✏️ 메모 수정 중';
+    document.getElementById('form-mode-badge').textContent='수정 모드';
+    document.getElementById('cancel-btn').style.display='block';
+    // 쓰기 탭으로 이동
+    TABS.forEach(function(t){document.getElementById('t-'+t).classList.toggle('on',t==='write');document.getElementById('sec-'+t).classList.toggle('on',t==='write');});
+    window.scrollTo(0,0);
+    setTimeout(function(){document.getElementById('inp-title').focus();},300);
+    toast('✏️ 수정 모드');
+  });
+
+  var delBtn=document.createElement('button');delBtn.className='act-btn act-del';delBtn.textContent='🗑 삭제';
+  delBtn.addEventListener('click',function(){
+    delTargetId=m.id;
+    document.getElementById('del-title-preview').textContent='"'+m.title+'"';
+    document.getElementById('del-modal').classList.add('on');
+  });
+
+  acts.appendChild(editBtn);acts.appendChild(delBtn);
+  footer.appendChild(moreBtn);footer.appendChild(acts);
+
+  card.appendChild(hdr);card.appendChild(titleEl);card.appendChild(bodyEl);card.appendChild(footer);
+  return card;
+}
+
+// 삭제 모달
+document.getElementById('del-cancel').addEventListener('click',function(){document.getElementById('del-modal').classList.remove('on');delTargetId=null;});
+document.getElementById('del-confirm').addEventListener('click',function(){
+  if(delTargetId===null)return;
+  memos=memos.filter(function(m){return m.id!==delTargetId;});
+  save();updCnt();
+  document.getElementById('del-modal').classList.remove('on');
+  delTargetId=null;
+  // 현재 활성 탭 다시 렌더
+  var activeTab=TABS.find(function(t){return document.getElementById('t-'+t).classList.contains('on');});
+  if(activeTab==='list')renderList();
+  else if(activeTab==='search')renderSearch();
+  else if(activeTab==='stat')renderStat();
+  toast('🗑 삭제됐어요');
+});
+
+// 검색
+document.getElementById('search-inp').addEventListener('input',renderSearch);
+document.getElementById('search-x').addEventListener('click',function(){document.getElementById('search-inp').value='';renderSearch();});
+function renderSearch(){
+  var q=document.getElementById('search-inp').value.trim().toLowerCase();
+  var cntEl=document.getElementById('search-cnt');
+  var res=document.getElementById('search-res');
+  if(!q){res.innerHTML='<div class="empty"><em>🔍</em>검색어를 입력해주세요</div>';cntEl.textContent='';return;}
+  var found=memos.filter(function(m){return m.title.toLowerCase().indexOf(q)>=0||m.body.toLowerCase().indexOf(q)>=0;});
+  cntEl.textContent='검색 결과: '+found.length+'개';
+  if(!found.length){res.innerHTML='<div class="empty"><em>🔍</em>검색 결과가 없어요</div>';return;}
+  var frag=document.createDocumentFragment();
+  found.forEach(function(m){frag.appendChild(makeMemoCard(m,true));});
+  res.innerHTML='';res.appendChild(frag);
+}
+
+// 통계
+function renderStat(){
+  var wrap=document.getElementById('stat-body');
+  var total=memos.length;
+  if(!total){wrap.innerHTML='<div class="empty"><em>📊</em>메모를 작성하면 통계가 나와요</div>';return;}
+  var tagCounts={idea:0,write:0,todo:0,etc:0};
+  memos.forEach(function(m){if(tagCounts[m.tag]!==undefined)tagCounts[m.tag]++;});
+  var html='<div class="stat-grid">'
+    +'<div class="stat-box"><div class="stat-val">'+total+'</div><div class="stat-lbl">전체 메모</div></div>'
+    +'<div class="stat-box"><div class="stat-val" style="color:#a78bfa">'+Object.keys(tagCounts).filter(function(k){return tagCounts[k]>0;}).length+'</div><div class="stat-lbl">사용 분류</div></div>'
+    +'</div>';
+  Object.keys(TAG_INFO).forEach(function(tag){
+    var ti=TAG_INFO[tag];
+    var cnt=tagCounts[tag]||0;
+    var pct=total?Math.round(cnt/total*100):0;
+    html+='<div class="stat-bar-row">'
+      +'<div class="stat-bar-lbl"><span>'+ti.label+'</span><span>'+cnt+'개 ('+pct+'%)</span></div>'
+      +'<div class="stat-bar"><div class="stat-bar-fill" style="width:'+pct+'%;background:'+ti.color+'"></div></div>'
+      +'</div>';
+  });
+  // 최근 메모
+  if(memos.length>0){
+    var latest=memos[0];
+    var ti=TAG_INFO[latest.tag]||TAG_INFO.etc;
+    html+='<div style="background:#0f0f1a;border:1px solid #2a2050;border-radius:12px;padding:12px;margin-top:4px">'
+      +'<div style="font-size:11px;color:#7c6abf;font-weight:600;margin-bottom:8px">📌 가장 최근 메모</div>'
+      +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">'
+      +'<span class="memo-tag '+ti.cls+'">'+ti.label+'</span>'
+      +'<span style="font-size:10px;color:#4a3880">'+fmtDate(latest.createdAt)+'</span></div>'
+      +'<div style="font-size:13px;font-weight:600;color:#e8e4ff">'+latest.title+'</div>'
+      +'</div>';
+  }
+  wrap.innerHTML=html;
+}
+
+// 초기화
+load();
+updCnt();
+</script>
+</body>
+</html>
