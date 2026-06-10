@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta property="og:title" content="씨유에탑 ✦ 고1 와이비엠 3과">
+<title>씨유에탑 ✦ 고1 와이비엠 3과</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--blue:#2563EB;--blue-light:#EFF6FF;--blue-mid:#BFDBFE;--green:#16A34A;--red:#DC2626;--amber:#D97706;--amber-light:#FFFBEB;--purple:#7C3AED;--purple-light:#F5F3FF;--gray100:#F3F4F6;--gray200:#E5E7EB;--gray400:#9CA3AF;--gray600:#4B5563;--gray800:#1F2937;--radius:14px;--shadow:0 2px 12px rgba(0,0,0,.08)}
+body{font-family:'Nunito','Noto Sans KR',sans-serif;background:#F0F4FF;min-height:100vh;color:var(--gray800)}
+.header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--gray200);padding:10px 16px 0;box-shadow:0 2px 8px rgba(37,99,235,.07)}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.brand{font-size:13px;font-weight:800;color:var(--blue);letter-spacing:-.3px}
+.subtitle{font-size:11px;color:var(--gray400);margin-top:1px}
+.stats{display:flex;gap:8px;font-size:11px;font-weight:700}
+.stat-ok{color:var(--green)}.stat-no{color:var(--red)}.stat-fav{color:#F59E0B}
+.prog-wrap{height:4px;background:var(--gray100);border-radius:2px;margin-bottom:8px}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--blue),#60A5FA);border-radius:2px;transition:width .4s}
+.tabs{display:flex;border-bottom:2px solid var(--gray200)}
+.tab-btn{flex:1;padding:8px 4px;font-size:13px;font-weight:700;border:none;background:none;cursor:pointer;color:var(--gray400);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+.seg-wrap{position:sticky;top:var(--header-h,108px);z-index:90;background:#F0F4FF;padding:8px 12px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;border-bottom:1px solid var(--gray200)}
+.seg-wrap::-webkit-scrollbar{display:none}
+.seg-btn{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--gray200);background:#fff;color:var(--gray600);margin-right:6px;transition:all .15s}
+.seg-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.mode-toggle{display:flex;background:var(--gray100);border-radius:20px;padding:3px;margin-bottom:12px}
+.mode-btn{flex:1;padding:5px;border-radius:18px;border:none;font-size:11px;font-weight:700;cursor:pointer;color:var(--gray600);background:none}
+.mode-btn.active{background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.filter-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.filter-btn{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--gray200);background:#fff;color:var(--gray600);cursor:pointer}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.search-box{width:100%;padding:9px 14px;border-radius:10px;border:1.5px solid var(--gray200);font-size:13px;font-family:inherit;margin-bottom:10px;outline:none;background:#fff}
+.search-box:focus{border-color:var(--blue)}
+.repeat-wrap{margin-left:auto;display:flex;gap:4px;align-items:center}
+.rep-label{font-size:10px;color:var(--gray400);font-weight:700}
+.rep-btn{padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700;border:1.5px solid var(--gray200);background:#fff;color:var(--gray600);cursor:pointer}
+.rep-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.s-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:10px;border:1.5px solid transparent;overflow:hidden;transition:border-color .15s}
+.s-card.status-ok{border-color:var(--green)}.s-card.status-no{border-color:var(--red)}
+.s-card-head{display:flex;align-items:center;gap:8px;padding:11px 14px}
+.s-num{min-width:38px;height:32px;border-radius:8px;background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-align:center;line-height:1.2;padding:0 4px}
+.s-preview{flex:1;font-size:12.5px;font-weight:600;line-height:1.5;color:var(--gray800);cursor:pointer}
+.s-head-btns{display:flex;gap:4px;align-items:center;flex-shrink:0}
+.s-speak-btn{background:var(--blue-light);border:none;cursor:pointer;font-size:14px;padding:5px 8px;border-radius:8px;color:var(--blue);font-weight:700}
+.s-speak-btn:active{opacity:.7}
+.s-chevron{font-size:14px;color:var(--gray400);cursor:pointer;padding:4px;background:none;border:none}
+.s-body{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+.s-body.open{max-height:3000px;padding-bottom:14px}
+.full-passage{font-size:13px;font-weight:600;line-height:1.8;color:var(--gray800);padding-top:10px;margin-bottom:10px;border-top:1px solid var(--gray100)}
+.full-trans{font-size:12.5px;color:var(--gray600);line-height:1.7;margin-bottom:8px}
+.note-badge{font-size:11.5px;color:var(--amber);font-weight:600;background:var(--amber-light);padding:6px 10px;border-radius:7px;line-height:1.55}
+.sent-list{padding-top:10px;border-top:1px solid var(--gray100)}
+.sent-item{margin-bottom:8px;border-radius:10px;overflow:hidden;border:1.5px solid var(--gray200)}
+.sent-en-row{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;cursor:pointer;background:var(--blue-light)}
+.sent-idx{font-size:10px;font-weight:800;color:var(--blue);min-width:20px;padding-top:2px;flex-shrink:0}
+.sent-en-text{flex:1;font-size:12.5px;font-weight:700;line-height:1.65;color:var(--gray800)}
+.sent-spk{background:#fff;border:none;cursor:pointer;font-size:14px;padding:4px 7px;border-radius:7px;flex-shrink:0;color:var(--blue);font-weight:700}
+.sent-spk:active{opacity:.7}
+.sent-detail{padding:10px 12px;display:none}
+.sent-detail.open{display:block}
+.sent-ko{font-size:12px;color:var(--gray600);line-height:1.65;margin-bottom:7px}
+.sent-gram{font-size:11px;color:var(--purple);font-weight:600;background:var(--purple-light);padding:5px 9px;border-radius:6px;line-height:1.6}
+.s-actions{display:flex;gap:6px;align-items:center;padding:10px 14px 12px;flex-wrap:wrap;border-top:1px solid var(--gray100)}
+.act-btn{padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--gray200);background:#fff;cursor:pointer;transition:all .15s}
+.act-ok{color:var(--green);border-color:var(--green)}.act-ok.sel{background:var(--green);color:#fff}
+.act-no{color:var(--red);border-color:var(--red)}.act-no.sel{background:var(--red);color:#fff}
+.act-skip{color:var(--gray400)}.act-skip.sel{background:var(--gray100)}
+.act-fav{font-size:17px;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
+.flash-wrap{display:flex;flex-direction:column}
+.flash-card{background:#fff;border-radius:18px;box-shadow:0 4px 24px rgba(37,99,235,.12);padding:18px 16px 16px;flex:1;display:flex;flex-direction:column;min-height:260px;border:2px solid transparent;transition:border-color .2s}
+.flash-card.status-ok{border-color:var(--green)}.flash-card.status-no{border-color:var(--red)}
+.flash-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.flash-num{height:32px;border-radius:10px;background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 10px}
+.flash-top-btns{display:flex;gap:6px;align-items:center}
+.flash-spk{background:var(--blue);border:none;cursor:pointer;font-size:13px;padding:7px 12px;border-radius:10px;color:#fff;font-weight:700}
+.flash-spk:active{opacity:.8}
+.flash-fav{background:none;border:none;cursor:pointer;font-size:18px;padding:4px}
+.flash-en{font-size:13px;font-weight:700;line-height:1.8;color:var(--gray800);flex:1;cursor:pointer}
+.flash-hint{font-size:11px;color:var(--gray400);margin-top:14px;text-align:center;cursor:pointer;padding:8px;border:1.5px dashed var(--gray200);border-radius:8px}
+.flash-reveal{margin-top:14px;border-top:1px solid var(--gray100);padding-top:12px}
+.flash-ko{font-size:12.5px;color:var(--gray600);line-height:1.65;margin-bottom:8px}
+.flash-note{font-size:11px;color:var(--amber);font-weight:600;background:var(--amber-light);padding:5px 9px;border-radius:6px}
+.flash-sent-item{margin-bottom:7px;border-radius:9px;overflow:hidden;border:1.5px solid var(--gray200)}
+.flash-sent-en-row{display:flex;align-items:flex-start;gap:6px;padding:8px 10px;background:var(--blue-light);cursor:pointer}
+.flash-sent-idx{font-size:10px;font-weight:800;color:var(--blue);min-width:18px;padding-top:1px;flex-shrink:0}
+.flash-sent-en{flex:1;font-size:12px;font-weight:700;line-height:1.6;color:var(--gray800)}
+.flash-sent-spk{background:#fff;border:none;cursor:pointer;font-size:13px;padding:3px 6px;border-radius:6px;flex-shrink:0;color:var(--blue)}
+.flash-sent-spk:active{opacity:.7}
+.flash-sent-detail{padding:8px 10px;display:none}
+.flash-sent-detail.open{display:block}
+.flash-sent-ko{font-size:11.5px;color:var(--gray600);line-height:1.6;margin-bottom:5px}
+.flash-sent-gram{font-size:10.5px;color:var(--purple);font-weight:600;background:var(--purple-light);padding:4px 8px;border-radius:5px;line-height:1.55}
+.flash-nav{display:flex;align-items:center;gap:8px;margin-top:12px}
+.nav-btn{flex:1;padding:10px;border-radius:12px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .15s}
+.nav-prev{background:var(--gray100);color:var(--gray600)}.nav-next{background:var(--blue);color:#fff}
+.nav-btn:active{opacity:.8}
+.flash-counter{font-size:12px;color:var(--gray400);font-weight:700;text-align:center;min-width:54px}
+.flash-actions{display:flex;gap:6px;margin-top:10px}
+.fa-btn{flex:1;padding:9px;border-radius:12px;font-size:12px;font-weight:700;border:1.5px solid;cursor:pointer;transition:all .15s}
+.fa-ok{color:var(--green);border-color:var(--green);background:#fff}.fa-ok.sel{background:var(--green);color:#fff}
+.fa-no{color:var(--red);border-color:var(--red);background:#fff}.fa-no.sel{background:var(--red);color:#fff}
+.fa-skip{color:var(--gray400);border-color:var(--gray200);background:#fff}.fa-skip.sel{background:var(--gray100)}
+.rep-playing{display:flex;align-items:center;gap:6px;margin-top:8px;padding:6px 10px;background:var(--blue-light);border-radius:8px;font-size:11px;font-weight:700;color:var(--blue)}
+.rep-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.empty-msg{text-align:center;padding:40px;color:var(--gray400);font-size:13px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="header" id="mainHeader">
+  <div class="header-top">
+    <div>
+      <div class="brand">씨유에탑 ✦ 문장외우기</div>
+      <div class="subtitle">고1 와이비엠 3과 · 총 10단위 (50문장)</div>
+    </div>
+    <div class="stats">
+      <span class="stat-ok">✅ <span id="cntOk">0</span></span>
+      <span class="stat-no">❌ <span id="cntNo">0</span></span>
+      <span class="stat-fav">⭐ <span id="cntFav">0</span></span>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('list')">📋 지문목록</button>
+    <button class="tab-btn" onclick="switchTab('flash')">🃏 플래시카드</button>
+  </div>
+</div>
+<div class="seg-wrap" id="segWrap"></div>
+<div id="list-tab" style="padding:10px 12px 80px"></div>
+<div id="flash-tab" style="padding:10px 12px 80px;display:none"></div>
+
+<script>
+const SENTENCES_RAW = [{"number": 1, "label": "1~5번째 문장", "translation": "메이저리그 야구팀인 오클랜드 애슬레틱스가 2002년에 20연승을 달성했을 때, 프로 스포츠 업계는 충격에 빠졌다. 오클랜드 애슬레틱스는 자금이 부족한 소규모 팀이었는데, 이것이 엘리트 선수들을 영입하기 어렵게 만들었다. 그들은 어떻게 해냈을까? 그들 성공의 열쇠는 야구에서 결정을 내리는 데 사용되는 통계 모델인 세이버메트릭스를 채택하는 것이었다. 세이버메트릭스는 1970년대 후반에 만들어졌다.", "note": "When절: 시간 부사절 / which made it difficult: 계속적 관계대명사 / How did they do it: 수사의문문 (독자의 관심 유도)", "sentences": [{"en": "When the Oakland Athletics, a Major League Baseball team, won 20 games in a row in 2002, the professional sports industry was shocked.", "ko": "메이저리그 야구팀인 오클랜드 애슬레틱스가 2002년에 20연승을 달성했을 때, 프로 스포츠 업계는 충격에 빠졌다.", "gram": "When절: 시간 부사절 / 동격: a Major League Baseball team / in a row: 연속으로"}, {"en": "The Oakland Athletics were a small team with limited funds, which made it difficult for them to attract elite players.", "ko": "오클랜드 애슬레틱스는 자금이 부족한 소규모 팀이었는데, 이것이 엘리트 선수들을 영입하기 어렵게 만들었다.", "gram": "which made it difficult: 계속적 관계대명사 / make it difficult for A to V: A가 ~하기 어렵게 만들다 (가목적어 it)"}, {"en": "How did they do it?", "ko": "그들은 어떻게 해냈을까?", "gram": "How did they do it: 수사의문문 (독자의 관심 유도) / 과거시제"}, {"en": "The key to their success was adopting sabermetrics, a statistical model used for making decisions in baseball.", "ko": "그들 성공의 열쇠는 야구에서 결정을 내리는 데 사용되는 통계 모델인 세이버메트릭스를 채택하는 것이었다.", "gram": "The key to: ~의 열쇠 / 동격: a statistical model ~ / used for -ing: 과거분사 후치수식"}, {"en": "Sabermetrics was created in the late 1970s.", "ko": "세이버메트릭스는 1970년대 후반에 만들어졌다.", "gram": "was created: 수동태 / in the late 1970s: 1970년대 후반에"}]}, {"number": 2, "label": "6~10번째 문장", "translation": "그것은 통계를 연구하는 전통적인 방법으로는 찾기 어려운 패턴, 추세, 통찰을 발견하기 위해 대량의 정보를 사용하려 한다. 일반적으로, 코치와 감독은 공을 강하고 멀리 칠 수 있는 선수를 선호하는데, 그런 선수들이 더 많은 홈런과 장타를 치는 경향이 있기 때문이다. 세이버메트릭스는 선수들의 공격 기술이 그들이 안전하게 베이스에 도달하는 빈도에 의해 더 잘 측정될 수 있다고 제안한다. 이것이 안타, 볼넷, 또는 몸에 맞는 공을 통해 이루어지는지는 중요하지 않다. 세이버메트릭스는 2002년에 애슬레틱스가 채택할 때까지 널리 사용되지 않았다.", "note": "try to V: ~하려고 하다 / prefer A who: 주격 관계대명사 / suggest that절: ~라고 제안하다", "sentences": [{"en": "It tries to use large amounts of information to discover patterns, trends, and insights that are difficult to find with traditional ways of studying statistics.", "ko": "그것은 통계를 연구하는 전통적인 방법으로는 찾기 어려운 패턴, 추세, 통찰을 발견하기 위해 대량의 정보를 사용하려 한다.", "gram": "try to V: ~하려고 하다 / to discover: 목적의 to부정사 / that are difficult to find: 주격 관계대명사"}, {"en": "Normally, coaches and managers prefer players who can hit the ball hard and far, for such players tend to hit more home runs and extra-base hits.", "ko": "일반적으로, 코치와 감독은 공을 강하고 멀리 칠 수 있는 선수를 선호하는데, 그런 선수들이 더 많은 홈런과 장타를 치는 경향이 있기 때문이다.", "gram": "prefer A who: 주격 관계대명사 / for: 이유 접속사 (~이므로) / tend to V: ~하는 경향이 있다"}, {"en": "Sabermetrics suggests that players' offensive skills can be better measured by the frequency with which they safely reach base.", "ko": "세이버메트릭스는 선수들의 공격 기술이 그들이 안전하게 베이스에 도달하는 빈도에 의해 더 잘 측정될 수 있다고 제안한다.", "gram": "suggest that절: ~라고 제안하다 / can be measured: 수동태+조동사 / the frequency with which: 전치사+관계대명사"}, {"en": "It does not matter whether this is achieved through hits, walks, or hits by pitch.", "ko": "이것이 안타, 볼넷, 또는 몸에 맞는 공을 통해 이루어지는지는 중요하지 않다.", "gram": "It does not matter whether: 가주어-진주어 (whether절) / whether A, B, or C: A, B, C 중 어느 것이든"}, {"en": "Sabermetrics had not been widely used until the Athletics adopted it in 2002.", "ko": "세이버메트릭스는 2002년에 애슬레틱스가 채택할 때까지 널리 사용되지 않았다.", "gram": "had not been used: 과거완료 수동태 / until: ~할 때까지 / not ~ until: ~하고 나서야 비로소"}]}, {"number": 3, "label": "11~15번째 문장", "translation": "세이버메트릭스를 통해 애슬레틱스는 승리에 중요한 기여를 하는 저평가된 선수들을 발굴하고 적은 예산으로 강팀을 구성할 수 있었다. 애슬레틱스의 성공은 다른 팀들이 세이버메트릭스를 빠르게 채택하도록 촉진했고, 야구뿐만 아니라 다른 스포츠에서도 데이터를 활용하려는 움직임을 불러일으켰다. 그리하여, 스포츠 데이터 분석이 경기 결과를 예측하는 체계적인 접근법으로 등장했다. 축구에서 잉글리시 프리미어리그의 리버풀 FC는 야구의 오클랜드 애슬레틱스와 비슷하다. 2010년에 리버풀은 구단주 변경을 겪었다.", "note": "were able to V: ~할 수 있었다 / prompt A to V: A가 ~하도록 촉진하다 / Thus: 결과 접속부사", "sentences": [{"en": "With sabermetrics, the Athletics were able to identify underrated players with significant contributions to winning and built a strong team on a small budget.", "ko": "세이버메트릭스를 통해 애슬레틱스는 승리에 중요한 기여를 하는 저평가된 선수들을 발굴하고 적은 예산으로 강팀을 구성할 수 있었다.", "gram": "were able to V: ~할 수 있었다 / identify: 발굴하다, 파악하다 / on a small budget: 적은 예산으로"}, {"en": "The success of the Athletics prompted other teams to quickly adopt sabermetrics, sparking a movement to utilize data not only in baseball but also in other sports.", "ko": "애슬레틱스의 성공은 다른 팀들이 세이버메트릭스를 빠르게 채택하도록 촉진했고, 야구뿐만 아니라 다른 스포츠에서도 데이터를 활용하려는 움직임을 불러일으켰다.", "gram": "prompt A to V: A가 ~하도록 촉진하다 / sparking ~: 분사구문 (결과) / not only A but also B"}, {"en": "Thus, sports data analytics emerged as a systematic approach to predict game outcomes.", "ko": "그리하여, 스포츠 데이터 분석이 경기 결과를 예측하는 체계적인 접근법으로 등장했다.", "gram": "Thus: 결과 접속부사 / emerge as: ~으로 등장하다 / approach to V: ~하는 접근법"}, {"en": "In soccer, the Liverpool Football Club of the English Premier League is similar to the Oakland Athletics in baseball.", "ko": "축구에서 잉글리시 프리미어리그의 리버풀 FC는 야구의 오클랜드 애슬레틱스와 비슷하다.", "gram": "be similar to: ~와 비슷하다 / 비교 구조: A is similar to B in C"}, {"en": "In 2010, Liverpool underwent a change in ownership.", "ko": "2010년에 리버풀은 구단주 변경을 겪었다.", "gram": "undergo: 겪다, 경험하다 / a change in ownership: 구단주 변경"}]}, {"number": 4, "label": "16~20번째 문장", "translation": "그 당시 프리미어리그에서 이미 데이터 분석이 확산되고 있었지만, 미국에서 야구팀도 소유한 새 구단주는 축구에서 데이터 분석을 새로운 차원으로 끌어올리려 했다. 그래서 그는 클럽이 새로운 데이터팀을 구성할 것을 요구했다. 새 팀에는 케임브리지 출신의 물리학자, 하버드 출신의 핵과학자, 전직 체스 챔피언이 포함되었다. 그들이 공통적으로 가진 것은 데이터에 대한 상당한 전문 지식이었다. 팀은 선수 영입, 부상 예방, 경기 중 전략을 포함한 클럽 운영의 핵심 영역에 데이터 분석을 적용하기 시작했다.", "note": "While: ~이지만 (대조 접속사) / demand that + 주어 + 동사원형: ~할 것을 요구하다 (당위의 that절, should 생략) / include: ~을 포함하다", "sentences": [{"en": "While data analysis was already prevailing in the Premier League at that time, the new owner of the club, who also owned a baseball team in the United States, aimed to push data analysis in soccer to new heights.", "ko": "그 당시 프리미어리그에서 이미 데이터 분석이 확산되고 있었지만, 미국에서 야구팀도 소유한 새 구단주는 축구에서 데이터 분석을 새로운 차원으로 끌어올리려 했다.", "gram": "While: ~이지만 (대조 접속사) / who also owned: 계속적 관계대명사 / aim to V: ~하려 하다 / push A to B: A를 B로 끌어올리다"}, {"en": "So he demanded that the club form a new data team.", "ko": "그래서 그는 클럽이 새로운 데이터팀을 구성할 것을 요구했다.", "gram": "demand that + 주어 + 동사원형: ~할 것을 요구하다 (당위의 that절, should 생략)"}, {"en": "The new team included a physicist from Cambridge, a nuclear scientist from Harvard, and a former chess champion.", "ko": "새 팀에는 케임브리지 출신의 물리학자, 하버드 출신의 핵과학자, 전직 체스 챔피언이 포함되었다.", "gram": "include: ~을 포함하다 / A, B, and C: 세 가지 병렬 나열 / a former: 전직 ~"}, {"en": "What they had in common was significant expertise in data.", "ko": "그들이 공통적으로 가진 것은 데이터에 대한 상당한 전문 지식이었다.", "gram": "What they had in common: 관계대명사 what (명사절 주어) / have in common: 공통으로 가지다"}, {"en": "The team started to apply data analysis in key areas of club management, including player recruitment, injury prevention, and strategy during the game.", "ko": "팀은 선수 영입, 부상 예방, 경기 중 전략을 포함한 클럽 운영의 핵심 영역에 데이터 분석을 적용하기 시작했다.", "gram": "start to V: ~하기 시작하다 / including: ~을 포함하여 / A, B, and C: 병렬 나열"}]}, {"number": 5, "label": "21~25번째 문장", "translation": "팀은 팀의 플레이 스타일에 맞는 선수를 영입하기 위해 대량의 데이터를 분석했다. 훈련 중 그들은 부상을 예방하기 위해 GPS 추적기와 센서를 사용하여 선수들의 움직임 패턴, 심박수, 활력 징후에 관한 데이터를 수집했다. 경기 중 그들은 교체와 포메이션과 같은 전술적 결정을 내리기 위해 실시간 데이터를 사용했다. 2020년 리버풀 FC가 30년 만에 처음으로 리그 우승을 차지했을 때 데이터팀은 그 노력으로 칭찬을 받았다. 스포츠 분석의 등장은 한국 스포츠 업계에서 주목을 받았다.", "note": "to recruit: 목적의 to부정사 / by using: ~을 사용함으로써 (수단) / to make: 목적의 to부정사", "sentences": [{"en": "The team analyzed large amounts of data to recruit players who fit the team's style of play.", "ko": "팀은 팀의 플레이 스타일에 맞는 선수를 영입하기 위해 대량의 데이터를 분석했다.", "gram": "to recruit: 목적의 to부정사 / who fit: 주격 관계대명사 / fit: ~에 맞다"}, {"en": "In training, they collected data on players' movement patterns, heart rates, and vital signs by using GPS trackers and sensors to prevent injuries.", "ko": "훈련 중 그들은 부상을 예방하기 위해 GPS 추적기와 센서를 사용하여 선수들의 움직임 패턴, 심박수, 활력 징후에 관한 데이터를 수집했다.", "gram": "by using: ~을 사용함으로써 (수단) / to prevent: 목적의 to부정사 / A, B, and C: 병렬 나열"}, {"en": "During games, they used live data to make tactical decisions such as substitutions and formations.", "ko": "경기 중 그들은 교체와 포메이션과 같은 전술적 결정을 내리기 위해 실시간 데이터를 사용했다.", "gram": "to make: 목적의 to부정사 / such as: ~와 같은 (예시)"}, {"en": "The data team was praised for its efforts when the Liverpool Football Club won the league championship for the first time in 30 years in 2020.", "ko": "2020년 리버풀 FC가 30년 만에 처음으로 리그 우승을 차지했을 때 데이터팀은 그 노력으로 칭찬을 받았다.", "gram": "be praised for: ~로 칭찬받다 (수동태) / for the first time in 30 years: 30년 만에 처음으로"}, {"en": "The emergence of sports analytics did not go unnoticed by the Korean sports industry.", "ko": "스포츠 분석의 등장은 한국 스포츠 업계에서 주목을 받았다.", "gram": "go unnoticed: 주목받지 못하다 / did not go unnoticed: 이중부정 = 주목을 받았다"}]}, {"number": 6, "label": "26~30번째 문장", "translation": "성공의 눈에 띄는 사례 중 하나는 한국 여자 컬링 팀이다. 2014년 동계 올림픽 데뷔 후, 팀은 스위핑 기술을 향상시킬 필요성을 인식했다. 스위핑은 얼음을 녹이고 스톤을 더 빠르게 이동시킨다. 그러나 너무 많은 얼음이 녹으면 스톤이 너무 빨리 움직여 목표 지점을 벗어난다. 반면에, 얼음이 충분히 녹지 않으면 스톤이 목표 지점에 도달하기 전에 멈춘다.", "note": "one notable example of: ~의 눈에 띄는 사례 / Following: ~에 이어, ~ 후에 (전치사) / make + 목적어 + 동사원형: ~가 ~하게 만들다 (사역동사)", "sentences": [{"en": "One notable example of success is the Korean women's curling team.", "ko": "성공의 눈에 띄는 사례 중 하나는 한국 여자 컬링 팀이다.", "gram": "one notable example of: ~의 눈에 띄는 사례 / be동사 + 주격보어"}, {"en": "Following its debut at the Winter Olympic Games of 2014, the team recognized the need to enhance its sweeping technique.", "ko": "2014년 동계 올림픽 데뷔 후, 팀은 스위핑 기술을 향상시킬 필요성을 인식했다.", "gram": "Following: ~에 이어, ~ 후에 (전치사) / recognize the need to V: ~할 필요성을 인식하다"}, {"en": "Sweeping melts the ice and makes the stone move faster.", "ko": "스위핑은 얼음을 녹이고 스톤을 더 빠르게 이동시킨다.", "gram": "make + 목적어 + 동사원형: ~가 ~하게 만들다 (사역동사)"}, {"en": "If too much ice melts, however, the stone moves too fast and misses the target.", "ko": "그러나 너무 많은 얼음이 녹으면 스톤이 너무 빨리 움직여 목표 지점을 벗어난다.", "gram": "If절: 조건 부사절 / too ~ to: 너무 ~해서 ~할 수 없다 / miss the target: 목표를 벗어나다"}, {"en": "On the other hand, if not enough ice melts, the stone stops before reaching the target.", "ko": "반면에, 얼음이 충분히 녹지 않으면 스톤이 목표 지점에 도달하기 전에 멈춘다.", "gram": "On the other hand: 반면에 (대조 접속부사) / before -ing: ~하기 전에"}]}, {"number": 7, "label": "31~35번째 문장", "translation": "얼음이 녹는 양은 스위핑 속도와 압력에 달려 있다. 너무 많은 압력을 가하면 스위핑 속도가 느려지고, 속도에만 집중하면 빗자루에 충분한 힘을 전달하기 어렵다. 속도와 압력 사이의 적절한 균형을 찾는 것은 적당한 양의 얼음을 녹이는 데 중요하다. 가장 효과적인 기술을 파악하기 위해 한국 팀은 스위핑 측정 장치를 설계했다. 그 장치는 선수들의 몸, 신발, 빗자루에 부착된 적외선 카메라와 센서로 구성되었다.", "note": "depend on: ~에 달려 있다 / 동명사 주어: Applying ~ / 동명사 주어: Finding ~", "sentences": [{"en": "The amount of ice melting depends on the sweeping speed and pressure.", "ko": "얼음이 녹는 양은 스위핑 속도와 압력에 달려 있다.", "gram": "depend on: ~에 달려 있다 / the amount of: ~의 양"}, {"en": "Applying too much pressure slows down the sweeping speed, and focusing only on speed makes it hard to transfer enough force to the broom.", "ko": "너무 많은 압력을 가하면 스위핑 속도가 느려지고, 속도에만 집중하면 빗자루에 충분한 힘을 전달하기 어렵다.", "gram": "동명사 주어: Applying ~ / makes it hard to V: 가목적어 it / transfer A to B: A를 B에 전달하다"}, {"en": "Finding the right balance between speed and pressure is important to melt the right amount of ice.", "ko": "속도와 압력 사이의 적절한 균형을 찾는 것은 적당한 양의 얼음을 녹이는 데 중요하다.", "gram": "동명사 주어: Finding ~ / be important to V: ~하는 데 중요하다 / balance between A and B: A와 B 사이의 균형"}, {"en": "To identify the most effective technique, the Korean team designed a sweeping measurement device.", "ko": "가장 효과적인 기술을 파악하기 위해 한국 팀은 스위핑 측정 장치를 설계했다.", "gram": "To identify: 목적의 to부정사 / the most effective: 최상급"}, {"en": "The device consisted of infrared cameras and sensors attached to the players' bodies, shoes, and brooms.", "ko": "그 장치는 선수들의 몸, 신발, 빗자루에 부착된 적외선 카메라와 센서로 구성되었다.", "gram": "consist of: ~으로 구성되다 / attached to: 과거분사 후치수식 (~에 부착된)"}]}, {"number": 8, "label": "36~40번째 문장", "translation": "그 장치와 모션 캡처 화면을 통해 발 압력 값과 기타 데이터가 분석을 위해 수집되었다. 얼음 표면 온도 변화를 모니터링한 후, 팀은 스위핑에는 힘보다 속도가 더 경제적이라고 결론지었다. 데이터 분석의 사용은 2018년 평창 동계 올림픽에서 팀이 은메달을 획득하는 데 결정적이었다. 한국 여자 양궁 팀은 수십 년 동안 그 종목을 지배해 왔다. 그러나 팀은 2020년 도쿄 올림픽을 준비하면서 경쟁자들에 대한 우위를 유지하기 위해 스포츠 분석에 의존했다.", "note": "Through: ~을 통해 (수단 전치사) / After -ing: ~한 후 (분사구문) / be critical in: ~에 결정적이다", "sentences": [{"en": "Through the device and motion-capture screens, foot pressure values and other data were obtained for analysis.", "ko": "그 장치와 모션 캡처 화면을 통해 발 압력 값과 기타 데이터가 분석을 위해 수집되었다.", "gram": "Through: ~을 통해 (수단 전치사) / were obtained: 수동태 / for analysis: ~을 위해"}, {"en": "After monitoring changes in the temperature of the ice surface, the team concluded that speed was more economical than strength for sweeping.", "ko": "얼음 표면 온도 변화를 모니터링한 후, 팀은 스위핑에는 힘보다 속도가 더 경제적이라고 결론지었다.", "gram": "After -ing: ~한 후 (분사구문) / conclude that절: ~라고 결론짓다 / more A than B: B보다 더 A한"}, {"en": "The use of data analysis was critical in the team's winning of a silver medal at the 2018 Pyeongchang Winter Olympics.", "ko": "데이터 분석의 사용은 2018년 평창 동계 올림픽에서 팀이 은메달을 획득하는 데 결정적이었다.", "gram": "be critical in: ~에 결정적이다 / the team's winning: 동명사의 의미상 주어"}, {"en": "The Korean women's archery team had dominated the sport for decades.", "ko": "한국 여자 양궁 팀은 수십 년 동안 그 종목을 지배해 왔다.", "gram": "had dominated: 과거완료 (계속) / for decades: 수십 년 동안"}, {"en": "However, the team turned to sports analytics to maintain its edge over its rivals in preparation for the 2020 Tokyo Olympics.", "ko": "그러나 팀은 2020년 도쿄 올림픽을 준비하면서 경쟁자들에 대한 우위를 유지하기 위해 스포츠 분석에 의존했다.", "gram": "turn to: ~에 의존하다 / to maintain: 목적의 to부정사 / maintain an edge over: ~에 대한 우위를 유지하다"}]}, {"number": 9, "label": "41~45번째 문장", "translation": "팀은 얼굴 색상 변화를 심박수로 변환하기 위해 고급 시각 컴퓨팅 기술을 사용하여 선수들의 심박수를 모니터링하는 시스템을 개발했다. 이 데이터는 결정적인 순간에 선수들이 안정적인 심박수를 유지하도록 돕는 심리 훈련에 사용되었다. 팀은 또한 슈팅 자세를 조정하는 데 도움을 주는 AI 코치를 만들었다. 팀 매니저들은 AI 코치가 실전 분석에 도움이 되도록 선수들의 훈련 영상을 편집할 것을 요청했다. 선수들과 코치들은 편집된 영상을 사용하여 선수들의 평소 습관이나 약점을 분석했다.", "note": "a system to V: ~하는 시스템 (to부정사 형용사적) / be used for: ~을 위해 사용되다 (수동태) / that helped adjust: 주격 관계대명사", "sentences": [{"en": "The team developed a system to monitor players' heart rates by using advanced visual computing technology to convert facial color variations into heart rates.", "ko": "팀은 얼굴 색상 변화를 심박수로 변환하기 위해 고급 시각 컴퓨팅 기술을 사용하여 선수들의 심박수를 모니터링하는 시스템을 개발했다.", "gram": "a system to V: ~하는 시스템 (to부정사 형용사적) / by using: ~을 사용함으로써 / convert A into B: A를 B로 변환하다"}, {"en": "This data was used for psychological training to help players maintain stable heart rates during crucial moments.", "ko": "이 데이터는 결정적인 순간에 선수들이 안정적인 심박수를 유지하도록 돕는 심리 훈련에 사용되었다.", "gram": "be used for: ~을 위해 사용되다 (수동태) / to help A V: A가 ~하도록 돕다 / during crucial moments: 결정적인 순간에"}, {"en": "The team also created an AI coach that helped adjust shooting form.", "ko": "팀은 또한 슈팅 자세를 조정하는 데 도움을 주는 AI 코치를 만들었다.", "gram": "that helped adjust: 주격 관계대명사 / help V: ~하는 것을 돕다 (help + 동사원형)"}, {"en": "The team managers requested that the AI coach edit training videos of the players to assist with practical analysis.", "ko": "팀 매니저들은 AI 코치가 실전 분석에 도움이 되도록 선수들의 훈련 영상을 편집할 것을 요청했다.", "gram": "request that + 주어 + 동사원형: ~할 것을 요청하다 (당위의 that절) / to assist with: ~을 돕기 위해"}, {"en": "Players and coaches used the edited videos to analyze the players' usual habits or weaknesses.", "ko": "선수들과 코치들은 편집된 영상을 사용하여 선수들의 평소 습관이나 약점을 분석했다.", "gram": "to analyze: 목적의 to부정사 / usual habits or weaknesses: A or B 선택 표현"}]}, {"number": 10, "label": "46~50번째 문장", "translation": "한국 여자 양궁 팀의 적극적인 데이터 분석 활용은 도쿄에서 9연속 올림픽 금메달을 안겨주었다. 경기에서 데이터 분석이 포착할 수 있는 것에는 여전히 한계가 있다. 사람들이 얼마나 잘 어울리는지와 관련된 팀 화합과 같은 요소들은 측정하기 어려운 상태로 남을 것이다. 마찬가지로, 경기에서 선수 성과를 예측하는 것은 선수들이 기계가 아닌 인간이므로 완전히 정확할 수 없다. 그럼에도 스포츠 분석은 다양한 스포츠 전반에 걸쳐 경기 수준을 부인할 수 없이 높이고 있으며, 팬들은 이러한 발전을 즐기고 있다.", "note": "hand A B: A에게 B를 안겨주다 / limitations to what: ~할 수 있는 것에 대한 한계 / such as: ~와 같은", "sentences": [{"en": "The active use of data analysis by the Korean women's archery team handed them their ninth Olympic gold medal in a row in Tokyo.", "ko": "한국 여자 양궁 팀의 적극적인 데이터 분석 활용은 도쿄에서 9연속 올림픽 금메달을 안겨주었다.", "gram": "hand A B: A에게 B를 안겨주다 / ninth ~ in a row: 9연속 ~ / the active use of: ~의 적극적인 활용"}, {"en": "There are still limitations to what data analysis can capture in games.", "ko": "경기에서 데이터 분석이 포착할 수 있는 것에는 여전히 한계가 있다.", "gram": "limitations to what: ~할 수 있는 것에 대한 한계 / what절: 관계대명사 what"}, {"en": "Factors such as team chemistry, which is related to how well people get along, will likely remain difficult to measure.", "ko": "사람들이 얼마나 잘 어울리는지와 관련된 팀 화합과 같은 요소들은 측정하기 어려운 상태로 남을 것이다.", "gram": "such as: ~와 같은 / which is related to: 계속적 관계대명사 / remain + 형용사: ~한 상태로 남다"}, {"en": "Similarly, predicting player performance in a match cannot be entirely accurate as players are humans and not machines.", "ko": "마찬가지로, 경기에서 선수 성과를 예측하는 것은 선수들이 기계가 아닌 인간이므로 완전히 정확할 수 없다.", "gram": "동명사 주어: predicting ~ / cannot be entirely accurate: 완전히 정확할 수 없다 / as: ~이므로 (이유)"}, {"en": "Still, sports analytics is undeniably elevating the level of play across various sports, and fans are enjoying this development.", "ko": "그럼에도 스포츠 분석은 다양한 스포츠 전반에 걸쳐 경기 수준을 부인할 수 없이 높이고 있으며, 팬들은 이러한 발전을 즐기고 있다.", "gram": "undeniably: 부인할 수 없이 (부사) / elevate: 높이다 / across various sports: 다양한 스포츠 전반에 걸쳐"}]}];
+let state={},favs={},curSeg='all',curTab='list';
+let listFilter='all',listMode='problem';
+let flashIdx=0,flashFilter='all',flashMode='problem',flashRevealed=false;
+let swipeStartX=0,repeatCount=1;
+const STORAGE_KEY='cuetop_ybm_g1_3_v1';
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify({state,favs,curSeg,repeatCount}));}
+function load(){
+  try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    state=d.state||{};favs=d.favs||{};curSeg=d.curSeg||'all';repeatCount=d.repeatCount||1;
+  }catch(e){state={};favs={};curSeg='all';repeatCount=1;}
+}
+let _voices=[],_repeatTimer=null,_isPlaying=false;
+function _warmVoices(){
+  if(!window.speechSynthesis)return;
+  _voices=speechSynthesis.getVoices();
+  if(!_voices.length){speechSynthesis.onvoiceschanged=()=>{_voices=speechSynthesis.getVoices();};}
+}
+function stopSpeak(){
+  if(_repeatTimer){clearTimeout(_repeatTimer);_repeatTimer=null;}
+  if(window.speechSynthesis)speechSynthesis.cancel();
+  _isPlaying=false;
+  document.querySelectorAll('.rep-playing').forEach(el=>el.remove());
+}
+function speak(text,repeatN){
+  stopSpeak();
+  if(!window.speechSynthesis)return;
+  const n=repeatN!==undefined?repeatN:repeatCount;
+  _isPlaying=true;let count=0;
+  function playOne(){
+    if(!_isPlaying||count>=n){_isPlaying=false;return;}
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US';u.rate=0.85;
+    const vv=_voices.length?_voices:speechSynthesis.getVoices();
+    const v=vv.find(x=>x.lang==='en-US')||vv.find(x=>x.lang.startsWith('en'));
+    if(v)u.voice=v;
+    u.onend=()=>{count++;if(count<n&&_isPlaying){_repeatTimer=setTimeout(playOne,600);}
+      else{_isPlaying=false;document.querySelectorAll('.rep-playing').forEach(el=>el.remove());}};
+    u.onerror=()=>{_isPlaying=false;};
+    speechSynthesis.speak(u);
+  }
+  playOne();
+}
+function showRepIndicator(container,n){
+  document.querySelectorAll('.rep-playing').forEach(el=>el.remove());
+  if(n<=1||!container)return;
+  const div=document.createElement('div');div.className='rep-playing';
+  div.innerHTML='<span class="rep-dot"></span> '+n+'회 반복 재생 중... <button onclick="stopSpeak()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:13px;color:var(--blue)">⏹</button>';
+  container.appendChild(div);
+}
+const SEG2=3;
+function getSegments(){
+  const nums=SENTENCES_RAW.map(s=>s.number);
+  const segs=[{label:'전체',key:'all'}];
+  for(let i=0;i<nums.length;i+=SEG2){
+    const c=nums.slice(i,i+SEG2);
+    segs.push({label:'Unit '+c[0]+'~'+c[c.length-1],key:c.join(',')});
+  }
+  return segs;
+}
+function getFiltered(){
+  if(curSeg==='all')return SENTENCES_RAW;
+  const keys=curSeg.split(',').map(Number);
+  return SENTENCES_RAW.filter(s=>keys.includes(s.number));
+}
+function applyFilter(arr,f){
+  if(f==='no')return arr.filter(s=>state[s.number]==='no'||!state[s.number]);
+  if(f==='fav')return arr.filter(s=>favs[s.number]);
+  return arr;
+}
+function updateHeaderH(){
+  const h=document.getElementById('mainHeader').offsetHeight;
+  document.getElementById('segWrap').style.top=h+'px';
+  document.documentElement.style.setProperty('--header-h',h+'px');
+}
+function updateStats(){
+  let ok=0,no=0,fav=0;
+  SENTENCES_RAW.forEach(s=>{if(state[s.number]==='ok')ok++;else if(state[s.number]==='no')no++;if(favs[s.number])fav++;});
+  document.getElementById('cntOk').textContent=ok;
+  document.getElementById('cntNo').textContent=no;
+  document.getElementById('cntFav').textContent=fav;
+  const pct=SENTENCES_RAW.length?Math.round((ok+no)/SENTENCES_RAW.length*100):0;
+  document.getElementById('progBar').style.width=pct+'%';
+}
+function renderSegBar(){
+  document.getElementById('segWrap').innerHTML=getSegments().map(s=>
+    '<button class="seg-btn'+(curSeg===s.key?' active':'')+'" onclick="setSeg(\''+s.key+'\')">'+s.label+'</button>'
+  ).join('');
+}
+function setSeg(k){curSeg=k;flashIdx=0;flashRevealed=false;stopSpeak();save();renderSegBar();renderCurrent();}
+function switchTab(tab){
+  stopSpeak();curTab=tab;
+  ['list','flash'].forEach(t=>document.getElementById(t+'-tab').style.display=t===tab?'':'none');
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['list','flash'][i]===tab));
+  flashIdx=0;flashRevealed=false;renderCurrent();
+}
+function renderCurrent(){if(curTab==='list')renderList();else renderFlash();}
+function repeatBtnsHtml(){
+  return '<div class="repeat-wrap"><span class="rep-label">반복</span>'+[1,3,5].map(n=>'<button class="rep-btn'+(repeatCount===n?' active':'')+'" onclick="setRepeat('+n+')">'+n+'회</button>').join('')+'</div>';
+}
+function setRepeat(n){repeatCount=n;stopSpeak();save();renderCurrent();}
+
+function renderList(){
+  const tab=document.getElementById('list-tab');
+  const prevSearch=tab.querySelector('.search-box')?.value||'';
+  const arr=applyFilter(getFiltered(),listFilter);
+  const search=prevSearch.trim().toLowerCase();
+  const filtered=arr.filter(s=>!search||
+    s.sentences.some(x=>x.en.toLowerCase().includes(search)||x.ko.toLowerCase().includes(search))||
+    s.translation.toLowerCase().includes(search));
+  let html='<div class="mode-toggle">'
+    +'<button class="mode-btn'+(listMode==='problem'?' active':'')+'" onclick="setListMode(\'problem\')">📄 묶음 전체</button>'
+    +'<button class="mode-btn'+(listMode==='sentence'?' active':'')+'" onclick="setListMode(\'sentence\')">📝 문장 분해</button>'
+    +'</div>'
+    +'<input class="search-box" id="listSearch" placeholder="🔍 영어/한국어 검색..." value="'+prevSearch.replace(/"/g,'&quot;')+'">'
+    +'<div class="filter-row">'
+    +'<button class="filter-btn'+(listFilter==='all'?' active':'')+'" onclick="setListFilter(\'all\')">전체</button>'
+    +'<button class="filter-btn'+(listFilter==='no'?' active':'')+'" onclick="setListFilter(\'no\')">❌ 미완료</button>'
+    +'<button class="filter-btn'+(listFilter==='fav'?' active':'')+'" onclick="setListFilter(\'fav\')">⭐ 즐겨찾기</button>'
+    +repeatBtnsHtml()+'</div>';
+  if(!filtered.length){html+='<div class="empty-msg">해당하는 내용이 없습니다.</div>';}
+  else filtered.forEach(s=>{
+    const st=state[s.number]||'',isFav=favs[s.number];
+    const preview=s.sentences[0]?.en.slice(0,60)||'';
+    html+='<div class="s-card'+(st?' status-'+st:'')+'" id="sc-'+s.number+'">'
+      +'<div class="s-card-head">'
+      +'<div class="s-num">Unit<br>'+s.number+'</div>'
+      +'<div class="s-preview" onclick="toggleCard('+s.number+')">'+preview+(s.sentences[0]?.en.length>60?'…':'')+'</div>'
+      +'<div class="s-head-btns">'
+      +'<button class="s-speak-btn" onclick="event.stopPropagation();speakCard('+s.number+',this)">🔊</button>'
+      +'<button class="s-chevron" id="sci-'+s.number+'" onclick="toggleCard('+s.number+')">▾</button>'
+      +'</div></div>'
+      +'<div class="s-body" id="sb-'+s.number+'">';
+    if(listMode==='problem'){
+      html+='<div class="full-passage">'+s.sentences.map(x=>x.en).join(' ')+'</div>'
+        +'<div class="full-trans">'+s.translation+'</div>'
+        +(s.note?'<div class="note-badge">📌 '+s.note+'</div>':'');
+    } else {
+      html+='<div class="sent-list">';
+      s.sentences.forEach((sent,i)=>{
+        html+='<div class="sent-item">'
+          +'<div class="sent-en-row" onclick="toggleSent('+s.number+','+i+')">'
+          +'<div class="sent-idx">['+(i+1)+']</div>'
+          +'<div class="sent-en-text">'+sent.en+'</div>'
+          +'<button class="sent-spk" onclick="event.stopPropagation();speakSent('+JSON.stringify(sent.en)+',this)">🔊</button>'
+          +'</div>'
+          +'<div class="sent-detail" id="sd-'+s.number+'-'+i+'">'
+          +'<div class="sent-ko">'+sent.ko+'</div>'
+          +(sent.gram?'<div class="sent-gram">📐 '+sent.gram+'</div>':'')
+          +'</div></div>';
+      });
+      html+='</div>';
+    }
+    html+='</div>'
+      +'<div class="s-actions">'
+      +'<button class="act-btn act-ok'+(st==='ok'?' sel':'')+'" onclick="setState('+s.number+',\'ok\')">✅ 외웠어요</button>'
+      +'<button class="act-btn act-no'+(st==='no'?' sel':'')+'" onclick="setState('+s.number+',\'no\')">❌ 모름</button>'
+      +'<button class="act-btn act-skip'+(st==='skip'?' sel':'')+'" onclick="setState('+s.number+',\'skip\')">⤵ 건너뜀</button>'
+      +'<button class="act-fav" onclick="toggleFav('+s.number+')">'+(isFav?'⭐':'☆')+'</button>'
+      +'</div></div>';
+  });
+  tab.innerHTML=html;
+  const box=document.getElementById('listSearch');
+  if(box){box.value=prevSearch;box.addEventListener('input',renderList);}
+}
+function speakCard(num,btn){
+  const s=SENTENCES_RAW.find(x=>x.number===num);if(!s)return;
+  const text=s.sentences.map(x=>x.en).join(' ');
+  speak(text);
+  if(repeatCount>1)showRepIndicator(btn.closest('.s-card')?.querySelector('.s-actions'),repeatCount);
+}
+function speakSent(text,btn){speak(text);if(repeatCount>1)showRepIndicator(btn.closest('.sent-item'),repeatCount);}
+function toggleCard(num){
+  const body=document.getElementById('sb-'+num),icon=document.getElementById('sci-'+num);
+  if(!body)return;
+  const isOpen=body.classList.toggle('open');
+  icon.textContent=isOpen?'▴':'▾';
+  if(isOpen){const s=SENTENCES_RAW.find(x=>x.number===num);if(s)speak(s.sentences.map(x=>x.en).join(' '));}
+}
+function toggleSent(num,idx){
+  const detail=document.getElementById('sd-'+num+'-'+idx);if(!detail)return;
+  const isOpen=detail.classList.toggle('open');
+  if(isOpen){const s=SENTENCES_RAW.find(x=>x.number===num);if(s&&s.sentences[idx]){speak(s.sentences[idx].en);if(repeatCount>1)showRepIndicator(detail,repeatCount);}}
+}
+function setListMode(m){listMode=m;stopSpeak();renderList();}
+function setListFilter(f){listFilter=f;stopSpeak();renderList();}
+function setState(num,st){
+  state[num]=st;save();updateStats();
+  const card=document.getElementById('sc-'+num);if(!card)return;
+  card.className='s-card'+(st?' status-'+st:'');
+  card.querySelectorAll('.act-btn').forEach(b=>b.classList.remove('sel'));
+  const btn=card.querySelector('.act-'+st);if(btn)btn.classList.add('sel');
+}
+function toggleFav(num){
+  favs[num]=!favs[num];save();updateStats();
+  document.querySelectorAll('#sc-'+num+' .act-fav').forEach(b=>b.textContent=favs[num]?'⭐':'☆');
+}
+function renderFlash(){
+  const arr=applyFilter(getFiltered(),flashFilter);
+  const tab=document.getElementById('flash-tab');
+  if(!arr.length){tab.innerHTML='<div class="empty-msg">해당 내용이 없습니다.</div>';return;}
+  if(flashIdx>=arr.length)flashIdx=0;
+  const s=arr[flashIdx],st=state[s.number]||'',isFav=favs[s.number];
+  const fullText=s.sentences.map(x=>x.en).join(' ');
+  let revealHtml='';
+  if(flashRevealed){
+    if(flashMode==='problem'){
+      revealHtml='<div class="flash-reveal"><div class="flash-ko">'+s.translation+'</div>'+(s.note?'<div class="flash-note">📌 '+s.note+'</div>':'')+'</div>';
+    } else {
+      revealHtml='<div class="flash-reveal">';
+      s.sentences.forEach((sent,i)=>{
+        revealHtml+='<div class="flash-sent-item">'
+          +'<div class="flash-sent-en-row" onclick="toggleFlashSent('+i+')">'
+          +'<div class="flash-sent-idx">['+(i+1)+']</div>'
+          +'<div class="flash-sent-en">'+sent.en+'</div>'
+          +'<button class="flash-sent-spk" onclick="event.stopPropagation();speak('+JSON.stringify(sent.en)+')">🔊</button>'
+          +'</div>'
+          +'<div class="flash-sent-detail" id="fsd-'+i+'">'
+          +'<div class="flash-sent-ko">'+sent.ko+'</div>'
+          +(sent.gram?'<div class="flash-sent-gram">📐 '+sent.gram+'</div>':'')
+          +'</div></div>';
+      });
+      revealHtml+=(s.note?'<div class="flash-note" style="margin-top:8px">📌 '+s.note+'</div>':'')+'</div>';
+    }
+  }
+  tab.innerHTML='<div class="mode-toggle">'
+    +'<button class="mode-btn'+(flashMode==='problem'?' active':'')+'" onclick="setFlashMode(\'problem\')">📄 묶음 전체</button>'
+    +'<button class="mode-btn'+(flashMode==='sentence'?' active':'')+'" onclick="setFlashMode(\'sentence\')">📝 문장 분해</button>'
+    +'</div>'
+    +'<div class="filter-row">'
+    +'<button class="filter-btn'+(flashFilter==='all'?' active':'')+'" onclick="setFlashFilter(\'all\')">전체</button>'
+    +'<button class="filter-btn'+(flashFilter==='no'?' active':'')+'" onclick="setFlashFilter(\'no\')">❌ 미완료</button>'
+    +'<button class="filter-btn'+(flashFilter==='fav'?' active':'')+'" onclick="setFlashFilter(\'fav\')">⭐ 즐겨찾기</button>'
+    +repeatBtnsHtml()+'</div>'
+    +'<div class="flash-wrap">'
+    +'<div class="flash-card'+(st?' status-'+st:'')+'" ontouchstart="swipeStart(event)" ontouchend="swipeEnd(event)">'
+    +'<div class="flash-card-top">'
+    +'<div class="flash-num">Unit '+s.number+' · '+s.label+'</div>'
+    +'<div class="flash-top-btns">'
+    +'<button class="flash-spk" onclick="event.stopPropagation();flashSpeak()">🔊'+(repeatCount>1?' ×'+repeatCount:'')+'</button>'
+    +'<button class="flash-fav" onclick="event.stopPropagation();flashToggleFav()">'+(isFav?'⭐':'☆')+'</button>'
+    +'</div></div>'
+    +'<div class="flash-en" onclick="revealFlash()">'+fullText+'</div>'
+    +(!flashRevealed?'<div class="flash-hint" onclick="revealFlash()">👆 탭하면 해석이 나타나요</div>':revealHtml)
+    +'</div>'
+    +'<div id="flashRepWrap"></div>'
+    +'<div class="flash-nav">'
+    +'<button class="nav-btn nav-prev" onclick="flashMove(-1)">◀ 이전</button>'
+    +'<span class="flash-counter">'+(flashIdx+1)+' / '+arr.length+'</span>'
+    +'<button class="nav-btn nav-next" onclick="flashMove(1)">다음 ▶</button>'
+    +'</div>'
+    +'<div class="flash-actions">'
+    +'<button class="fa-btn fa-ok'+(st==='ok'?' sel':'')+'" onclick="flashSetState(\'ok\')">✅ 외웠어요</button>'
+    +'<button class="fa-btn fa-no'+(st==='no'?' sel':'')+'" onclick="flashSetState(\'no\')">❌ 모름</button>'
+    +'<button class="fa-btn fa-skip'+(st==='skip'?' sel':'')+'" onclick="flashSetState(\'skip\')">⤵ 건너뜀</button>'
+    +'</div></div>';
+}
+function flashSpeak(){
+  const arr=applyFilter(getFiltered(),flashFilter);if(!arr[flashIdx])return;
+  speak(arr[flashIdx].sentences.map(x=>x.en).join(' '));
+  if(repeatCount>1)showRepIndicator(document.getElementById('flashRepWrap'),repeatCount);
+}
+function toggleFlashSent(idx){
+  const detail=document.getElementById('fsd-'+idx);if(!detail)return;
+  const isOpen=detail.classList.toggle('open');
+  if(isOpen){const arr=applyFilter(getFiltered(),flashFilter);const s=arr[flashIdx];if(s&&s.sentences[idx])speak(s.sentences[idx].en);}
+}
+function revealFlash(){
+  if(!flashRevealed){
+    flashRevealed=true;renderFlash();
+    const arr=applyFilter(getFiltered(),flashFilter);
+    if(arr[flashIdx]){speak(arr[flashIdx].sentences.map(x=>x.en).join(' '));if(repeatCount>1)showRepIndicator(document.getElementById('flashRepWrap'),repeatCount);}
+  }
+}
+function flashMove(dir){
+  const arr=applyFilter(getFiltered(),flashFilter);stopSpeak();
+  flashIdx=(flashIdx+dir+arr.length)%arr.length;flashRevealed=false;renderFlash();
+}
+function flashSetState(st){const arr=applyFilter(getFiltered(),flashFilter);if(!arr[flashIdx])return;state[arr[flashIdx].number]=st;save();updateStats();renderFlash();}
+function flashToggleFav(){const arr=applyFilter(getFiltered(),flashFilter);if(!arr[flashIdx])return;const n=arr[flashIdx].number;favs[n]=!favs[n];save();updateStats();renderFlash();}
+function setFlashMode(m){flashMode=m;stopSpeak();renderFlash();}
+function setFlashFilter(f){flashFilter=f;flashIdx=0;stopSpeak();renderFlash();}
+function swipeStart(e){swipeStartX=e.touches[0].clientX;}
+function swipeEnd(e){const dx=e.changedTouches[0].clientX-swipeStartX;if(Math.abs(dx)>50)flashMove(dx<0?1:-1);}
+load();_warmVoices();renderSegBar();updateStats();renderList();
+setTimeout(updateHeaderH,100);window.addEventListener('resize',updateHeaderH);
+</script>
+</body></html>
