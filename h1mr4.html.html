@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta property="og:title" content="씨유에탑 ✦ 고1 미래엔 4과">
+<title>씨유에탑 ✦ 고1 미래엔 4과</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--blue:#2563EB;--blue-light:#EFF6FF;--blue-mid:#BFDBFE;--green:#16A34A;--red:#DC2626;--amber:#D97706;--amber-light:#FFFBEB;--purple:#7C3AED;--purple-light:#F5F3FF;--gray100:#F3F4F6;--gray200:#E5E7EB;--gray400:#9CA3AF;--gray600:#4B5563;--gray800:#1F2937;--radius:14px;--shadow:0 2px 12px rgba(0,0,0,.08)}
+body{font-family:'Nunito','Noto Sans KR',sans-serif;background:#F0F4FF;min-height:100vh;color:var(--gray800)}
+.header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--gray200);padding:10px 16px 0;box-shadow:0 2px 8px rgba(37,99,235,.07)}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.brand{font-size:13px;font-weight:800;color:var(--blue);letter-spacing:-.3px}
+.subtitle{font-size:11px;color:var(--gray400);margin-top:1px}
+.stats{display:flex;gap:8px;font-size:11px;font-weight:700}
+.stat-ok{color:var(--green)}.stat-no{color:var(--red)}.stat-fav{color:#F59E0B}
+.prog-wrap{height:4px;background:var(--gray100);border-radius:2px;margin-bottom:8px}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--blue),#60A5FA);border-radius:2px;transition:width .4s}
+.tabs{display:flex;border-bottom:2px solid var(--gray200)}
+.tab-btn{flex:1;padding:8px 4px;font-size:13px;font-weight:700;border:none;background:none;cursor:pointer;color:var(--gray400);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+.seg-wrap{position:sticky;top:var(--header-h,108px);z-index:90;background:#F0F4FF;padding:8px 12px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;border-bottom:1px solid var(--gray200)}
+.seg-wrap::-webkit-scrollbar{display:none}
+.seg-btn{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--gray200);background:#fff;color:var(--gray600);margin-right:6px;transition:all .15s}
+.seg-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.mode-toggle{display:flex;background:var(--gray100);border-radius:20px;padding:3px;margin-bottom:12px}
+.mode-btn{flex:1;padding:5px;border-radius:18px;border:none;font-size:11px;font-weight:700;cursor:pointer;color:var(--gray600);background:none}
+.mode-btn.active{background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.filter-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.filter-btn{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--gray200);background:#fff;color:var(--gray600);cursor:pointer}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.search-box{width:100%;padding:9px 14px;border-radius:10px;border:1.5px solid var(--gray200);font-size:13px;font-family:inherit;margin-bottom:10px;outline:none;background:#fff}
+.search-box:focus{border-color:var(--blue)}
+.repeat-wrap{margin-left:auto;display:flex;gap:4px;align-items:center}
+.rep-label{font-size:10px;color:var(--gray400);font-weight:700}
+.rep-btn{padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700;border:1.5px solid var(--gray200);background:#fff;color:var(--gray600);cursor:pointer}
+.rep-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.s-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:10px;border:1.5px solid transparent;overflow:hidden;transition:border-color .15s}
+.s-card.status-ok{border-color:var(--green)}.s-card.status-no{border-color:var(--red)}
+.s-card-head{display:flex;align-items:center;gap:8px;padding:11px 14px}
+.s-num{min-width:38px;height:32px;border-radius:8px;background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-align:center;line-height:1.2;padding:0 4px}
+.s-preview{flex:1;font-size:12.5px;font-weight:600;line-height:1.5;color:var(--gray800);cursor:pointer}
+.s-head-btns{display:flex;gap:4px;align-items:center;flex-shrink:0}
+.s-speak-btn{background:var(--blue-light);border:none;cursor:pointer;font-size:14px;padding:5px 8px;border-radius:8px;color:var(--blue);font-weight:700}
+.s-speak-btn:active{opacity:.7}
+.s-chevron{font-size:14px;color:var(--gray400);cursor:pointer;padding:4px;background:none;border:none}
+.s-body{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+.s-body.open{max-height:3000px;padding-bottom:14px}
+.full-passage{font-size:13px;font-weight:600;line-height:1.8;color:var(--gray800);padding-top:10px;margin-bottom:10px;border-top:1px solid var(--gray100)}
+.full-trans{font-size:12.5px;color:var(--gray600);line-height:1.7;margin-bottom:8px}
+.note-badge{font-size:11.5px;color:var(--amber);font-weight:600;background:var(--amber-light);padding:6px 10px;border-radius:7px;line-height:1.55}
+.sent-list{padding-top:10px;border-top:1px solid var(--gray100)}
+.sent-item{margin-bottom:8px;border-radius:10px;overflow:hidden;border:1.5px solid var(--gray200)}
+.sent-en-row{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;cursor:pointer;background:var(--blue-light)}
+.sent-idx{font-size:10px;font-weight:800;color:var(--blue);min-width:20px;padding-top:2px;flex-shrink:0}
+.sent-en-text{flex:1;font-size:12.5px;font-weight:700;line-height:1.65;color:var(--gray800)}
+.sent-spk{background:#fff;border:none;cursor:pointer;font-size:14px;padding:4px 7px;border-radius:7px;flex-shrink:0;color:var(--blue);font-weight:700}
+.sent-spk:active{opacity:.7}
+.sent-detail{padding:10px 12px;display:none}
+.sent-detail.open{display:block}
+.sent-ko{font-size:12px;color:var(--gray600);line-height:1.65;margin-bottom:7px}
+.sent-gram{font-size:11px;color:var(--purple);font-weight:600;background:var(--purple-light);padding:5px 9px;border-radius:6px;line-height:1.6}
+.s-actions{display:flex;gap:6px;align-items:center;padding:10px 14px 12px;flex-wrap:wrap;border-top:1px solid var(--gray100)}
+.act-btn{padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--gray200);background:#fff;cursor:pointer;transition:all .15s}
+.act-ok{color:var(--green);border-color:var(--green)}.act-ok.sel{background:var(--green);color:#fff}
+.act-no{color:var(--red);border-color:var(--red)}.act-no.sel{background:var(--red);color:#fff}
+.act-skip{color:var(--gray400)}.act-skip.sel{background:var(--gray100)}
+.act-fav{font-size:17px;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
+.flash-wrap{display:flex;flex-direction:column}
+.flash-card{background:#fff;border-radius:18px;box-shadow:0 4px 24px rgba(37,99,235,.12);padding:18px 16px 16px;flex:1;display:flex;flex-direction:column;min-height:260px;border:2px solid transparent;transition:border-color .2s}
+.flash-card.status-ok{border-color:var(--green)}.flash-card.status-no{border-color:var(--red)}
+.flash-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.flash-num{height:32px;border-radius:10px;background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 10px}
+.flash-top-btns{display:flex;gap:6px;align-items:center}
+.flash-spk{background:var(--blue);border:none;cursor:pointer;font-size:13px;padding:7px 12px;border-radius:10px;color:#fff;font-weight:700}
+.flash-spk:active{opacity:.8}
+.flash-fav{background:none;border:none;cursor:pointer;font-size:18px;padding:4px}
+.flash-en{font-size:13px;font-weight:700;line-height:1.8;color:var(--gray800);flex:1;cursor:pointer}
+.flash-hint{font-size:11px;color:var(--gray400);margin-top:14px;text-align:center;cursor:pointer;padding:8px;border:1.5px dashed var(--gray200);border-radius:8px}
+.flash-reveal{margin-top:14px;border-top:1px solid var(--gray100);padding-top:12px}
+.flash-ko{font-size:12.5px;color:var(--gray600);line-height:1.65;margin-bottom:8px}
+.flash-note{font-size:11px;color:var(--amber);font-weight:600;background:var(--amber-light);padding:5px 9px;border-radius:6px}
+.flash-sent-item{margin-bottom:7px;border-radius:9px;overflow:hidden;border:1.5px solid var(--gray200)}
+.flash-sent-en-row{display:flex;align-items:flex-start;gap:6px;padding:8px 10px;background:var(--blue-light);cursor:pointer}
+.flash-sent-idx{font-size:10px;font-weight:800;color:var(--blue);min-width:18px;padding-top:1px;flex-shrink:0}
+.flash-sent-en{flex:1;font-size:12px;font-weight:700;line-height:1.6;color:var(--gray800)}
+.flash-sent-spk{background:#fff;border:none;cursor:pointer;font-size:13px;padding:3px 6px;border-radius:6px;flex-shrink:0;color:var(--blue)}
+.flash-sent-spk:active{opacity:.7}
+.flash-sent-detail{padding:8px 10px;display:none}
+.flash-sent-detail.open{display:block}
+.flash-sent-ko{font-size:11.5px;color:var(--gray600);line-height:1.6;margin-bottom:5px}
+.flash-sent-gram{font-size:10.5px;color:var(--purple);font-weight:600;background:var(--purple-light);padding:4px 8px;border-radius:5px;line-height:1.55}
+.flash-nav{display:flex;align-items:center;gap:8px;margin-top:12px}
+.nav-btn{flex:1;padding:10px;border-radius:12px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .15s}
+.nav-prev{background:var(--gray100);color:var(--gray600)}.nav-next{background:var(--blue);color:#fff}
+.nav-btn:active{opacity:.8}
+.flash-counter{font-size:12px;color:var(--gray400);font-weight:700;text-align:center;min-width:54px}
+.flash-actions{display:flex;gap:6px;margin-top:10px}
+.fa-btn{flex:1;padding:9px;border-radius:12px;font-size:12px;font-weight:700;border:1.5px solid;cursor:pointer;transition:all .15s}
+.fa-ok{color:var(--green);border-color:var(--green);background:#fff}.fa-ok.sel{background:var(--green);color:#fff}
+.fa-no{color:var(--red);border-color:var(--red);background:#fff}.fa-no.sel{background:var(--red);color:#fff}
+.fa-skip{color:var(--gray400);border-color:var(--gray200);background:#fff}.fa-skip.sel{background:var(--gray100)}
+.rep-playing{display:flex;align-items:center;gap:6px;margin-top:8px;padding:6px 10px;background:var(--blue-light);border-radius:8px;font-size:11px;font-weight:700;color:var(--blue)}
+.rep-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.empty-msg{text-align:center;padding:40px;color:var(--gray400);font-size:13px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="header" id="mainHeader">
+  <div class="header-top">
+    <div>
+      <div class="brand">씨유에탑 ✦ 문장외우기</div>
+      <div class="subtitle">고1 미래엔 4과 · 총 9단위 (41문장)</div>
+    </div>
+    <div class="stats">
+      <span class="stat-ok">✅ <span id="cntOk">0</span></span>
+      <span class="stat-no">❌ <span id="cntNo">0</span></span>
+      <span class="stat-fav">⭐ <span id="cntFav">0</span></span>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('list')">📋 지문목록</button>
+    <button class="tab-btn" onclick="switchTab('flash')">🃏 플래시카드</button>
+  </div>
+</div>
+<div class="seg-wrap" id="segWrap"></div>
+<div id="list-tab" style="padding:10px 12px 80px"></div>
+<div id="flash-tab" style="padding:10px 12px 80px;display:none"></div>
+
+<script>
+const SENTENCES_RAW = [{"number": 1, "label": "1~5번째 문장", "translation": "아이작 아시모프는 로봇공학의 3원칙을 작성했다. 로봇은 인간에게 해를 가하거나, 행동하지 않음으로써 인간이 해를 입도록 허용해서는 안 된다. 로봇은 인간이 내린 명령에 복종해야 한다. 단, 그 명령이 제1원칙과 충돌하는 경우는 예외이다. 로봇은 제1원칙 또는 제2원칙과 충돌하지 않는 한 자신의 존재를 보호해야 한다. 인공지능(AI)에 대한 추구는 1950년대부터 계속되어 왔다.", "note": "과거시제 / may not: 금지 조동사 / must: 의무 조동사", "sentences": [{"en": "Isaac Asimov wrote the Three Laws of Robotics.", "ko": "아이작 아시모프는 로봇공학의 3원칙을 작성했다.", "gram": "과거시제 / Three Laws of Robotics: 고유명사 대문자"}, {"en": "A robot may not injure a human being or, through inaction, allow a human being to come to harm.", "ko": "로봇은 인간에게 해를 가하거나, 행동하지 않음으로써 인간이 해를 입도록 허용해서는 안 된다.", "gram": "may not: 금지 조동사 / through inaction: 전치사구 삽입 / allow A to V: A가 ~하도록 허용하다"}, {"en": "A robot must obey the orders given it by human beings except where such orders would conflict with the First Law.", "ko": "로봇은 인간이 내린 명령에 복종해야 한다. 단, 그 명령이 제1원칙과 충돌하는 경우는 예외이다.", "gram": "must: 의무 조동사 / given it by: 과거분사 후치수식 / except where: ~하는 경우를 제외하고"}, {"en": "A robot must protect its own existence as long as such protection does not conflict with the First or Second Law.", "ko": "로봇은 제1원칙 또는 제2원칙과 충돌하지 않는 한 자신의 존재를 보호해야 한다.", "gram": "as long as: ~하는 한 (조건 접속사) / conflict with: ~와 충돌하다"}, {"en": "The pursuit of artificial intelligence (AI) has been ongoing since the 1950s.", "ko": "인공지능(AI)에 대한 추구는 1950년대부터 계속되어 왔다.", "gram": "has been ongoing: 현재완료 진행형 / since + 과거시점"}]}, {"number": 2, "label": "6~10번째 문장", "translation": "그 과정에서 몇 가지 장애물과 도전이 있었음에도 불구하고, AI 기술에서 상당한 발전이 이루어졌다. 과학자들은 비록 인간과 같은 수준의 정밀함은 아니지만, 생각하고 소통하고 세상을 볼 수 있는 기계를 개발할 수 있게 되었다. 이 기계들은 시간이 지나면서 진화하고 발전해 왔다. AI의 역사를 살펴보면, 우리의 주목을 받을 만한 몇 가지 중요한 순간들이 있다. 현대 컴퓨터 과학의 아버지로 종종 여겨지는 앨런 튜링은 컴퓨터 메모리 개념을 개발하고 전자 저장 프로그램의 첫 번째 설계를 만든 것으로 유명했다.", "note": "Despite: ~에도 불구하고 (전치사+명사구) / have been able to V: ~할 수 있게 되었다 / have evolved and improved: 현재완료", "sentences": [{"en": "Despite some obstacles and challenges along the way, significant progress has been made in AI technology.", "ko": "그 과정에서 몇 가지 장애물과 도전이 있었음에도 불구하고, AI 기술에서 상당한 발전이 이루어졌다.", "gram": "Despite: ~에도 불구하고 (전치사+명사구) / has been made: 현재완료 수동태"}, {"en": "Scientists have been able to develop machines that can think, communicate, and see the world, although not with the same level of precision as humans.", "ko": "과학자들은 비록 인간과 같은 수준의 정밀함은 아니지만, 생각하고 소통하고 세상을 볼 수 있는 기계를 개발할 수 있게 되었다.", "gram": "have been able to V: ~할 수 있게 되었다 / that절: 주격 관계대명사 / although not: 양보 절 생략"}, {"en": "These machines have evolved and improved over time.", "ko": "이 기계들은 시간이 지나면서 진화하고 발전해 왔다.", "gram": "have evolved and improved: 현재완료 / over time: 시간이 지남에 따라"}, {"en": "In exploring the history of AI, there are some key moments which deserve our attention.", "ko": "AI의 역사를 살펴보면, 우리의 주목을 받을 만한 몇 가지 중요한 순간들이 있다.", "gram": "In -ing: ~할 때 (전치사 in + 동명사) / which deserve: 주격 관계대명사"}, {"en": "Often considered the father of modern computer science, Alan Turing was famous for developing the idea of computer memory and making the first design of an electronic stored program.", "ko": "현대 컴퓨터 과학의 아버지로 종종 여겨지는 앨런 튜링은 컴퓨터 메모리 개념을 개발하고 전자 저장 프로그램의 첫 번째 설계를 만든 것으로 유명했다.", "gram": "수동 분사구문: Often considered ~ / be famous for -ing: ~로 유명하다"}]}, {"number": 3, "label": "11~15번째 문장", "translation": "1950년, '컴퓨팅 기계와 지성'이라는 제목의 연구 논문에서 그는 생각을 자극하는 질문을 제기했다: 기계는 생각할 수 있는가? 이 연구 논문은 기계 지능에 대해 생각하는 틀을 제공한 최초의 것이었다. 튜링은 기계가 인간만큼 지능적일 수 있는지 알고 싶었고, 기계가 인간의 행동을 모방할 수 있다면 왜 인간처럼 생각할 수 없겠는가 하고 자문했다. 이 질문은 튜링이 '모방 게임'을 설계하도록 이끌었으며, 이것은 '튜링 테스트'로도 알려지게 되었다. 게임 자체는 단순했다: 인간 참가자가 컴퓨터와 인간, 두 응답자와 일련의 타이핑된 상호작용을 교환하는 것이었다.", "note": "titled: 과거분사 후치수식 / the first to V: ~한 최초 (to부정사 형용사적 용법) / want to see if: ~인지 알고 싶다", "sentences": [{"en": "In 1950, in his research paper titled Computing Machinery and Intelligence, he posed a thought-provoking question: Can machines think?", "ko": "1950년, '컴퓨팅 기계와 지성'이라는 제목의 연구 논문에서 그는 생각을 자극하는 질문을 제기했다: 기계는 생각할 수 있는가?", "gram": "titled: 과거분사 후치수식 / thought-provoking: 복합형용사 / 콜론 이하 내용 제시"}, {"en": "This research paper was the first to provide a framework for thinking about machine intelligence.", "ko": "이 연구 논문은 기계 지능에 대해 생각하는 틀을 제공한 최초의 것이었다.", "gram": "the first to V: ~한 최초 (to부정사 형용사적 용법) / framework for -ing"}, {"en": "Turing wanted to see if a machine could be as intelligent as humans and asked himself, if a machine could imitate human behavior, why would it not be able to think like a human?", "ko": "튜링은 기계가 인간만큼 지능적일 수 있는지 알고 싶었고, 기계가 인간의 행동을 모방할 수 있다면 왜 인간처럼 생각할 수 없겠는가 하고 자문했다.", "gram": "want to see if: ~인지 알고 싶다 / as intelligent as: 동등 비교 / 가정법 과거"}, {"en": "This question led Turing to design the imitation game, which also became known as the Turing test.", "ko": "이 질문은 튜링이 '모방 게임'을 설계하도록 이끌었으며, 이것은 '튜링 테스트'로도 알려지게 되었다.", "gram": "lead A to V: A가 ~하도록 이끌다 / which: 계속적 용법 관계대명사 / become known as: ~로 알려지다"}, {"en": "The game itself was simple: A human participant would exchange a series of typed interactions with two respondents, a computer and a human being.", "ko": "게임 자체는 단순했다: 인간 참가자가 컴퓨터와 인간, 두 응답자와 일련의 타이핑된 상호작용을 교환하는 것이었다.", "gram": "itself: 강조 재귀대명사 / would: 과거의 습관적 동작 / a series of: 일련의"}]}, {"number": 4, "label": "16~20번째 문장", "translation": "일정 시간이 지난 후, 참가자는 어떤 대답이 컴퓨터에서 왔고 어떤 것이 인간에게서 왔는지 말하도록 요청받을 것이었다. 참가자가 둘을 구별하지 못하면, 컴퓨터는 튜링 테스트를 통과한 것이었다. 그러면 그 컴퓨터가 인간처럼 생각하는 능력을 가졌다고 추론될 수 있을 것이다. 튜링은 이 패턴이 결국 너무 일관되게 일어나서 기계들이 지능적인 것으로 여겨질 것이라고 예측했다. 컴퓨터 과학 초창기에 그는 이미 사람들이 생각할 수 있는 기계를 만들 수 있는 세상을 상상했다.", "note": "would be asked to V: 수동태+조동사 / fail to V: ~하지 못하다 / It might be inferred that: 가주어-진주어+수동태 추측", "sentences": [{"en": "After a set period of time, the participant would be asked to state which answers came from the computer and which came from the human being.", "ko": "일정 시간이 지난 후, 참가자는 어떤 대답이 컴퓨터에서 왔고 어떤 것이 인간에게서 왔는지 말하도록 요청받을 것이었다.", "gram": "would be asked to V: 수동태+조동사 / state which ~: 간접의문문"}, {"en": "If the participant failed to distinguish one from the other, the computer had passed the Turing test.", "ko": "참가자가 둘을 구별하지 못하면, 컴퓨터는 튜링 테스트를 통과한 것이었다.", "gram": "fail to V: ~하지 못하다 / distinguish A from B: A와 B를 구별하다 / had passed: 과거완료"}, {"en": "It might be then inferred that the computer had the ability to think like a human.", "ko": "그러면 그 컴퓨터가 인간처럼 생각하는 능력을 가졌다고 추론될 수 있을 것이다.", "gram": "It might be inferred that: 가주어-진주어+수동태 추측 / ability to V: ~할 능력"}, {"en": "Turing predicted that this pattern would eventually happen so consistently that machines would be considered intelligent.", "ko": "튜링은 이 패턴이 결국 너무 일관되게 일어나서 기계들이 지능적인 것으로 여겨질 것이라고 예측했다.", "gram": "predict that절 / so ~ that: 너무 ~해서 ~하다 / be considered+형용사: ~로 여겨지다"}, {"en": "In the early days of computer science, he already imagined a world in which people could build machines that could think.", "ko": "컴퓨터 과학 초창기에 그는 이미 사람들이 생각할 수 있는 기계를 만들 수 있는 세상을 상상했다.", "gram": "in which: 전치사+관계대명사 (= where) / that could think: 목적격 관계대명사"}]}, {"number": 5, "label": "21~25번째 문장", "translation": "최초의 챗봇인 ELIZA는 1964년에서 1967년 사이에 MIT 인공지능 연구소 교수인 조셉 와이젠바움에 의해 설계되었다. 그것은 심리치료사의 역할을 하면서 사용자들과 소통하도록 프로그래밍되었다. 사용자들이 화면의 입력창에 질문과 답변을 입력하면, ELIZA는 패턴 매칭 기법을 사용하여 미리 프로그래밍된 답변을 제공하곤 했다. 와이젠바움은 ELIZA가 인간의 언어를 진정으로 이해하지 못하며 사전에 작성된 패턴을 따르도록 프로그래밍되었을 뿐이라고 주장했다. 그러나 프로그램에 대한 사용자들의 반응은 꽤 놀라웠다.", "note": "수동태: was designed by / be programmed to V / When절: 시간 부사절", "sentences": [{"en": "ELIZA, the first chatbot, was designed by Joseph Weizenbaum, a professor at MIT's artificial intelligence laboratory between 1964 and 1967.", "ko": "최초의 챗봇인 ELIZA는 1964년에서 1967년 사이에 MIT 인공지능 연구소 교수인 조셉 와이젠바움에 의해 설계되었다.", "gram": "수동태: was designed by / 동격 명사구 / between A and B"}, {"en": "It was programmed to communicate with users, playing the role of a psychotherapist.", "ko": "그것은 심리치료사의 역할을 하면서 사용자들과 소통하도록 프로그래밍되었다.", "gram": "be programmed to V / playing ~: 분사구문 (동시동작)"}, {"en": "When users typed questions and answers in the input box on the screen, ELIZA would give pre-programmed replies using a pattern-matching technique.", "ko": "사용자들이 화면의 입력창에 질문과 답변을 입력하면, ELIZA는 패턴 매칭 기법을 사용하여 미리 프로그래밍된 답변을 제공하곤 했다.", "gram": "When절: 시간 부사절 / would give: 과거의 반복 / using ~: 분사구문 (수단)"}, {"en": "Weizenbaum claimed that ELIZA did not genuinely understand human language and that it was only programmed to follow pre-scripted patterns.", "ko": "와이젠바움은 ELIZA가 인간의 언어를 진정으로 이해하지 못하며 사전에 작성된 패턴을 따르도록 프로그래밍되었을 뿐이라고 주장했다.", "gram": "claim that절 / that ~ and that ~: 병렬구조 목적어절"}, {"en": "However, users reactions to the program were quite surprising.", "ko": "그러나 프로그램에 대한 사용자들의 반응은 꽤 놀라웠다.", "gram": "However: 역접 접속부사 / quite: 꽤, 상당히"}]}, {"number": 6, "label": "26~30번째 문장", "translation": "사용자들은 자신들의 입력을 이해하는 누군가와 이야기하고 있는 것처럼 느꼈다. 그들은 마치 실제 심리치료사와 이야기하는 것처럼 삶에 대한 걱정과 생각을 ELIZA와 나눴다. 2011년, 컴퓨터 엔지니어 제프 딘과 스탠퍼드 대학교 컴퓨터 과학 교수 앤드류 응은 딥러닝 AI 연구팀을 설립하고 지금까지 구축된 가장 큰 신경망 중 하나를 만들었다. 그들의 목표는 네트워크가 인간의 두뇌처럼 작동하고 인간의 개입 없이 스스로 이미지를 인식하도록 훈련시키는 것이었다. 16,000개의 컴퓨터 프로세서 네트워크가 연결되었고, 이 프로세서들에게는 온라인 동영상에서 1천만 개의 무작위 이미지가 제공되었다.", "note": "feel like + 절: ~인 것처럼 느끼다 / as if + 가정법 과거: 마치 ~인 것처럼 (현재 사실과 반대) / one of the + 최상급 + 복수명사: 가장 ~한 것 중 하나", "sentences": [{"en": "The users felt like they were talking to someone who understood their input.", "ko": "사용자들은 자신들의 입력을 이해하는 누군가와 이야기하고 있는 것처럼 느꼈다.", "gram": "feel like + 절: ~인 것처럼 느끼다 / who understood: 주격 관계대명사"}, {"en": "They shared their worries and thoughts about their lives with ELIZA as if they were talking to a real psychotherapist.", "ko": "그들은 마치 실제 심리치료사와 이야기하는 것처럼 삶에 대한 걱정과 생각을 ELIZA와 나눴다.", "gram": "as if + 가정법 과거: 마치 ~인 것처럼 (현재 사실과 반대)"}, {"en": "In 2011, computer engineer Jeff Dean and Stanford University computer science professor Andrew Ng founded a deep learning artificial intelligence research team and created one of the largest neural networks ever built.", "ko": "2011년, 컴퓨터 엔지니어 제프 딘과 스탠퍼드 대학교 컴퓨터 과학 교수 앤드류 응은 딥러닝 AI 연구팀을 설립하고 지금까지 구축된 가장 큰 신경망 중 하나를 만들었다.", "gram": "one of the + 최상급 + 복수명사: 가장 ~한 것 중 하나 / ever built: 과거분사 후치수식"}, {"en": "Their goal was to make the network act like a human brain and train itself to recognize the images without any human intervention.", "ko": "그들의 목표는 네트워크가 인간의 두뇌처럼 작동하고 인간의 개입 없이 스스로 이미지를 인식하도록 훈련시키는 것이었다.", "gram": "make A V: 사역동사 / train itself to V: 스스로를 ~하도록 훈련시키다"}, {"en": "A network of 16,000 computer processors was connected, and these processors were presented with 10 million random images from online videos.", "ko": "16,000개의 컴퓨터 프로세서 네트워크가 연결되었고, 이 프로세서들에게는 온라인 동영상에서 1천만 개의 무작위 이미지가 제공되었다.", "gram": "수동태: was connected / be presented with: ~을 제공받다"}]}, {"number": 7, "label": "31~35번째 문장", "translation": "엔지니어들은 신경망에게 특정 정보를 생각해내거나 이미지를 분류하도록 지시하지 않았다. 그들은 신경망이 비디오 이미지에서 자연스럽게 패턴을 찾고 비지도 방식으로 분류를 형성할 수 있는지 알아보기 위해 기다렸다. 신경망이 3일 동안 이미지 데이터를 처리한 후, 인간의 얼굴, 인체, 고양이 세 가지 이미지를 감지할 수 있었다. 이 겉보기에 단순한 연구는 신경망의 비지도 이미지 인식 작업에서 중요한 발전을 나타냈으며 AI 연구의 새로운 시대의 시작을 알렸다. 많은 전문가들은 인공지능이 21세기 삶의 모든 측면에 영향을 미칠 것이라고 예측한다.", "note": "instruct A to V: A에게 ~하도록 지시하다 / wait to V: ~하기 위해 기다리다 / After절: 시간 부사절", "sentences": [{"en": "The engineers did not instruct the neural network to come up with any specific information or classify the images.", "ko": "엔지니어들은 신경망에게 특정 정보를 생각해내거나 이미지를 분류하도록 지시하지 않았다.", "gram": "instruct A to V: A에게 ~하도록 지시하다 / come up with: ~을 생각해내다"}, {"en": "They waited to find out if the neural network could naturally find patterns in the video images and form classifications in an unsupervised manner.", "ko": "그들은 신경망이 비디오 이미지에서 자연스럽게 패턴을 찾고 비지도 방식으로 분류를 형성할 수 있는지 알아보기 위해 기다렸다.", "gram": "wait to V: ~하기 위해 기다리다 / find out if: ~인지 알아내다"}, {"en": "After the neural network processed the image data for three days, it was able to detect three images: a human face, a human body, and a cat.", "ko": "신경망이 3일 동안 이미지 데이터를 처리한 후, 인간의 얼굴, 인체, 고양이 세 가지 이미지를 감지할 수 있었다.", "gram": "After절: 시간 부사절 / be able to V: ~할 수 있다 / 콜론 이하 나열"}, {"en": "This seemingly simple research represented a significant advancement in the unsupervised image recognition tasks of neural networks and marked the beginning of a new era of artificial intelligence research.", "ko": "이 겉보기에 단순한 연구는 신경망의 비지도 이미지 인식 작업에서 중요한 발전을 나타냈으며 AI 연구의 새로운 시대의 시작을 알렸다.", "gram": "seemingly: 겉보기에 (부사) / represent: 나타내다 / mark: ~을 알리다"}, {"en": "Many experts predict that artificial intelligence will impact every aspect of 21st century life.", "ko": "많은 전문가들은 인공지능이 21세기 삶의 모든 측면에 영향을 미칠 것이라고 예측한다.", "gram": "predict that절 / every aspect of: ~의 모든 측면"}]}, {"number": 8, "label": "36~40번째 문장", "translation": "AI는 우리가 일하고, 즐기고, 소통하는 방식을 향상시킬 것이다. 희망과 흥분과 함께 우려도 있다. 일부 사람들은 AI가 우리의 일자리를 빼앗고 결국 인간 사회를 통제할 것이라고 주장한다. 우리가 '생각하는 기계'와 함께 살 때 무슨 일이 일어날지는 진정으로 우리에게 달려 있다. 우리는 무엇이 우리를 AI와 다르게 만드는지 계속해서 스스로에게 물어야 한다.", "note": "the way (that) we V: ~하는 방식 / Along with: ~와 함께 (전치사) / argue that절", "sentences": [{"en": "AI will improve the way we work, play, and communicate.", "ko": "AI는 우리가 일하고, 즐기고, 소통하는 방식을 향상시킬 것이다.", "gram": "the way (that) we V: ~하는 방식 / 병렬구조: work, play, and communicate"}, {"en": "Along with hope and excitement, there are also concerns.", "ko": "희망과 흥분과 함께 우려도 있다.", "gram": "Along with: ~와 함께 (전치사) / there are: 존재 구문"}, {"en": "Some people argue that AI will take our jobs and eventually control human society.", "ko": "일부 사람들은 AI가 우리의 일자리를 빼앗고 결국 인간 사회를 통제할 것이라고 주장한다.", "gram": "argue that절 / will take ~ and control ~: 병렬 미래시제"}, {"en": "What will happen when we live together with a thinking machine truly depends on us.", "ko": "우리가 '생각하는 기계'와 함께 살 때 무슨 일이 일어날지는 진정으로 우리에게 달려 있다.", "gram": "What will happen ~: 명사절 주어 / depend on: ~에 달려 있다"}, {"en": "We must keep asking ourselves what makes us different from AI.", "ko": "우리는 무엇이 우리를 AI와 다르게 만드는지 계속해서 스스로에게 물어야 한다.", "gram": "keep -ing: 계속 ~하다 / what makes A B: 무엇이 A를 B하게 만드는지"}]}, {"number": 9, "label": "41~41번째 문장", "translation": "우리는 인공지능이 사회의 발전을 위해서만 사용되도록 해야 한다.", "note": "ensure that절", "sentences": [{"en": "We must ensure that artificial intelligence is only used for the betterment of society.", "ko": "우리는 인공지능이 사회의 발전을 위해서만 사용되도록 해야 한다.", "gram": "ensure that절 / be used for: ~을 위해 사용되다 / betterment: 개선, 향상"}]}];
+let state={},favs={},curSeg='all',curTab='list';
+let listFilter='all',listMode='problem';
+let flashIdx=0,flashFilter='all',flashMode='problem',flashRevealed=false;
+let swipeStartX=0,repeatCount=1;
+const STORAGE_KEY='cuetop_mirae_g1_4_v1';
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify({state,favs,curSeg,repeatCount}));}
+function load(){
+  try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    state=d.state||{};favs=d.favs||{};curSeg=d.curSeg||'all';repeatCount=d.repeatCount||1;
+  }catch(e){state={};favs={};curSeg='all';repeatCount=1;}
+}
+
+let _voices=[],_repeatTimer=null,_isPlaying=false;
+function _warmVoices(){
+  if(!window.speechSynthesis)return;
+  _voices=speechSynthesis.getVoices();
+  if(!_voices.length){speechSynthesis.onvoiceschanged=()=>{_voices=speechSynthesis.getVoices();};}
+}
+function stopSpeak(){
+  if(_repeatTimer){clearTimeout(_repeatTimer);_repeatTimer=null;}
+  if(window.speechSynthesis)speechSynthesis.cancel();
+  _isPlaying=false;
+  document.querySelectorAll('.rep-playing').forEach(el=>el.remove());
+}
+function speak(text,repeatN){
+  stopSpeak();
+  if(!window.speechSynthesis)return;
+  const n=repeatN!==undefined?repeatN:repeatCount;
+  _isPlaying=true;let count=0;
+  function playOne(){
+    if(!_isPlaying||count>=n){_isPlaying=false;return;}
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US';u.rate=0.85;
+    const vv=_voices.length?_voices:speechSynthesis.getVoices();
+    const v=vv.find(x=>x.lang==='en-US')||vv.find(x=>x.lang.startsWith('en'));
+    if(v)u.voice=v;
+    u.onend=()=>{count++;if(count<n&&_isPlaying){_repeatTimer=setTimeout(playOne,600);}
+      else{_isPlaying=false;document.querySelectorAll('.rep-playing').forEach(el=>el.remove());}};
+    u.onerror=()=>{_isPlaying=false;};
+    speechSynthesis.speak(u);
+  }
+  playOne();
+}
+function showRepIndicator(container,n){
+  document.querySelectorAll('.rep-playing').forEach(el=>el.remove());
+  if(n<=1||!container)return;
+  const div=document.createElement('div');div.className='rep-playing';
+  div.innerHTML='<span class="rep-dot"></span> '+n+'회 반복 재생 중... <button onclick="stopSpeak()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:13px;color:var(--blue)">⏹</button>';
+  container.appendChild(div);
+}
+
+const SEG2=3;
+function getSegments(){
+  const nums=SENTENCES_RAW.map(s=>s.number);
+  const segs=[{label:'전체',key:'all'}];
+  for(let i=0;i<nums.length;i+=SEG2){
+    const c=nums.slice(i,i+SEG2);
+    segs.push({label:'Unit '+c[0]+'~'+c[c.length-1],key:c.join(',')});
+  }
+  return segs;
+}
+function getFiltered(){
+  if(curSeg==='all')return SENTENCES_RAW;
+  const keys=curSeg.split(',').map(Number);
+  return SENTENCES_RAW.filter(s=>keys.includes(s.number));
+}
+function applyFilter(arr,f){
+  if(f==='no')return arr.filter(s=>state[s.number]==='no'||!state[s.number]);
+  if(f==='fav')return arr.filter(s=>favs[s.number]);
+  return arr;
+}
+function updateHeaderH(){
+  const h=document.getElementById('mainHeader').offsetHeight;
+  document.getElementById('segWrap').style.top=h+'px';
+  document.documentElement.style.setProperty('--header-h',h+'px');
+}
+function updateStats(){
+  let ok=0,no=0,fav=0;
+  SENTENCES_RAW.forEach(s=>{if(state[s.number]==='ok')ok++;else if(state[s.number]==='no')no++;if(favs[s.number])fav++;});
+  document.getElementById('cntOk').textContent=ok;
+  document.getElementById('cntNo').textContent=no;
+  document.getElementById('cntFav').textContent=fav;
+  const pct=SENTENCES_RAW.length?Math.round((ok+no)/SENTENCES_RAW.length*100):0;
+  document.getElementById('progBar').style.width=pct+'%';
+}
+function renderSegBar(){
+  document.getElementById('segWrap').innerHTML=getSegments().map(s=>
+    '<button class="seg-btn'+(curSeg===s.key?' active':'')+'" onclick="setSeg(\''+s.key+'\')">'+s.label+'</button>'
+  ).join('');
+}
+function setSeg(k){curSeg=k;flashIdx=0;flashRevealed=false;stopSpeak();save();renderSegBar();renderCurrent();}
+function switchTab(tab){
+  stopSpeak();curTab=tab;
+  ['list','flash'].forEach(t=>document.getElementById(t+'-tab').style.display=t===tab?'':'none');
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['list','flash'][i]===tab));
+  flashIdx=0;flashRevealed=false;renderCurrent();
+}
+function renderCurrent(){if(curTab==='list')renderList();else renderFlash();}
+function repeatBtnsHtml(){
+  return '<div class="repeat-wrap"><span class="rep-label">반복</span>'+[1,3,5].map(n=>'<button class="rep-btn'+(repeatCount===n?' active':'')+'" onclick="setRepeat('+n+')">'+n+'회</button>').join('')+'</div>';
+}
+function setRepeat(n){repeatCount=n;stopSpeak();save();renderCurrent();}
+
+function renderList(){
+  const tab=document.getElementById('list-tab');
+  const prevSearch=tab.querySelector('.search-box')?.value||'';
+  const arr=applyFilter(getFiltered(),listFilter);
+  const search=prevSearch.trim().toLowerCase();
+  const filtered=arr.filter(s=>!search||
+    s.sentences.some(x=>x.en.toLowerCase().includes(search)||x.ko.toLowerCase().includes(search))||
+    s.translation.toLowerCase().includes(search));
+
+  let html='<div class="mode-toggle">'
+    +'<button class="mode-btn'+(listMode==='problem'?' active':'')+'" onclick="setListMode(\'problem\')">📄 묶음 전체</button>'
+    +'<button class="mode-btn'+(listMode==='sentence'?' active':'')+'" onclick="setListMode(\'sentence\')">📝 문장 분해</button>'
+    +'</div>'
+    +'<input class="search-box" id="listSearch" placeholder="🔍 영어/한국어 검색..." value="'+prevSearch.replace(/"/g,'&quot;')+'">'
+    +'<div class="filter-row">'
+    +'<button class="filter-btn'+(listFilter==='all'?' active':'')+'" onclick="setListFilter(\'all\')">전체</button>'
+    +'<button class="filter-btn'+(listFilter==='no'?' active':'')+'" onclick="setListFilter(\'no\')">❌ 미완료</button>'
+    +'<button class="filter-btn'+(listFilter==='fav'?' active':'')+'" onclick="setListFilter(\'fav\')">⭐ 즐겨찾기</button>'
+    +repeatBtnsHtml()+'</div>';
+
+  if(!filtered.length){html+='<div class="empty-msg">해당하는 내용이 없습니다.</div>';}
+  else filtered.forEach(s=>{
+    const st=state[s.number]||'',isFav=favs[s.number];
+    const preview=s.sentences[0]?.en.slice(0,60)||'';
+    html+='<div class="s-card'+(st?' status-'+st:'')+'" id="sc-'+s.number+'">'
+      +'<div class="s-card-head">'
+      +'<div class="s-num">Unit<br>'+s.number+'</div>'
+      +'<div class="s-preview" onclick="toggleCard('+s.number+')">'+preview+(s.sentences[0]?.en.length>60?'…':'')+'</div>'
+      +'<div class="s-head-btns">'
+      +'<button class="s-speak-btn" onclick="event.stopPropagation();speakCard('+s.number+',this)">🔊</button>'
+      +'<button class="s-chevron" id="sci-'+s.number+'" onclick="toggleCard('+s.number+')">▾</button>'
+      +'</div></div>'
+      +'<div class="s-body" id="sb-'+s.number+'">';
+
+    if(listMode==='problem'){
+      html+='<div class="full-passage">'+s.sentences.map(x=>x.en).join(' ')+'</div>'
+        +'<div class="full-trans">'+s.translation+'</div>'
+        +(s.note?'<div class="note-badge">📌 '+s.note+'</div>':'');
+    } else {
+      html+='<div class="sent-list">';
+      s.sentences.forEach((sent,i)=>{
+        html+='<div class="sent-item">'
+          +'<div class="sent-en-row" onclick="toggleSent('+s.number+','+i+')">'
+          +'<div class="sent-idx">['+(i+1)+']</div>'
+          +'<div class="sent-en-text">'+sent.en+'</div>'
+          +'<button class="sent-spk" onclick="event.stopPropagation();speakSent('+JSON.stringify(sent.en)+',this)">🔊</button>'
+          +'</div>'
+          +'<div class="sent-detail" id="sd-'+s.number+'-'+i+'">'
+          +'<div class="sent-ko">'+sent.ko+'</div>'
+          +(sent.gram?'<div class="sent-gram">📐 '+sent.gram+'</div>':'')
+          +'</div></div>';
+      });
+      html+='</div>';
+    }
+    html+='</div>'
+      +'<div class="s-actions">'
+      +'<button class="act-btn act-ok'+(st==='ok'?' sel':'')+'" onclick="setState('+s.number+',\'ok\')">✅ 외웠어요</button>'
+      +'<button class="act-btn act-no'+(st==='no'?' sel':'')+'" onclick="setState('+s.number+',\'no\')">❌ 모름</button>'
+      +'<button class="act-btn act-skip'+(st==='skip'?' sel':'')+'" onclick="setState('+s.number+',\'skip\')">⤵ 건너뜀</button>'
+      +'<button class="act-fav" onclick="toggleFav('+s.number+')">'+(isFav?'⭐':'☆')+'</button>'
+      +'</div></div>';
+  });
+
+  tab.innerHTML=html;
+  const box=document.getElementById('listSearch');
+  if(box){box.value=prevSearch;box.addEventListener('input',renderList);}
+}
+
+function speakCard(num,btn){
+  const s=SENTENCES_RAW.find(x=>x.number===num);if(!s)return;
+  const text=s.sentences.map(x=>x.en).join(' ');
+  speak(text);
+  if(repeatCount>1)showRepIndicator(btn.closest('.s-card')?.querySelector('.s-actions'),repeatCount);
+}
+function speakSent(text,btn){
+  speak(text);
+  if(repeatCount>1)showRepIndicator(btn.closest('.sent-item'),repeatCount);
+}
+function toggleCard(num){
+  const body=document.getElementById('sb-'+num),icon=document.getElementById('sci-'+num);
+  if(!body)return;
+  const isOpen=body.classList.toggle('open');
+  icon.textContent=isOpen?'▴':'▾';
+  if(isOpen){const s=SENTENCES_RAW.find(x=>x.number===num);if(s)speak(s.sentences.map(x=>x.en).join(' '));}
+}
+function toggleSent(num,idx){
+  const detail=document.getElementById('sd-'+num+'-'+idx);if(!detail)return;
+  const isOpen=detail.classList.toggle('open');
+  if(isOpen){const s=SENTENCES_RAW.find(x=>x.number===num);if(s&&s.sentences[idx]){speak(s.sentences[idx].en);if(repeatCount>1)showRepIndicator(detail,repeatCount);}}
+}
+function setListMode(m){listMode=m;stopSpeak();renderList();}
+function setListFilter(f){listFilter=f;stopSpeak();renderList();}
+function setState(num,st){
+  state[num]=st;save();updateStats();
+  const card=document.getElementById('sc-'+num);if(!card)return;
+  card.className='s-card'+(st?' status-'+st:'');
+  card.querySelectorAll('.act-btn').forEach(b=>b.classList.remove('sel'));
+  const btn=card.querySelector('.act-'+st);if(btn)btn.classList.add('sel');
+}
+function toggleFav(num){
+  favs[num]=!favs[num];save();updateStats();
+  document.querySelectorAll('#sc-'+num+' .act-fav').forEach(b=>b.textContent=favs[num]?'⭐':'☆');
+}
+
+function renderFlash(){
+  const arr=applyFilter(getFiltered(),flashFilter);
+  const tab=document.getElementById('flash-tab');
+  if(!arr.length){tab.innerHTML='<div class="empty-msg">해당 내용이 없습니다.</div>';return;}
+  if(flashIdx>=arr.length)flashIdx=0;
+  const s=arr[flashIdx],st=state[s.number]||'',isFav=favs[s.number];
+  const fullText=s.sentences.map(x=>x.en).join(' ');
+
+  let revealHtml='';
+  if(flashRevealed){
+    if(flashMode==='problem'){
+      revealHtml='<div class="flash-reveal"><div class="flash-ko">'+s.translation+'</div>'+(s.note?'<div class="flash-note">📌 '+s.note+'</div>':'')+'</div>';
+    } else {
+      revealHtml='<div class="flash-reveal">';
+      s.sentences.forEach((sent,i)=>{
+        revealHtml+='<div class="flash-sent-item">'
+          +'<div class="flash-sent-en-row" onclick="toggleFlashSent('+i+')">'
+          +'<div class="flash-sent-idx">['+(i+1)+']</div>'
+          +'<div class="flash-sent-en">'+sent.en+'</div>'
+          +'<button class="flash-sent-spk" onclick="event.stopPropagation();speak('+JSON.stringify(sent.en)+')">🔊</button>'
+          +'</div>'
+          +'<div class="flash-sent-detail" id="fsd-'+i+'">'
+          +'<div class="flash-sent-ko">'+sent.ko+'</div>'
+          +(sent.gram?'<div class="flash-sent-gram">📐 '+sent.gram+'</div>':'')
+          +'</div></div>';
+      });
+      revealHtml+=(s.note?'<div class="flash-note" style="margin-top:8px">📌 '+s.note+'</div>':'')+'</div>';
+    }
+  }
+
+  tab.innerHTML='<div class="mode-toggle">'
+    +'<button class="mode-btn'+(flashMode==='problem'?' active':'')+'" onclick="setFlashMode(\'problem\')">📄 묶음 전체</button>'
+    +'<button class="mode-btn'+(flashMode==='sentence'?' active':'')+'" onclick="setFlashMode(\'sentence\')">📝 문장 분해</button>'
+    +'</div>'
+    +'<div class="filter-row">'
+    +'<button class="filter-btn'+(flashFilter==='all'?' active':'')+'" onclick="setFlashFilter(\'all\')">전체</button>'
+    +'<button class="filter-btn'+(flashFilter==='no'?' active':'')+'" onclick="setFlashFilter(\'no\')">❌ 미완료</button>'
+    +'<button class="filter-btn'+(flashFilter==='fav'?' active':'')+'" onclick="setFlashFilter(\'fav\')">⭐ 즐겨찾기</button>'
+    +repeatBtnsHtml()+'</div>'
+    +'<div class="flash-wrap">'
+    +'<div class="flash-card'+(st?' status-'+st:'')+'" ontouchstart="swipeStart(event)" ontouchend="swipeEnd(event)">'
+    +'<div class="flash-card-top">'
+    +'<div class="flash-num">Unit '+s.number+' · '+s.label+'</div>'
+    +'<div class="flash-top-btns">'
+    +'<button class="flash-spk" onclick="event.stopPropagation();flashSpeak()">🔊'+(repeatCount>1?' ×'+repeatCount:'')+'</button>'
+    +'<button class="flash-fav" onclick="event.stopPropagation();flashToggleFav()">'+(isFav?'⭐':'☆')+'</button>'
+    +'</div></div>'
+    +'<div class="flash-en" onclick="revealFlash()">'+fullText+'</div>'
+    +(!flashRevealed?'<div class="flash-hint" onclick="revealFlash()">👆 탭하면 해석이 나타나요</div>':revealHtml)
+    +'</div>'
+    +'<div id="flashRepWrap"></div>'
+    +'<div class="flash-nav">'
+    +'<button class="nav-btn nav-prev" onclick="flashMove(-1)">◀ 이전</button>'
+    +'<span class="flash-counter">'+(flashIdx+1)+' / '+arr.length+'</span>'
+    +'<button class="nav-btn nav-next" onclick="flashMove(1)">다음 ▶</button>'
+    +'</div>'
+    +'<div class="flash-actions">'
+    +'<button class="fa-btn fa-ok'+(st==='ok'?' sel':'')+'" onclick="flashSetState(\'ok\')">✅ 외웠어요</button>'
+    +'<button class="fa-btn fa-no'+(st==='no'?' sel':'')+'" onclick="flashSetState(\'no\')">❌ 모름</button>'
+    +'<button class="fa-btn fa-skip'+(st==='skip'?' sel':'')+'" onclick="flashSetState(\'skip\')">⤵ 건너뜀</button>'
+    +'</div></div>';
+}
+
+function flashSpeak(){
+  const arr=applyFilter(getFiltered(),flashFilter);if(!arr[flashIdx])return;
+  speak(arr[flashIdx].sentences.map(x=>x.en).join(' '));
+  if(repeatCount>1)showRepIndicator(document.getElementById('flashRepWrap'),repeatCount);
+}
+function toggleFlashSent(idx){
+  const detail=document.getElementById('fsd-'+idx);if(!detail)return;
+  const isOpen=detail.classList.toggle('open');
+  if(isOpen){const arr=applyFilter(getFiltered(),flashFilter);const s=arr[flashIdx];if(s&&s.sentences[idx])speak(s.sentences[idx].en);}
+}
+function revealFlash(){
+  if(!flashRevealed){
+    flashRevealed=true;renderFlash();
+    const arr=applyFilter(getFiltered(),flashFilter);
+    if(arr[flashIdx]){speak(arr[flashIdx].sentences.map(x=>x.en).join(' '));if(repeatCount>1)showRepIndicator(document.getElementById('flashRepWrap'),repeatCount);}
+  }
+}
+function flashMove(dir){
+  const arr=applyFilter(getFiltered(),flashFilter);stopSpeak();
+  flashIdx=(flashIdx+dir+arr.length)%arr.length;flashRevealed=false;renderFlash();
+}
+function flashSetState(st){const arr=applyFilter(getFiltered(),flashFilter);if(!arr[flashIdx])return;state[arr[flashIdx].number]=st;save();updateStats();renderFlash();}
+function flashToggleFav(){const arr=applyFilter(getFiltered(),flashFilter);if(!arr[flashIdx])return;const n=arr[flashIdx].number;favs[n]=!favs[n];save();updateStats();renderFlash();}
+function setFlashMode(m){flashMode=m;stopSpeak();renderFlash();}
+function setFlashFilter(f){flashFilter=f;flashIdx=0;stopSpeak();renderFlash();}
+function swipeStart(e){swipeStartX=e.touches[0].clientX;}
+function swipeEnd(e){const dx=e.changedTouches[0].clientX-swipeStartX;if(Math.abs(dx)>50)flashMove(dx<0?1:-1);}
+
+load();_warmVoices();renderSegBar();updateStats();renderList();
+setTimeout(updateHeaderH,100);window.addEventListener('resize',updateHeaderH);
+</script>
+</body></html>
