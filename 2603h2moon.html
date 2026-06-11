@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta property="og:title" content="씨유에탑 ✦ 2603 고2 문현고 모의고사">
+<meta property="og:description" content="2603 고2 문현고 모의고사 · 총 10문제 지문 암기카드">
+<title>씨유에탑 ✦ 2603 고2 문현고 모의고사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --blue:#2563EB;--blue-light:#EFF6FF;--blue-mid:#BFDBFE;
+  --green:#16A34A;--green-light:#F0FDF4;
+  --red:#DC2626;--red-light:#FEF2F2;
+  --amber:#D97706;--amber-light:#FFFBEB;
+  --purple:#7C3AED;--purple-light:#F5F3FF;
+  --gray100:#F3F4F6;--gray200:#E5E7EB;
+  --gray400:#9CA3AF;--gray600:#4B5563;--gray800:#1F2937;
+  --radius:14px;--shadow:0 2px 12px rgba(0,0,0,.08);
+}
+body{font-family:'Nunito','Noto Sans KR',sans-serif;background:#F0F4FF;min-height:100vh;color:var(--gray800)}
+.header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--gray200);padding:10px 16px 0;box-shadow:0 2px 8px rgba(37,99,235,.07)}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.brand{font-size:13px;font-weight:800;color:var(--blue);letter-spacing:-.3px}
+.subtitle{font-size:11px;color:var(--gray400);margin-top:1px}
+.stats{display:flex;gap:8px;font-size:11px;font-weight:700}
+.stat-ok{color:var(--green)}.stat-no{color:var(--red)}.stat-fav{color:#F59E0B}
+.prog-wrap{height:4px;background:var(--gray100);border-radius:2px;margin-bottom:8px}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--blue),#60A5FA);border-radius:2px;transition:width .4s}
+.tabs{display:flex;border-bottom:2px solid var(--gray200)}
+.tab-btn{flex:1;padding:8px 4px;font-size:13px;font-weight:700;border:none;background:none;cursor:pointer;color:var(--gray400);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+.seg-wrap{position:sticky;top:var(--header-h,108px);z-index:90;background:#F0F4FF;padding:8px 12px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;border-bottom:1px solid var(--gray200)}
+.seg-wrap::-webkit-scrollbar{display:none}
+.seg-btn{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--gray200);background:#fff;color:var(--gray600);margin-right:6px;transition:all .15s}
+.seg-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.mode-toggle{display:flex;background:var(--gray100);border-radius:20px;padding:3px;margin-bottom:12px}
+.mode-btn{flex:1;padding:5px;border-radius:18px;border:none;font-size:11px;font-weight:700;cursor:pointer;color:var(--gray600);background:none}
+.mode-btn.active{background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.filter-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.filter-btn{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--gray200);background:#fff;color:var(--gray600);cursor:pointer}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.search-box{width:100%;padding:9px 14px;border-radius:10px;border:1.5px solid var(--gray200);font-size:13px;font-family:inherit;margin-bottom:10px;outline:none;background:#fff}
+.search-box:focus{border-color:var(--blue)}
+.repeat-wrap{margin-left:auto;display:flex;gap:4px;align-items:center}
+.rep-label{font-size:10px;color:var(--gray400);font-weight:700}
+.rep-btn{padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700;border:1.5px solid var(--gray200);background:#fff;color:var(--gray600);cursor:pointer}
+.rep-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.s-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:10px;border:1.5px solid transparent;overflow:hidden;transition:border-color .15s}
+.s-card.status-ok{border-color:var(--green)}
+.s-card.status-no{border-color:var(--red)}
+.s-card-head{display:flex;align-items:center;gap:8px;padding:11px 14px}
+.s-num{min-width:32px;height:32px;border-radius:8px;background:var(--blue-light);color:var(--blue);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.s-preview{flex:1;font-size:12.5px;font-weight:600;line-height:1.5;color:var(--gray800);cursor:pointer}
+.s-head-btns{display:flex;gap:4px;align-items:center;flex-shrink:0}
+.s-speak-btn{background:var(--blue-light);border:none;cursor:pointer;font-size:14px;padding:5px 8px;border-radius:8px;color:var(--blue);font-weight:700}
+.s-speak-btn:active{opacity:.7}
+.s-chevron{font-size:14px;color:var(--gray400);cursor:pointer;padding:4px;background:none;border:none}
+.s-body{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+.s-body.open{max-height:3000px;padding-bottom:14px}
+.full-passage{font-size:13px;font-weight:600;line-height:1.8;color:var(--gray800);padding-top:10px;margin-bottom:10px;border-top:1px solid var(--gray100)}
+.full-trans{font-size:12.5px;color:var(--gray600);line-height:1.7;margin-bottom:8px}
+.note-badge{font-size:11.5px;color:var(--amber);font-weight:600;background:var(--amber-light);padding:6px 10px;border-radius:7px;line-height:1.55}
+.sent-list{padding-top:10px;border-top:1px solid var(--gray100)}
+.sent-item{margin-bottom:8px;border-radius:10px;overflow:hidden;border:1.5px solid var(--gray200)}
+.sent-en-row{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;cursor:pointer;background:var(--blue-light)}
+.sent-idx{font-size:10px;font-weight:800;color:var(--blue);min-width:20px;padding-top:2px;flex-shrink:0}
+.sent-en-text{flex:1;font-size:12.5px;font-weight:700;line-height:1.65;color:var(--gray800)}
+.sent-spk{background:#fff;border:none;cursor:pointer;font-size:14px;padding:4px 7px;border-radius:7px;flex-shrink:0;color:var(--blue);font-weight:700}
+.sent-spk:active{opacity:.7}
+.sent-detail{padding:10px 12px;display:none}
+.sent-detail.open{display:block}
+.sent-ko{font-size:12px;color:var(--gray600);line-height:1.65;margin-bottom:7px}
+.sent-gram{font-size:11px;color:var(--purple);font-weight:600;background:var(--purple-light);padding:5px 9px;border-radius:6px;line-height:1.6}
+.s-actions{display:flex;gap:6px;align-items:center;padding:10px 14px 12px;flex-wrap:wrap;border-top:1px solid var(--gray100)}
+.act-btn{padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--gray200);background:#fff;cursor:pointer;transition:all .15s}
+.act-ok{color:var(--green);border-color:var(--green)}.act-ok.sel{background:var(--green);color:#fff}
+.act-no{color:var(--red);border-color:var(--red)}.act-no.sel{background:var(--red);color:#fff}
+.act-skip{color:var(--gray400)}.act-skip.sel{background:var(--gray100)}
+.act-fav{font-size:17px;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
+.flash-wrap{display:flex;flex-direction:column}
+.flash-card{background:#fff;border-radius:18px;box-shadow:0 4px 24px rgba(37,99,235,.12);padding:18px 16px 16px;flex:1;display:flex;flex-direction:column;min-height:260px;border:2px solid transparent;transition:border-color .2s}
+.flash-card.status-ok{border-color:var(--green)}
+.flash-card.status-no{border-color:var(--red)}
+.flash-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.flash-num{width:36px;height:36px;border-radius:10px;background:var(--blue-light);color:var(--blue);font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.flash-top-btns{display:flex;gap:6px;align-items:center}
+.flash-spk{background:var(--blue);border:none;cursor:pointer;font-size:13px;padding:7px 12px;border-radius:10px;color:#fff;font-weight:700}
+.flash-spk:active{opacity:.8}
+.flash-fav{background:none;border:none;cursor:pointer;font-size:18px;padding:4px}
+.flash-label{font-size:11px;font-weight:700;color:var(--blue);margin-bottom:8px;letter-spacing:.4px}
+.flash-en{font-size:13px;font-weight:700;line-height:1.8;color:var(--gray800);flex:1;cursor:pointer}
+.flash-hint{font-size:11px;color:var(--gray400);margin-top:14px;text-align:center;cursor:pointer;padding:8px;border:1.5px dashed var(--gray200);border-radius:8px}
+.flash-reveal{margin-top:14px;border-top:1px solid var(--gray100);padding-top:12px}
+.flash-ko{font-size:12.5px;color:var(--gray600);line-height:1.65;margin-bottom:8px}
+.flash-note{font-size:11px;color:var(--amber);font-weight:600;background:var(--amber-light);padding:5px 9px;border-radius:6px}
+.flash-sent-item{margin-bottom:7px;border-radius:9px;overflow:hidden;border:1.5px solid var(--gray200)}
+.flash-sent-en-row{display:flex;align-items:flex-start;gap:6px;padding:8px 10px;background:var(--blue-light);cursor:pointer}
+.flash-sent-idx{font-size:10px;font-weight:800;color:var(--blue);min-width:18px;padding-top:1px;flex-shrink:0}
+.flash-sent-en{flex:1;font-size:12px;font-weight:700;line-height:1.6;color:var(--gray800)}
+.flash-sent-spk{background:#fff;border:none;cursor:pointer;font-size:13px;padding:3px 6px;border-radius:6px;flex-shrink:0;color:var(--blue)}
+.flash-sent-spk:active{opacity:.7}
+.flash-sent-detail{padding:8px 10px;display:none}
+.flash-sent-detail.open{display:block}
+.flash-sent-ko{font-size:11.5px;color:var(--gray600);line-height:1.6;margin-bottom:5px}
+.flash-sent-gram{font-size:10.5px;color:var(--purple);font-weight:600;background:var(--purple-light);padding:4px 8px;border-radius:5px;line-height:1.55}
+.flash-nav{display:flex;align-items:center;gap:8px;margin-top:12px}
+.nav-btn{flex:1;padding:10px;border-radius:12px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .15s}
+.nav-prev{background:var(--gray100);color:var(--gray600)}
+.nav-next{background:var(--blue);color:#fff}
+.nav-btn:active{opacity:.8}
+.flash-counter{font-size:12px;color:var(--gray400);font-weight:700;text-align:center;min-width:54px}
+.flash-actions{display:flex;gap:6px;margin-top:10px}
+.fa-btn{flex:1;padding:9px;border-radius:12px;font-size:12px;font-weight:700;border:1.5px solid;cursor:pointer;transition:all .15s}
+.fa-ok{color:var(--green);border-color:var(--green);background:#fff}.fa-ok.sel{background:var(--green);color:#fff}
+.fa-no{color:var(--red);border-color:var(--red);background:#fff}.fa-no.sel{background:var(--red);color:#fff}
+.fa-skip{color:var(--gray400);border-color:var(--gray200);background:#fff}.fa-skip.sel{background:var(--gray100)}
+.rep-playing{display:flex;align-items:center;gap:6px;margin-top:8px;padding:6px 10px;background:var(--blue-light);border-radius:8px;font-size:11px;font-weight:700;color:var(--blue)}
+.rep-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.empty-msg{text-align:center;padding:40px;color:var(--gray400);font-size:13px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="header" id="mainHeader">
+  <div class="header-top">
+    <div>
+      <div class="brand">씨유에탑 ✦ 문장외우기</div>
+      <div class="subtitle">2603 고2 문현고 모의고사 · 총 10문제</div>
+    </div>
+    <div class="stats">
+      <span class="stat-ok">✅ <span id="cntOk">0</span></span>
+      <span class="stat-no">❌ <span id="cntNo">0</span></span>
+      <span class="stat-fav">⭐ <span id="cntFav">0</span></span>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('list')">📋 지문목록</button>
+    <button class="tab-btn" onclick="switchTab('flash')">🃏 플래시카드</button>
+  </div>
+</div>
+<div class="seg-wrap" id="segWrap"></div>
+<div id="list-tab" style="padding:10px 12px 80px"></div>
+<div id="flash-tab" style="padding:10px 12px 80px;display:none"></div>
+
+<script>
+const SENTENCES_RAW = [{"number": 23, "translation": "대부분의 공연 조명은 '조명 상태'라고 부르는 다양한 장면들로 구성된다. 각 조명 큐는 새로운 상태로의 변화를 유발한다. 배우처럼, 조명 큐에도 보통 계기(동기)가 필요하다. 이는 배우가 전등 스위치를 켤 때 무대 조명이 밝아지거나, 전통 뮤지컬에서 댄스 넘버가 끝날 때 강도가 급격히 높아지는 것처럼 매우 명백한 것일 수 있다. 또한 노을이 언급되거나 공연의 분위기를 서서히 일상에서 위협적으로 변화시키려는 의도에서 비롯된, 몇 분에 걸친 미묘한 분위기 변화를 위한 큐가 필요할 때도 있다. '이 공연에서 조명은 무엇을 할 것인가?'라는 질문은 공연의 각 순간, 각 극적 단위나 장면, 그리고 각 전환마다 물어봐야 한다.", "note": "cue: 큐, 신호 / intensity: 강도 / subtle: 미묘한 / threatening: 위협적인 / dramatic unit: 극적 단위", "sentences": [{"en": "Most performance lighting is made up of a number of different looks which we have called lighting states.", "ko": "대부분의 공연 조명은 우리가 '조명 상태'라고 부르는 여러 다양한 장면들로 구성된다.", "gram": "be made up of: ~로 구성되다 / which 관계대명사: lighting states를 선행사로 수식"}, {"en": "Each lighting cue triggers a change to a new state.", "ko": "각 조명 큐는 새로운 상태로의 변화를 유발한다.", "gram": "trigger: 유발하다 (동사 용법)"}, {"en": "Like actors, lighting cues usually need a motivation.", "ko": "배우처럼, 조명 큐도 보통 계기가 필요하다.", "gram": "Like: ~처럼 (비교의 전치사)"}, {"en": "This might be something very obvious such as a cue required to brighten a room setting when an actor turns on a light switch or the rapid increase in intensity at the end of a dance number in a traditional musical (known as a button cue).", "ko": "이것은 배우가 전등 스위치를 켤 때 무대 설정을 밝히기 위해 필요한 큐나, 전통 뮤지컬에서 댄스 넘버가 끝날 때 강도의 급격한 증가(버튼 큐라고 알려진)처럼 매우 명백한 것일 수 있다.", "gram": "such as: 예를 들어 / required to: ~하기 위해 필요한 (과거분사구 후치수식) / known as: ~로 알려진 (삽입 분사구)"}, {"en": "At other times we will need a cue to provide a subtle change in atmosphere over a number of minutes, motivated perhaps by the mention of a sunset or the intention to slowly change the feel of the performance from normal to threatening.", "ko": "또 다른 경우에는 노을 언급이나 공연의 느낌을 서서히 일상에서 위협적으로 바꾸려는 의도에서 비롯되어, 몇 분에 걸쳐 분위기를 미묘하게 변화시키는 큐가 필요할 것이다.", "gram": "motivated by: ~에서 비롯된 (분사구문) / from A to B: A에서 B로 / the intention to부정사: ~하려는 의도"}, {"en": "The question, 'What will lighting do for this production?' needs to be asked for each moment of the production, each dramatic unit or scene, and each transition.", "ko": "'이 공연에서 조명은 무엇을 할 것인가?'라는 질문은 공연의 각 순간, 각 극적 단위나 장면, 그리고 각 전환마다 물어봐야 한다.", "gram": "need to be p.p.: ~될 필요가 있다 (수동태 부정사) / 병렬구조: each moment, each unit, each transition"}]}, {"number": 24, "translation": "방은 그 안에 담긴 음향 신호에 자체적인 특성을 부여하기 때문에 고유한 '소리'를 갖는다. 이것은 실제로 상당히 놀라운 일이다. 헤드폰에서 나오는 음악 소리는 어디서나 같게 들린다. 어떤 음향 환경에 있든 헤드폰은 같은 소리를 낸다. 방은 그 재생 신호 경로의 일부가 아니기 때문이다. 그러나 스피커에서 나오는 음악 소리는 모든 음향 환경에서 다르게 들린다. 스피커를 설치하는 모든 방은 듣는 소리를 다르게 만든다—때로는 극적으로 다르게. 같은 방 안에서도 스피커를 다른 위치에 놓으면 다르게 들리고, 방 안에서 이동하면서도 다르게 들린다. 마찬가지로 악기를 녹음할 때, 마이크에서 받는 소리는 방마다 다르며 악기나 마이크가 이동하면 녹음된 소리도 달라진다.", "note": "impose ~ on: ~을 …에게 부여하다 / acoustical: 음향의 / playback: 재생 / signal path: 신호 경로", "sentences": [{"en": "Rooms have their own 'sound' because they impose their own characteristics on audio signals contained within them.", "ko": "방은 그 안에 담긴 음향 신호에 자체적인 특성을 부여하기 때문에 고유한 '소리'를 갖는다.", "gram": "impose A on B: B에 A를 부여하다 / contained within: ~안에 담긴 (과거분사 후치수식)"}, {"en": "It's actually kind of remarkable.", "ko": "이것은 실제로 상당히 놀라운 일이다.", "gram": "kind of: 어느 정도, 꽤 (구어체 부사)"}, {"en": "Sound such as music coming from headphones will sound the same everywhere.", "ko": "헤드폰에서 나오는 음악 같은 소리는 어디서나 같게 들린다.", "gram": "such as: ~와 같은 / coming from: ~에서 나오는 (현재분사 후치수식) / sound + 형용사: ~하게 들리다"}, {"en": "No matter what acoustical environment we are in, the headphones sound the same.", "ko": "어떤 음향 환경에 있든 헤드폰은 같은 소리를 낸다.", "gram": "no matter what: 어떤 ~이든 (복합관계사 양보)"}, {"en": "That's because the room is not part of that playback signal path.", "ko": "방이 그 재생 신호 경로의 일부가 아니기 때문이다.", "gram": "That's because: 그것은 ~이기 때문이다 (이유 설명)"}, {"en": "But sound such as music from a loudspeaker will sound different in every acoustical environment.", "ko": "그러나 스피커에서 나오는 음악 같은 소리는 모든 음향 환경에서 다르게 들린다.", "gram": "sound different: 다르게 들리다 (2형식)"}, {"en": "Every room where you set up the loudspeaker will cause the sound you hear to be different — sometimes dramatically different; that is because the room is now part of the signal path.", "ko": "스피커를 설치하는 모든 방은 듣는 소리를 다르게 만들 것이다—때로는 극적으로 다르게. 방이 이제 신호 경로의 일부이기 때문이다.", "gram": "where 관계부사: rooms를 선행사로 수식 / cause O to-V: O가 ~하게 만들다 (5형식)"}, {"en": "Also, in the same room, the loudspeaker will sound different when it is placed in different locations in the room and it will sound different as you move around the room.", "ko": "또한 같은 방에서도, 스피커를 다른 위치에 놓으면 다르게 들리고 방 안에서 돌아다닐 때도 다르게 들린다.", "gram": "when/as 시간부사절 / be placed: 놓이다 (수동태)"}, {"en": "Similarly, when you are recording a musical instrument, the sound you receive at the microphone will be different in every room and the recorded sound will sound different as the instrument or the microphone is moved.", "ko": "마찬가지로 악기를 녹음할 때, 마이크에서 받는 소리는 방마다 다르고 악기나 마이크가 이동되면 녹음된 소리도 달라진다.", "gram": "you receive 관계사 생략: the sound (that) you receive / as: ~할 때 (시간접속사)"}]}, {"number": 30, "translation": "논문 기반 박사 과정에서 학생들은 일반적으로 특정 주제를 연구하는 데 상당한 시간과 노력을 쏟는다. 특정 분야에 대한 이 깊은 탐구는 철저한 이해를 가능하게 하지만, 동시에 초점이 좁아질 수도 있다. 학생들이 자신의 연구에 깊이 몰두하면서, 관련 분야를 탐구하거나 직접적인 연구 영역 밖의 기술을 습득하는 시간이 줄어들 수 있다. 결과적으로 이러한 단일한 집중은 과정 중에 개발되는 지식과 기술의 폭을 제한하여, 다양한 진로나 학제 간 도전에 적응하는 학생의 능력을 저해할 가능성이 있다. 유럽의 일부 대학들은 전통적인 논문 기반 박사 과정의 한계를 인식하고 보다 구조화된 접근 방식을 시행하기 시작했다. 이러한 구조화된 프로그램은 연구를 전이 가능한 기술 분야의 강의와 훈련과 결합하는 경우가 많다. 교육과정에 강의, 세미나, 워크숍, 인턴십을 통합함으로써, 이러한 프로그램들은 학생들에게 더 폭넓은 기술을 제공하고 학계를 넘어선 다양한 진로를 더 잘 준비시키는 것을 목표로 한다.", "note": "thesis-based: 논문 기반의 / absorbed in: ~에 몰두한 / interdisciplinary: 학제 간의 / transferable: 전이 가능한 / incorporate: 통합하다", "sentences": [{"en": "In a thesis-based doctoral programme, students typically spend a significant amount of time and effort researching a specific topic.", "ko": "논문 기반 박사 과정에서 학생들은 일반적으로 특정 주제를 연구하는 데 상당한 시간과 노력을 쏟는다.", "gram": "spend + 시간 + -ing: ~하는 데 시간을 쓰다"}, {"en": "While this deep dive into a particular area allows for thorough exploration and understanding, it can also result in narrowing the focus.", "ko": "특정 분야에 대한 이 깊은 탐구는 철저한 탐구와 이해를 가능하게 하지만, 동시에 초점이 좁아지는 결과를 낳을 수도 있다.", "gram": "while: ~하는 반면 (대조의 접속사) / allow for: ~을 가능하게 하다 / result in: ~의 결과를 낳다"}, {"en": "As students become deeply absorbed in their research, they may spend less time exploring related fields or acquiring skills outside their immediate area of study.", "ko": "학생들이 연구에 깊이 몰두하면서, 관련 분야를 탐구하거나 직접적 연구 영역 밖의 기술을 습득하는 시간이 줄어들 수 있다.", "gram": "as: ~하면서 (시간접속사) / absorbed in: ~에 몰두한 / spend less time -ing: ~하는 데 더 적은 시간을 보내다"}, {"en": "Consequently, this singular focus may limit the breadth of knowledge and skills developed during the programme, potentially facilitating students' ability to adapt to diverse career paths or address interdisciplinary challenges.", "ko": "결과적으로, 이 단일한 집중은 과정 중 개발되는 지식과 기술의 폭을 제한하여, 잠재적으로 다양한 진로나 학제 간 도전에 적응하는 학생의 능력을 저해(→오답: facilitating=촉진)할 수 있다.", "gram": "developed: 과거분사 후치수식 / potentially + 분사구문 ※facilitating→hindering가 문맥상 옳음(어휘 오류)"}, {"en": "Some universities in Europe have recognised the limitations of traditional thesis-based doctoral programmes and have started to implement more structured approaches.", "ko": "유럽의 일부 대학들은 전통적인 논문 기반 박사 과정의 한계를 인식하고 보다 구조화된 접근 방식을 시행하기 시작했다.", "gram": "have recognised / have started: 현재완료 / have started to-V: ~하기 시작했다"}, {"en": "These structured programmes often combine research with coursework and training in transferable skills.", "ko": "이러한 구조화된 프로그램들은 연구를 전이 가능한 기술 분야의 강의와 훈련과 결합하는 경우가 많다.", "gram": "combine A with B: A를 B와 결합하다"}, {"en": "By incorporating coursework, seminars, workshops and internships into the curriculum, they aim to provide students with a broader skill set and better prepare them for a variety of career paths beyond academia.", "ko": "교육과정에 강의, 세미나, 워크숍, 인턴십을 통합함으로써, 이 프로그램들은 학생들에게 더 폭넓은 기술을 제공하고 학계를 넘어선 다양한 진로를 더 잘 준비시키는 것을 목표로 한다.", "gram": "by -ing: ~함으로써 (수단) / aim to-V: ~하는 것을 목표로 하다 / provide A with B: A에게 B를 제공하다"}]}, {"number": 31, "translation": "연구에 따르면, 세 살이 되면 어린이들은 상상의 사물이 현실에 나타나지 않는다는 것을 이해한다. 이는 일상적인 사물에 있어 특히 명확하다. 아이들은 빈 상자 안에 연필을 상상하더라도 상자는 비어 있다는 것을 안다. 그러나 감정이 때때로 이러한 이해, 혹은 적어도 그 표현을 방해할 수 있다. 즉, 아이가 괴물이 실재하지 않는다는 것을 알더라도, 침대 밑의 괴물에 대한 생각만으로 아이가 밤에 방에 들어가기를 거부할 수 있다. 실제로, 연구에 따르면 어린이들은 괴물처럼 무서운 것을 상상하거나 가장하도록 요청받을 때 상상과 현실 사이의 인과 관계에 대한 이해를 표현하기가 더 어렵다. 한 연구에서, 유아들에게 빈 상자를 보여주고 안에 괴물을 상상하도록 요청했다. 모든 아이들이 상자가 비어 있다는 데 동의했다. 그러나 혼자 상자와 남겨졌을 때, 그들은 두려움과 회피 행동을 보였다.", "note": "disrupt: 방해하다 / causal relation: 인과 관계 / pretend: 가장하다 / exhibit: 보여주다 / avoidance: 회피", "sentences": [{"en": "Research shows that, by age three, children understand that imaginary objects do not come to life.", "ko": "연구에 따르면, 세 살이 되면 어린이들은 상상의 사물이 현실에 나타나지 않는다는 것을 이해한다.", "gram": "show that절: ~임을 보여주다 / by age three: 세 살이 되면 (by: ~까지, ~이 되면)"}, {"en": "This is especially clear with respect to everyday objects — children know that even though they imagine a pencil in an empty box, the box will remain empty.", "ko": "이는 일상적 사물에서 특히 명확하다. 아이들은 빈 상자 안에 연필을 상상하더라도 상자는 비어 있을 것임을 안다.", "gram": "with respect to: ~에 관해서 / even though: ~임에도 불구하고 (양보) / remain + 형용사: ~인 상태를 유지하다"}, {"en": "However, emotion can sometimes disrupt this understanding, or at least its expression.", "ko": "그러나 감정이 때때로 이러한 이해, 혹은 적어도 그 표현을 방해할 수 있다.", "gram": "or at least: 혹은 적어도 (점층적 대안)"}, {"en": "That is, even though a child knows that monsters are not real, the thought of a monster under a bed might be enough to make a child refuse to go into his room at night.", "ko": "즉, 아이가 괴물이 실재하지 않음을 알더라도, 침대 밑 괴물에 대한 생각만으로 아이가 밤에 방에 들어가기를 거부하게 만들기에 충분할 수 있다.", "gram": "be enough to-V: ~하기에 충분하다 / make O 동원V: O가 ~하게 만들다 (5형식)"}, {"en": "Indeed, research shows that children have a more difficult time displaying their understanding of the causal relations between imagination and reality when they are asked to pretend or imagine scary things, like monsters.", "ko": "실제로, 연구에 따르면 어린이들은 괴물처럼 무서운 것을 가장하거나 상상하도록 요청받을 때 상상과 현실의 인과 관계에 대한 이해를 표현하기가 더 어렵다.", "gram": "have a difficult time -ing: ~하는 데 어려움을 겪다 / be asked to-V: ~하도록 요청받다 (수동태)"}, {"en": "In one study, preschool children were shown an empty box and were asked to imagine a monster inside.", "ko": "한 연구에서, 유아들에게 빈 상자를 보여주고 안에 괴물을 상상하도록 요청했다.", "gram": "were shown / were asked: 수동태 (4형식 수동태: show + 간접목적어)"}, {"en": "All children agreed that the box was empty.", "ko": "모든 아이들이 상자가 비어 있다는 데 동의했다.", "gram": "agree that절: ~임에 동의하다"}, {"en": "However, when they were left alone with the box they exhibited fear and avoidance of it.", "ko": "그러나 혼자 상자와 남겨졌을 때, 그들은 두려움과 그것에 대한 회피 행동을 보였다.", "gram": "were left alone: 혼자 남겨지다 (수동태) / exhibit: 드러내다, 보이다"}]}, {"number": 32, "translation": "일상 미학의 등장은 미적 경험의 해방과 확장에서 비롯된 가장 잘 알려진 발전이다. 현재 일상 미학에 관한 연구가 활발하게 이루어지고 있지만, 일상적인 사물과 사건에서의 미적 만족 가능성은 지배적인 철학 이론에 의해 격하되고 무시되었음에도 불구하고 오래전부터 인식되어 왔다. 시인들, 특히 낭만주의 시인들과 아시아 전통의 시인들이 널리 중시하는 일상 속의 미적인 것은 소설가들에게도 인식되어 왔다. 그러나 그것의 현대적 지적 기원을 존 듀이의 '경험으로서의 예술'에서 찾는 것이 가장 편리할 것이다. 그 책에서 듀이는 미적 경험을 인간 삶의 생물학적·문화적 조건에 기반함으로써 예술과 삶의 분리에 반대했다. 그는 미적인 것을 감각과 느낌에 대한 내면화된 인식이 아닌, '자아와 사물 및 사건 세계의 완전한 상호 침투'에 위치시켰다. 나아가 듀이는 '미적인 것은 모든 정상적으로 완전한 경험에 속하는 특성의 명확하고 강화된 발전'이라고 주장했다.", "note": "aesthetics of everyday life: 일상 미학 / a flowering of: 활발한 / gratification: 만족감 / interpenetration: 상호 침투 / prevalent: 지배적인", "sentences": [{"en": "Perhaps the best-known development to emerge from the liberation and expansion of aesthetic experience is the aesthetics of everyday life.", "ko": "일상 미학은 아마도 미적 경험의 해방과 확장에서 나타난 가장 잘 알려진 발전이다.", "gram": "to emerge: to부정사 형용사적 용법 (development 수식) / 강조 도치: the aesthetics of everyday life가 보어로 강조"}, {"en": "Although there is presently a flowering of work on everyday aesthetics, the possibility of aesthetic gratification in ordinary objects and events has long been recognized, even if degraded and dismissed by prevalent philosophical theory.", "ko": "현재 일상 미학에 관한 연구가 활발하게 이루어지고 있지만, 일상적 사물과 사건에서의 미적 만족 가능성은 지배적인 철학 이론에 의해 격하·무시되었음에도 오래전부터 인식되어 왔다.", "gram": "although: ~에도 불구하고 (양보) / has long been recognized: 현재완료 수동태 / even if: ~일지라도"}, {"en": "Widely valued by poets, especially Romantic poets and those in Asian traditions, the aesthetic in everyday situations has also been recognized by novelists.", "ko": "시인들, 특히 낭만주의 시인들과 아시아 전통 시인들이 널리 중시하는 일상 속의 미적인 것은 소설가들에게도 인식되어 왔다.", "gram": "분사구문 (Widely valued by ~): 과거분사로 시작하는 수동 분사구문 / has also been recognized: 현재완료 수동태"}, {"en": "It may be most convenient, though, to locate its contemporary intellectual origins in John Dewey's Art as Experience.", "ko": "그러나 그것의 현대적 지적 기원을 존 듀이의 '경험으로서의 예술'에서 찾는 것이 가장 편리할 것이다.", "gram": "가주어 It ~ 진주어 to locate: 진주어 to부정사 / though: 그러나 (삽입)"}, {"en": "In that book Dewey argued against the separation of art from life by basing aesthetic experience on the biological and cultural conditions of human life.", "ko": "그 책에서 듀이는 미적 경험을 인간 삶의 생물학적·문화적 조건에 기반함으로써 예술과 삶의 분리에 반대했다.", "gram": "argue against: ~에 반대하다 / by -ing: ~함으로써 (수단의 전치사)"}, {"en": "He located the aesthetic, not in an internalized awareness of sensation and feeling but in 'a complete interpenetration of self and the world of objects and events.'", "ko": "그는 미적인 것을 감각과 느낌에 대한 내면화된 인식이 아닌, '자아와 사물 및 사건 세계의 완전한 상호 침투'에 위치시켰다.", "gram": "not A but B: A가 아니라 B (상관접속사 병렬)"}, {"en": "Further, Dewey maintained that 'the aesthetic is the clarified and intensified development of traits that belong to every normally complete experience.'", "ko": "나아가 듀이는 '미적인 것은 모든 정상적으로 완전한 경험에 속하는 특성의 명확하고 강화된 발전'이라고 주장했다.", "gram": "maintain that절: ~라고 주장하다 / that 관계대명사: traits를 수식"}]}, {"number": 33, "translation": "인간이 도덕적 행위자의 능력을 소유하고 다른 존재들은 그것이 부족하다는 근거로 인간이 도덕적으로 우월한 존재라고 타당하게 주장할 수 없다. 그 이유는 도덕적 기준에 관한 한, 도덕적 행위자의 능력을 가진 존재만이 도덕적으로 선하거나 나쁘다고 유의미하게 말할 수 있기 때문이다. 오직 도덕적 행위자만이 도덕적으로 더 낫거나 나쁘다고 판단될 수 있으며, 그 비교 대상도 도덕적 행위자여야 한다. 도덕적 우월성 판단은 판단되는 존재들의 상대적인 장점이나 결함에 기반하며, 이러한 장점과 결함은 모두 도덕적인 것, 즉 도덕적 기준에 의해 결정된다. 유효한 도덕적 기준이 두 존재에 적용될 때 첫 번째 존재가 두 번째 존재보다 더 높은 정도로 기준을 충족하면, 첫 번째 존재가 두 번째보다 도덕적으로 우월하다고 올바르게 판단된다. 따라서 두 존재 모두 일련의 도덕적 가치에 대한 합의에 도달해야 한다. 그러나 인간이 동물이나 식물보다 우월하다고 판단되는 경우에는 이것이 해당되지 않을 것이다. 후자는 도덕적 행위자가 아니기 때문이다.", "note": "validly: 타당하게 / moral agent: 도덕적 행위자 / comparative: 상대적인 / deficiency: 결함 / fulfill: 충족하다", "sentences": [{"en": "One cannot validly argue that humans are morally superior beings on the ground that they possess, while others lack, the capacities of a moral agent.", "ko": "인간이 도덕적 행위자의 능력을 소유하고 다른 존재들은 그것이 부족하다는 근거로 인간이 도덕적으로 우월한 존재라고 타당하게 주장할 수 없다.", "gram": "on the ground that: ~이라는 근거로 / while: ~인 반면 (삽입 대조절) / superior: 우월한 (to와 함께)"}, {"en": "The reason is that, as far as moral standards are concerned, only beings that have the capacities of a moral agent can meaningfully be said to be either morally good or morally bad.", "ko": "그 이유는 도덕적 기준에 관한 한, 도덕적 행위자의 능력을 가진 존재만이 도덕적으로 선하거나 나쁘다고 유의미하게 말할 수 있기 때문이다.", "gram": "as far as ~ is concerned: ~에 관한 한 / be said to-V: ~라고 말해지다 (수동태) / either A or B: A 또는 B"}, {"en": "Only moral agents can be judged to be morally better or worse than others, and the others in question must be moral agents themselves.", "ko": "오직 도덕적 행위자만이 도덕적으로 더 낫거나 나쁘다고 판단될 수 있으며, 그 비교 대상도 도덕적 행위자여야 한다.", "gram": "only + 주어: 도치 유발 가능 / be judged to-V: ~라고 판단되다 (수동태) / in question: 해당하는"}, {"en": "Judgments of moral superiority are based on the comparative merits or deficiencies of the entities being judged, and these merits and deficiencies are all moral ones, that is, ones determined by moral standards.", "ko": "도덕적 우월성 판단은 판단되는 존재들의 상대적 장점이나 결함에 기반하며, 이러한 장점과 결함은 모두 도덕적인 것, 즉 도덕적 기준에 의해 결정된 것이다.", "gram": "being judged: 현재분사 후치수식 / that is: 즉 (부연설명) / determined by: ~에 의해 결정된 (과거분사 후치수식)"}, {"en": "One entity is correctly judged morally superior to another if it is the case that, when valid moral standards are applied to both entities, the first fulfills them to a greater degree than the second.", "ko": "유효한 도덕적 기준이 두 존재에 적용될 때 첫 번째 존재가 두 번째보다 더 높은 정도로 기준을 충족하면, 첫 번째 존재가 도덕적으로 우월하다고 올바르게 판단된다.", "gram": "it is the case that: ~이 사실이다 (강조구문) / are applied: 수동태 / to a greater degree: 더 높은 정도로"}, {"en": "Both entities, therefore, must come to an agreement on a set of moral values.", "ko": "따라서 두 존재 모두 일련의 도덕적 가치에 대한 합의에 도달해야 한다.", "gram": "come to an agreement: 합의에 도달하다 / a set of: 일련의"}, {"en": "This would not be the case, however, if humans were being judged superior to animals and plants, since the latter are not moral agents.", "ko": "그러나 인간이 동물이나 식물보다 우월하다고 판단되는 경우에는 이것이 해당되지 않을 것이다. 후자는 도덕적 행위자가 아니기 때문이다.", "gram": "가정법 과거: would not be ~ if ~ were (현재 사실의 반대) / the latter: 후자 (동물과 식물)"}]}, {"number": 34, "translation": "기계가 생성한 침묵 보완제와 같은 인공적인 '휴지 채우기'는 기계 생성 음성 패턴에서 보다 자연스럽게 들리는 억양을 만들어내는 데 도움이 되고, AI의 인간 대화 상대가 다른 인간과 대화하고 있다고 확신하는 데 도움이 될 수 있다. AI의 침묵의 '인간다움'은 특히 짧은 침묵이 '생각하는 멈춤'으로 해석될 가능성이 높기 때문에 이런 맥락에서 나타난다. 이는 마치 인간이 그러하듯 기계가 응답하기 전에 '생각하고' 있다는 환상을 강화한다. 그러나 AI가 더 긴 지속 시간과 빈도의 침묵을 제대로 처리하지 못하는 기술적 문제들, 그리고 침묵이 일부 대화 상황에서 관련 있는 소리로 채워질 수 있다는 기계의 추론은 모두 중요하다. 이 맥락에서 AI는 침묵을 부재가 아닌 의미 있는 데이터로 인식하기 시작하고 있을지도 모른다. 그러나 AI가 상당한 침묵에 직면했을 때의 혼란, 그리고 짧은 휴지 표식이 '어', '음'과 같은 발화 표지와 동등하다는 이해는 AI가 침묵보다 소리를, 부재보다 존재를 계속해서 선호함을 보여준다.", "note": "cadence: 억양 / interlocutor: 대화 상대 / pause filler: 휴지 채우기 / inference: 추론 / equivalent: 동등한", "sentences": [{"en": "Such artificial 'pause fillers' as machine-generated supplements for silence may help to produce a more natural-sounding cadence in machine-generated speech patterns and so help to convince the AI's human interlocutors that they are engaging with another human.", "ko": "기계가 생성한 침묵 보완제와 같은 인공적인 '휴지 채우기'는 기계 생성 음성 패턴에서 더 자연스럽게 들리는 억양을 만들어내는 데 도움이 되고, AI의 인간 대화 상대가 다른 인간과 대화하고 있다고 확신하는 데 도움이 될 수 있다.", "gram": "such A as B: B와 같은 A / help to-V: ~하는 데 도움이 되다 / convince O that절: O에게 ~임을 확신시키다"}, {"en": "AI's 'humanity' of silence emerges in these contexts not least because a short period of silence is likely to be interpreted as a 'pause for thought', therefore reinforcing the illusion that the machine is 'thinking' before responding, just as a human might.", "ko": "AI의 침묵의 '인간다움'은 특히 짧은 침묵이 '생각하는 멈춤'으로 해석될 가능성이 높기 때문에 이런 맥락에서 나타나며, 이는 마치 인간처럼 기계가 응답 전에 '생각하고' 있다는 환상을 강화한다.", "gram": "not least because: 특히 ~이기 때문에 / be likely to-V: ~할 가능성이 높다 / just as: 마치 ~처럼 / reinforcing: 분사구문 (결과)"}, {"en": "However, the technical issues flagged in AI's poor handling of higher duration and frequency silences, no less than the machine inference that silence can be filled with relevant sounds in some conversational situations, are both significant.", "ko": "그러나 AI가 더 긴 지속 시간과 빈도의 침묵을 제대로 처리하지 못하는 기술적 문제들과 일부 대화 상황에서 침묵이 관련 있는 소리로 채워질 수 있다는 기계의 추론은 모두 중요하다.", "gram": "no less than: ~만큼이나 (동등비교) / flagged: 과거분사 후치수식 / that 동격절: inference를 설명"}, {"en": "In this context at least, the AI may be starting to recognise silence not as an absence but as meaningful data.", "ko": "이 맥락에서 적어도, AI는 침묵을 부재가 아닌 의미 있는 데이터로 인식하기 시작하고 있을지도 모른다.", "gram": "not A but B: A가 아니라 B / may be -ing: ~하고 있을지도 모른다 (추측 진행)"}, {"en": "Yet the AI's confusion when presented with substantial silences, and its understanding that short break tags are equivalent to vocal markers such as 'uh's' and 'ah's' indicate the AI's continuing preferences for sound over silence, for presence over absence.", "ko": "그러나 AI가 상당한 침묵에 직면했을 때의 혼란, 그리고 짧은 휴지 표식이 '어', '음'과 같은 발화 표지와 동등하다는 이해는 AI가 침묵보다 소리를, 부재보다 존재를 계속해서 선호함을 나타낸다.", "gram": "when presented: 분사구문 (= when it is presented) / that 동격절: understanding을 설명 / A over B: B보다 A를 선호하는"}]}, {"number": 36, "translation": "고고학적 증거에 따르면 레반트 지역에서 기원전 9500년경부터 다양한 작물이 재배되었다. 수천 년에 걸쳐, 지속적인 혁신들이 육체노동을 줄이면서 농업 생산성을 높여왔다. 그러나 증가하는 세계 인구는 항상 더 많은 식량을 요구할 것이다. 2050년까지 세계 인구가 97억 명으로 증가하여 수요를 충족하기 위해 세계 식량 생산이 최소 70% 증가해야 할 것으로 예상된다. 이러한 필요에도 불구하고, 기후, 지형, 토질, 기술 등의 제한으로 인해 지구 표면의 작은 부분만이 농업에 적합하다. 토지 소유 패턴, 환경법, 인구 밀도를 포함한 정치적·경제적 요인들도 농업용 토지 이용에 영향을 미친다. 실제로 농업에 사용되는 토지의 양은 감소해 왔다. 2013년에는 약 1,860만 평방마일이 식량 생산에 사용되었는데, 이는 1991년의 1,950만 평방마일과 비교된다.", "note": "cultivate: 경작하다 / archaeological: 고고학적인 / topography: 지형 / density: 밀도 / boost: 증가시키다", "sentences": [{"en": "Archaeological evidence suggests that various crops were being cultivated as early as 9500 BC in the Levant.", "ko": "고고학적 증거에 따르면 레반트 지역에서 기원전 9500년경부터 다양한 작물이 재배되었다.", "gram": "suggest that절: ~임을 시사하다 / were being cultivated: 과거진행 수동태"}, {"en": "(C) Over the millennia, continuous innovations have boosted agricultural productivity while reducing manual labor.", "ko": "수천 년에 걸쳐, 지속적인 혁신들이 육체노동을 줄이면서 농업 생산성을 높여왔다.", "gram": "over the millennia: 수천 년에 걸쳐 / have boosted: 현재완료 / while -ing: ~하면서 (분사구문 동시동작)"}, {"en": "However, the growing global population will always demand more food.", "ko": "그러나 증가하는 세계 인구는 항상 더 많은 식량을 요구할 것이다.", "gram": "growing: 현재분사 형용사적 용법 (증가하는)"}, {"en": "(B) It is projected that by 2050, the world's population will increase to 9.7 billion, which will require global food production to rise by at least 70% to meet demand.", "ko": "2050년까지 세계 인구가 97억 명으로 증가하여 수요를 충족하기 위해 세계 식량 생산이 최소 70% 증가해야 할 것으로 예상된다.", "gram": "It is projected that: ~로 예상된다 (가주어 구문) / which 계속적 용법: 앞 절 전체를 선행사 / to meet: 목적의 to부정사"}, {"en": "Despite this need, only a small portion of the Earth's surface is suitable for farming due to limitations such as climate, topography, soil quality, and technology.", "ko": "이러한 필요에도 불구하고, 기후, 지형, 토질, 기술 등의 제한으로 인해 지구 표면의 작은 부분만이 농업에 적합하다.", "gram": "despite: ~에도 불구하고 (전치사 양보) / due to: ~로 인해 / be suitable for: ~에 적합하다"}, {"en": "(A) Political and economic factors, including land ownership patterns, environmental laws, and population density, also influence agricultural land use.", "ko": "토지 소유 패턴, 환경법, 인구 밀도를 포함한 정치적·경제적 요인들도 농업용 토지 이용에 영향을 미친다.", "gram": "including: ~을 포함한 (분사/전치사) / 병렬구조: land ownership, environmental laws, population density"}, {"en": "In fact, the amount of land used for agriculture has been declining.", "ko": "실제로 농업에 사용되는 토지의 양은 감소해 왔다.", "gram": "used for: ~에 사용된 (과거분사 후치수식) / has been declining: 현재완료 진행"}, {"en": "In 2013, around 18.6 million square miles was used for food production, compared to 19.5 million square miles in 1991.", "ko": "2013년에는 약 1,860만 평방마일이 식량 생산에 사용되었는데, 이는 1991년의 1,950만 평방마일과 비교된다.", "gram": "compared to: ~와 비교하여 (분사구문)"}]}, {"number": 37, "translation": "언어를 비교하려면, 모든 언어에서 찾을 수 있다고 확신하는 것에서 시작하는 것이 도움이 된다. 예를 들어 어머니와 아버지를 나타내는 기호나 단어를 생각해 보라. 이 범주에 아들, 할머니, 고모, 형부, 사촌 등 다른 가족 관계를 추가하면 친족 어휘 체계라는 범주를 정의하는 것이다. 친족 어휘 체계에 대한 비교 유형학 연구들은 언어들이 일부 가족 관계에 대한 표현은 갖지만 모든 관계에 대한 표현을 갖지는 않는다는 것을 발견했다. 특정 친족 관계가 표현을 가질 확률은 그 언어의 다른 친족 어휘를 바탕으로 예측 가능하다. 예를 들어, 모든 언어는 어머니와 아버지처럼 핵심 친족 어휘 세트를 갖는다. 이와 대조적으로, 덜 핵심적인 범주 구성원에 대한 표현들은 장모님, 의붓아버지처럼 핵심 어휘를 바탕으로 만들어지는 경우가 많다. 세계의 언어들을 비교하면, 어떤 친족 관계가 핵심 어휘로 표현되고 어떤 관계가 핵심 어휘를 변형하여 표현되는지 물어볼 수 있다.", "note": "kinship: 친족 / typological: 유형학의 / terminology: 어휘 체계 / core: 핵심의 / modify: 변형하다", "sentences": [{"en": "If you are going to compare languages, it helps to start with something that you are confident you can find in all languages.", "ko": "언어를 비교하려면, 모든 언어에서 찾을 수 있다고 확신하는 것에서 시작하는 것이 도움이 된다.", "gram": "it helps to-V: ~하는 것이 도움이 된다 (가주어) / be confident (that): ~임을 확신하다"}, {"en": "Take for example signs or words for mother and father.", "ko": "예를 들어 어머니와 아버지를 나타내는 기호나 단어를 생각해 보라.", "gram": "Take for example: 예를 들어 (명령문) / for: ~을 나타내는, ~에 대한"}, {"en": "(B) If we add other family relationships to this category — son, grandmother, aunt, brother-in-law, cousin — we are defining the category of kinship terminology.", "ko": "이 범주에 아들, 할머니, 고모, 형부, 사촌 등 다른 가족 관계를 추가하면 친족 어휘 체계라는 범주를 정의하는 것이다.", "gram": "add A to B: A를 B에 추가하다 / 현재진행(are defining): 지금 하고 있는 행위"}, {"en": "Comparative typological studies of kinship terminology have discovered that languages have labels for some but not all family relationships.", "ko": "친족 어휘 체계에 대한 비교 유형학 연구들은 언어들이 일부 가족 관계에 대한 표현은 갖지만 모든 관계에 대한 표현을 갖지는 않는다는 것을 발견했다.", "gram": "have discovered that절: 현재완료 + that절 목적어 / have labels for: ~에 대한 표현을 갖다"}, {"en": "(A) And the probability that a specific kin relationship has a label is predictable based on the other kinship terms in the language.", "ko": "그리고 특정 친족 관계가 표현을 가질 확률은 그 언어의 다른 친족 어휘를 바탕으로 예측 가능하다.", "gram": "that 동격절: probability를 설명 / based on: ~을 바탕으로"}, {"en": "For example, all languages have a core set of kinship terms — like mother and father.", "ko": "예를 들어, 모든 언어는 어머니와 아버지처럼 핵심 친족 어휘 세트를 갖는다.", "gram": "a core set of: 핵심 세트"}, {"en": "(C) By contrast, terms for less central category members are often built up from the core terms — like mother-in-law and step-father.", "ko": "이와 대조적으로, 덜 핵심적인 범주 구성원에 대한 표현들은 장모님, 의붓아버지처럼 핵심 어휘를 바탕으로 만들어지는 경우가 많다.", "gram": "by contrast: 이와 대조적으로 / be built up from: ~을 바탕으로 만들어지다"}, {"en": "If we compare languages across the world, we can ask what kinship relationships are typically expressed with core terminology, and what relationships are expressed by modifying the core terminology.", "ko": "세계의 언어들을 비교하면, 어떤 친족 관계가 핵심 어휘로 표현되고 어떤 관계가 핵심 어휘를 변형하여 표현되는지 물어볼 수 있다.", "gram": "간접의문문: what + 주어 + 동사 / by -ing: ~함으로써"}]}, {"number": 38, "translation": "가상 역할 놀이의 참가자들은 허구 세계에 관한 것들을 다른 참가자들에게 전달하는 몇 가지 방법이 있다. 때로는 이러한 메시지들이 허구 세계에 완전히 참여함으로써 자연스럽게 발산된다. 즉, 역할에 충실한 상태에서 플레이어가 말하거나 행동하는 것이 그 세계에서 허구적인 것들을 전달한다. 예를 들어, 피터팬인 척하는 아이가 숨을 헐떡이며 플라스틱 칼을 꺼낼 수 있다. 이것은 피터의 적 중 하나인 후크 선장이 다가오고 있다는 것을 허구적으로 전달하기에 충분할 수 있다. 그러나 이러한 역할에 충실한 행동들은 가상 놀이의 세계에서 무엇이 허구인지에 관한 필요한 공통 이해를 유지하기에 불충분할 수 있다. 이럴 때 참가자들은 다른 참가자들에게 필요한 정보를 제공하기 위해 적어도 부분적으로 역할에서 벗어나는 경우가 많다. 예를 들어, 누가 어떤 캐릭터를 연기하는지에 대한 혼란을 피하는 것이 중요할 것이다: '아니, 너가 후크 선장이고, 내가 피터팬이야!'", "note": "make-believe: 가상 역할 놀이 / emit: 발산하다 / in-character: 역할에 충실한 / common ground: 공통된 이해 / gasp: 숨을 헐떡이다", "sentences": [{"en": "There are several ways that participants in a make-believe can communicate things about the fictional world to other participants.", "ko": "가상 역할 놀이의 참가자들은 허구 세계에 관한 것들을 다른 참가자들에게 전달하는 몇 가지 방법이 있다.", "gram": "There are: 존재구문 / that 관계대명사: ways를 수식"}, {"en": "( ① ) Sometimes these messages are emitted naturally as a result of full participation in the fictional world — i.e., something said or done by a player while in character communicates some things that are fictional of that world.", "ko": "때로는 이러한 메시지들이 허구 세계에 완전히 참여함으로써 자연스럽게 발산된다. 즉, 역할에 충실한 상태에서 플레이어가 말하거나 행동하는 것이 그 세계에서 허구적인 것들을 전달한다.", "gram": "as a result of: ~의 결과로 / said or done: 과거분사 후치수식 / while in character: ~하는 동안 (시간 분사구문)"}, {"en": "( ② ) For example, a child pretending to be Peter Pan might gasp and draw a plastic knife.", "ko": "예를 들어, 피터팬인 척하는 아이가 숨을 헐떡이며 플라스틱 칼을 꺼낼 수 있다.", "gram": "pretending to be: 현재분사 후치수식 / pretend to-V: ~인 척하다"}, {"en": "( ③ ) This might be sufficient to communicate that fictionally one of Peter's enemies, such as Captain Hook, is approaching.", "ko": "이것은 피터의 적 중 하나인 후크 선장이 허구적으로 다가오고 있다는 것을 전달하기에 충분할 수 있다.", "gram": "be sufficient to-V: ~하기에 충분하다 / such as: 예를 들어"}, {"en": "These in-character behaviors can be insufficient, however, to maintain the necessary amount of common ground about what is fictional in the world of the make-believe.", "ko": "그러나 이러한 역할에 충실한 행동들은 가상 놀이의 세계에서 무엇이 허구인지에 관한 필요한 공통 이해를 유지하기에 불충분할 수 있다.", "gram": "be insufficient to-V: ~하기에 불충분하다 / about what is fictional: 간접의문문 (전치사 목적어)"}, {"en": "( ④ ) At these times participants often come at least partly out of character to give other participants the information they need.", "ko": "이럴 때 참가자들은 다른 참가자들에게 필요한 정보를 제공하기 위해 적어도 부분적으로 역할에서 벗어나는 경우가 많다.", "gram": "come out of character: 역할에서 벗어나다 / to give: 목적의 to부정사 / they need 관계사 생략: the information (that) they need"}, {"en": "( ⑤ ) For example, it would be important to avoid confusion about who is playing which character: 'No, you're Captain Hook, and I'm Peter Pan!'", "ko": "예를 들어, 누가 어떤 캐릭터를 연기하는지에 대한 혼란을 피하는 것이 중요할 것이다: '아니, 너가 후크 선장이고, 내가 피터팬이야!'", "gram": "가주어 It ~ 진주어 to avoid / 간접의문문: about who is playing which"}]}];
+
+let state={}, favs={}, curSeg='all', curTab='list';
+let listFilter='all', listMode='problem';
+let flashIdx=0, flashFilter='all', flashMode='problem', flashRevealed=false;
+let swipeStartX=0, repeatCount=1;
+const STORAGE_KEY='cuetop_2603mh_v1';
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify({state,favs,curSeg,repeatCount}));}
+function load(){
+  try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    state=d.state||{};favs=d.favs||{};curSeg=d.curSeg||'all';repeatCount=d.repeatCount||1;
+  }catch(e){state={};favs={};curSeg='all';repeatCount=1;}
+}
+
+let _voices=[], _repeatTimer=null, _isPlaying=false;
+function _warmVoices(){
+  if(!window.speechSynthesis)return;
+  _voices=speechSynthesis.getVoices();
+  if(!_voices.length){speechSynthesis.onvoiceschanged=()=>{_voices=speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=null;};}
+}
+function stopSpeak(){
+  if(_repeatTimer){clearTimeout(_repeatTimer);_repeatTimer=null;}
+  if(window.speechSynthesis)speechSynthesis.cancel();
+  _isPlaying=false;
+  document.querySelectorAll('.rep-playing').forEach(el=>el.remove());
+}
+function speak(text,repeatN,onDone){
+  stopSpeak();
+  if(!window.speechSynthesis)return;
+  const n=repeatN!==undefined?repeatN:repeatCount;
+  _isPlaying=true;let count=0;
+  function playOne(){
+    if(!_isPlaying||count>=n){_isPlaying=false;if(onDone)onDone();return;}
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US';u.rate=0.85;
+    const vv=_voices.length?_voices:speechSynthesis.getVoices();
+    const v=vv.find(x=>x.lang==='en-US')||vv.find(x=>x.lang.startsWith('en'));
+    if(v)u.voice=v;
+    u.onend=()=>{count++;if(count<n&&_isPlaying){_repeatTimer=setTimeout(playOne,600);}
+      else{_isPlaying=false;document.querySelectorAll('.rep-playing').forEach(el=>el.remove());if(onDone)onDone();}};
+    u.onerror=()=>{_isPlaying=false;};
+    speechSynthesis.speak(u);
+  }
+  playOne();
+}
+function showRepIndicator(container,n){
+  document.querySelectorAll('.rep-playing').forEach(el=>el.remove());
+  if(n<=1||!container)return;
+  const div=document.createElement('div');div.className='rep-playing';
+  div.innerHTML=`<span class="rep-dot"></span> ${n}회 반복 재생 중... <button onclick="stopSpeak()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:13px;color:var(--blue)">⏹</button>`;
+  container.appendChild(div);
+}
+
+const SEG_SIZE=5;
+function getSegments(){
+  const nums=SENTENCES_RAW.map(s=>s.number);
+  const segs=[{label:'전체',key:'all'}];
+  for(let i=0;i<nums.length;i+=SEG_SIZE){
+    const c=nums.slice(i,i+SEG_SIZE);
+    segs.push({label:c[0]+'~'+c[c.length-1]+'번',key:c.join(',')});
+  }
+  return segs;
+}
+function getFiltered(){
+  if(curSeg==='all')return SENTENCES_RAW;
+  const keys=curSeg.split(',').map(Number);
+  return SENTENCES_RAW.filter(s=>keys.includes(s.number));
+}
+function applyFilter(arr,f){
+  if(f==='no')return arr.filter(s=>state[s.number]==='no'||!state[s.number]);
+  if(f==='fav')return arr.filter(s=>favs[s.number]);
+  return arr;
+}
+function updateHeaderH(){
+  const h=document.getElementById('mainHeader').offsetHeight;
+  document.getElementById('segWrap').style.top=h+'px';
+  document.documentElement.style.setProperty('--header-h',h+'px');
+}
+function updateStats(){
+  let ok=0,no=0,fav=0;
+  SENTENCES_RAW.forEach(s=>{if(state[s.number]==='ok')ok++;else if(state[s.number]==='no')no++;if(favs[s.number])fav++;});
+  document.getElementById('cntOk').textContent=ok;
+  document.getElementById('cntNo').textContent=no;
+  document.getElementById('cntFav').textContent=fav;
+  const pct=SENTENCES_RAW.length?Math.round((ok+no)/SENTENCES_RAW.length*100):0;
+  document.getElementById('progBar').style.width=pct+'%';
+}
+function renderSegBar(){
+  document.getElementById('segWrap').innerHTML=getSegments().map(s=>
+    `<button class="seg-btn${curSeg===s.key?' active':''}" onclick="setSeg('${s.key}')">${s.label}</button>`
+  ).join('');
+}
+function setSeg(k){curSeg=k;flashIdx=0;flashRevealed=false;stopSpeak();save();renderSegBar();renderCurrent();}
+function switchTab(tab){
+  stopSpeak();curTab=tab;
+  ['list','flash'].forEach(t=>document.getElementById(t+'-tab').style.display=t===tab?'':'none');
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['list','flash'][i]===tab));
+  flashIdx=0;flashRevealed=false;renderCurrent();
+}
+function renderCurrent(){if(curTab==='list')renderList();else renderFlash();}
+function repeatBtnsHtml(){
+  return `<div class="repeat-wrap"><span class="rep-label">반복</span>${[1,3,5].map(n=>`<button class="rep-btn${repeatCount===n?' active':''}" onclick="setRepeat(${n})">${n}회</button>`).join('')}</div>`;
+}
+function setRepeat(n){repeatCount=n;stopSpeak();save();renderCurrent();}
+
+// ── LIST ──
+function renderList(){
+  const tab=document.getElementById('list-tab');
+  const prevSearch=tab.querySelector('.search-box')?.value||'';
+  const arr=applyFilter(getFiltered(),listFilter);
+  const search=prevSearch.trim().toLowerCase();
+  const filtered=arr.filter(s=>!search||
+    s.sentences.some(x=>x.en.toLowerCase().includes(search)||x.ko.toLowerCase().includes(search))||
+    s.translation.toLowerCase().includes(search));
+
+  let html=`
+  <div class="mode-toggle">
+    <button class="mode-btn${listMode==='problem'?' active':''}" onclick="setListMode('problem')">📄 지문 전체</button>
+    <button class="mode-btn${listMode==='sentence'?' active':''}" onclick="setListMode('sentence')">📝 문장 분해</button>
+  </div>
+  <input class="search-box" id="listSearch" placeholder="🔍 지문/해석 검색..." value="${prevSearch.replace(/"/g,'&quot;')}">
+  <div class="filter-row">
+    <button class="filter-btn${listFilter==='all'?' active':''}" onclick="setListFilter('all')">전체</button>
+    <button class="filter-btn${listFilter==='no'?' active':''}" onclick="setListFilter('no')">❌ 미완료</button>
+    <button class="filter-btn${listFilter==='fav'?' active':''}" onclick="setListFilter('fav')">⭐ 즐겨찾기</button>
+    ${repeatBtnsHtml()}
+  </div>`;
+
+  if(!filtered.length){html+='<div class="empty-msg">해당하는 지문이 없습니다.</div>';}
+  else filtered.forEach(s=>{
+    const st=state[s.number]||'',isFav=favs[s.number];
+    const preview=s.sentences[0]?.en.slice(0,65)||'';
+    html+=`<div class="s-card${st?' status-'+st:''}" id="sc-${s.number}">
+      <div class="s-card-head">
+        <div class="s-num">${s.number}</div>
+        <div class="s-preview" onclick="toggleCard(${s.number})">${preview}${s.sentences[0]?.en.length>65?'\u2026':''}</div>
+        <div class="s-head-btns">
+          <button class="s-speak-btn" onclick="event.stopPropagation();speakCard(${s.number},this)">🔊</button>
+          <button class="s-chevron" id="sci-${s.number}" onclick="toggleCard(${s.number})">▾</button>
+        </div>
+      </div>
+      <div class="s-body" id="sb-${s.number}">`;
+    if(listMode==='problem'){
+      html+=`<div class="full-passage">${s.sentences.map(x=>x.en).join(' ')}</div>
+        <div class="full-trans">${s.translation}</div>
+        ${s.note?`<div class="note-badge">📌 ${s.note}</div>`:''}`;
+    } else {
+      html+=`<div class="sent-list">`;
+      s.sentences.forEach((sent,i)=>{
+        html+=`<div class="sent-item">
+          <div class="sent-en-row" onclick="toggleSent(${s.number},${i})">
+            <div class="sent-idx">[${i+1}]</div>
+            <div class="sent-en-text">${sent.en}</div>
+            <button class="sent-spk" onclick="event.stopPropagation();speakSent(${JSON.stringify(sent.en)},this)">🔊</button>
+          </div>
+          <div class="sent-detail" id="sd-${s.number}-${i}">
+            <div class="sent-ko">${sent.ko}</div>
+            ${sent.gram?`<div class="sent-gram">📐 ${sent.gram}</div>`:''}
+          </div>
+        </div>`;
+      });
+      html+=`</div>`;
+    }
+    html+=`</div>
+      <div class="s-actions">
+        <button class="act-btn act-ok${st==='ok'?' sel':''}" onclick="setState(${s.number},'ok')">✅ 외웠어요</button>
+        <button class="act-btn act-no${st==='no'?' sel':''}" onclick="setState(${s.number},'no')">❌ 모름</button>
+        <button class="act-btn act-skip${st==='skip'?' sel':''}" onclick="setState(${s.number},'skip')">⤵ 건너뜀</button>
+        <button class="act-fav" onclick="toggleFav(${s.number})">${isFav?'⭐':'☆'}</button>
+      </div>
+    </div>`;
+  });
+
+  tab.innerHTML=html;
+  const box=document.getElementById('listSearch');
+  if(box){box.value=prevSearch;box.addEventListener('input',renderList);}
+}
+
+function speakCard(num,btn){
+  const s=SENTENCES_RAW.find(x=>x.number===num);if(!s)return;
+  speak(s.sentences.map(x=>x.en).join(' '));
+  if(repeatCount>1){showRepIndicator(btn.closest('.s-card')?.querySelector('.s-actions'),repeatCount);}
+}
+function speakSent(text,btn){
+  speak(text);
+  if(repeatCount>1){showRepIndicator(btn.closest('.sent-item'),repeatCount);}
+}
+function toggleCard(num){
+  const body=document.getElementById('sb-'+num),icon=document.getElementById('sci-'+num);
+  if(!body)return;
+  const isOpen=body.classList.toggle('open');
+  icon.textContent=isOpen?'▴':'▾';
+  if(isOpen){const s=SENTENCES_RAW.find(x=>x.number===num);if(s)speak(s.sentences.map(x=>x.en).join(' '));}
+}
+function toggleSent(num,idx){
+  const detail=document.getElementById(`sd-${num}-${idx}`);if(!detail)return;
+  const isOpen=detail.classList.toggle('open');
+  if(isOpen){
+    const s=SENTENCES_RAW.find(x=>x.number===num);
+    if(s&&s.sentences[idx]){speak(s.sentences[idx].en);if(repeatCount>1)showRepIndicator(detail,repeatCount);}
+  }
+}
+function setListMode(m){listMode=m;stopSpeak();renderList();}
+function setListFilter(f){listFilter=f;stopSpeak();renderList();}
+function setState(num,st){
+  state[num]=st;save();updateStats();
+  const card=document.getElementById('sc-'+num);if(!card)return;
+  card.className='s-card'+(st?' status-'+st:'');
+  card.querySelectorAll('.act-btn').forEach(b=>b.classList.remove('sel'));
+  const btn=card.querySelector('.act-'+st);if(btn)btn.classList.add('sel');
+}
+function toggleFav(num){
+  favs[num]=!favs[num];save();updateStats();
+  document.querySelectorAll(`#sc-${num} .act-fav`).forEach(b=>b.textContent=favs[num]?'⭐':'☆');
+}
+
+// ── FLASH ──
+function renderFlash(){
+  const arr=applyFilter(getFiltered(),flashFilter);
+  const tab=document.getElementById('flash-tab');
+  if(!arr.length){tab.innerHTML='<div class="empty-msg">해당 지문이 없습니다.</div>';return;}
+  if(flashIdx>=arr.length)flashIdx=0;
+  const s=arr[flashIdx],st=state[s.number]||'',isFav=favs[s.number];
+  const fullText=s.sentences.map(x=>x.en).join(' ');
+
+  let revealHtml='';
+  if(flashRevealed){
+    if(flashMode==='problem'){
+      revealHtml=`<div class="flash-reveal">
+        <div class="flash-ko">${s.translation}</div>
+        ${s.note?`<div class="flash-note">📌 ${s.note}</div>`:''}
+      </div>`;
+    } else {
+      revealHtml=`<div class="flash-reveal">
+        ${s.sentences.map((sent,i)=>`
+          <div class="flash-sent-item">
+            <div class="flash-sent-en-row" onclick="toggleFlashSent(${i})">
+              <div class="flash-sent-idx">[${i+1}]</div>
+              <div class="flash-sent-en">${sent.en}</div>
+              <button class="flash-sent-spk" onclick="event.stopPropagation();speak(${JSON.stringify(sent.en)})">🔊</button>
+            </div>
+            <div class="flash-sent-detail" id="fsd-${i}">
+              <div class="flash-sent-ko">${sent.ko}</div>
+              ${sent.gram?`<div class="flash-sent-gram">📐 ${sent.gram}</div>`:''}
+            </div>
+          </div>`).join('')}
+        ${s.note?`<div class="flash-note" style="margin-top:8px">📌 ${s.note}</div>`:''}
+      </div>`;
+    }
+  }
+
+  tab.innerHTML=`
+  <div class="mode-toggle">
+    <button class="mode-btn${flashMode==='problem'?' active':''}" onclick="setFlashMode('problem')">📄 지문 전체</button>
+    <button class="mode-btn${flashMode==='sentence'?' active':''}" onclick="setFlashMode('sentence')">📝 문장 분해</button>
+  </div>
+  <div class="filter-row">
+    <button class="filter-btn${flashFilter==='all'?' active':''}" onclick="setFlashFilter('all')">전체</button>
+    <button class="filter-btn${flashFilter==='no'?' active':''}" onclick="setFlashFilter('no')">❌ 미완료</button>
+    <button class="filter-btn${flashFilter==='fav'?' active':''}" onclick="setFlashFilter('fav')">⭐ 즐겨찾기</button>
+    ${repeatBtnsHtml()}
+  </div>
+  <div class="flash-wrap">
+    <div class="flash-card${st?' status-'+st:''}" ontouchstart="swipeStart(event)" ontouchend="swipeEnd(event)">
+      <div class="flash-card-top">
+        <div class="flash-num">${s.number}</div>
+        <div class="flash-top-btns">
+          <button class="flash-spk" onclick="event.stopPropagation();flashSpeak()">🔊 듣기${repeatCount>1?' ×'+repeatCount:''}</button>
+          <button class="flash-fav" onclick="event.stopPropagation();flashToggleFav()">${isFav?'⭐':'☆'}</button>
+        </div>
+      </div>
+      <div class="flash-label">[ ${s.number}번 지문 ]</div>
+      <div class="flash-en" onclick="revealFlash()">${fullText}</div>
+      ${!flashRevealed?`<div class="flash-hint" onclick="revealFlash()">👆 탭하면 해석이 나타나요</div>`:revealHtml}
+    </div>
+    <div id="flashRepWrap"></div>
+    <div class="flash-nav">
+      <button class="nav-btn nav-prev" onclick="flashMove(-1)">◀ 이전</button>
+      <span class="flash-counter">${flashIdx+1} / ${arr.length}</span>
+      <button class="nav-btn nav-next" onclick="flashMove(1)">다음 ▶</button>
+    </div>
+    <div class="flash-actions">
+      <button class="fa-btn fa-ok${st==='ok'?' sel':''}" onclick="flashSetState('ok')">✅ 외웠어요</button>
+      <button class="fa-btn fa-no${st==='no'?' sel':''}" onclick="flashSetState('no')">❌ 모름</button>
+      <button class="fa-btn fa-skip${st==='skip'?' sel':''}" onclick="flashSetState('skip')">⤵ 건너뜀</button>
+    </div>
+  </div>`;
+}
+
+function flashSpeak(){
+  const arr=applyFilter(getFiltered(),flashFilter);if(!arr[flashIdx])return;
+  speak(arr[flashIdx].sentences.map(x=>x.en).join(' '));
+  if(repeatCount>1)showRepIndicator(document.getElementById('flashRepWrap'),repeatCount);
+}
+function toggleFlashSent(idx){
+  const detail=document.getElementById('fsd-'+idx);if(!detail)return;
+  const isOpen=detail.classList.toggle('open');
+  if(isOpen){const arr=applyFilter(getFiltered(),flashFilter);const s=arr[flashIdx];if(s&&s.sentences[idx])speak(s.sentences[idx].en);}
+}
+function revealFlash(){
+  if(!flashRevealed){
+    flashRevealed=true;renderFlash();
+    const arr=applyFilter(getFiltered(),flashFilter);
+    if(arr[flashIdx]){
+      speak(arr[flashIdx].sentences.map(x=>x.en).join(' '));
+      if(repeatCount>1)showRepIndicator(document.getElementById('flashRepWrap'),repeatCount);
+    }
+  }
+}
+function flashMove(dir){
+  const arr=applyFilter(getFiltered(),flashFilter);stopSpeak();
+  flashIdx=(flashIdx+dir+arr.length)%arr.length;flashRevealed=false;renderFlash();
+}
+function flashSetState(st){const arr=applyFilter(getFiltered(),flashFilter);if(!arr[flashIdx])return;state[arr[flashIdx].number]=st;save();updateStats();renderFlash();}
+function flashToggleFav(){const arr=applyFilter(getFiltered(),flashFilter);if(!arr[flashIdx])return;const n=arr[flashIdx].number;favs[n]=!favs[n];save();updateStats();renderFlash();}
+function setFlashMode(m){flashMode=m;stopSpeak();renderFlash();}
+function setFlashFilter(f){flashFilter=f;flashIdx=0;stopSpeak();renderFlash();}
+function swipeStart(e){swipeStartX=e.touches[0].clientX;}
+function swipeEnd(e){const dx=e.changedTouches[0].clientX-swipeStartX;if(Math.abs(dx)>50)flashMove(dx<0?1:-1);}
+
+// ── INIT ──
+load();_warmVoices();renderSegBar();updateStats();renderList();
+setTimeout(updateHeaderH,100);window.addEventListener('resize',updateHeaderH);
+</script>
+</body></html>
