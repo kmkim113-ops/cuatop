@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>씨유에탑 · 2026년 6월 고3 모의고사 어휘</title>
+  <meta property="og:title" content="씨유에탑 · 2026년 6월 고3 모의고사 어휘">
+  <meta property="og:description" content="총 235단어 수록 · 씨유에탑 영어단어장">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --text: #1E293B;
+      --text-light: #64748B;
+      --border: #E2E8F0;
+      --fav: #F59E0B;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      max-width: 420px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    header {
+      background: var(--card-bg);
+      padding: 20px 16px 12px 16px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 { font-size: 20px; color: var(--primary); font-weight: 800; }
+    header p { font-size: 13px; color: var(--text-light); margin-top: 4px; font-weight: 500; }
+    
+    /* Navigation Tabs */
+    .tabs {
+      display: flex;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 14px 0;
+      border: none;
+      background: none;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-light);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+    }
+
+    /* Range Selector Bar */
+    .range-container {
+      background: var(--card-bg);
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .range-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 4px;
+    }
+    .range-bar::-webkit-scrollbar { height: 4px; }
+    .range-bar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .range-item {
+      flex: 0 0 auto;
+      padding: 6px 14px;
+      background: #F1F5F9;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+      cursor: pointer;
+    }
+    .range-item.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* Controls (Search & Filters) */
+    .controls { padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .search-wrapper { position: relative; }
+    .search-input {
+      width: 100%;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+    .filter-buttons { display: flex; gap: 6px; }
+    .filter-btn {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background: #EFF6FF;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* Content Area */
+    .content-section { flex: 1; padding: 0 16px 80px 16px; display: none; }
+    .content-section.active { display: block; }
+
+    /* Word List View */
+    .word-list { display: flex; flex-direction: column; gap: 10px; }
+    .word-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .word-info { flex: 1; }
+    .word-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .word-text { font-size: 18px; font-weight: 700; color: var(--text); }
+    .pos-tag { font-size: 10px; background: #EEF2F6; padding: 2px 6px; border-radius: 4px; color: var(--text-light); text-transform: uppercase; }
+    .word-phonetic { font-size: 13px; color: var(--text-light); font-family: monospace; }
+    .word-meaning { font-size: 15px; color: #334155; font-weight: 500; margin-top: 6px; }
+    .word-actions { display: flex; gap: 12px; align-items: center; }
+    .action-btn { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--text-light); }
+    .action-btn.fav-btn.active { color: var(--fav); }
+    .action-btn.status-btn.active { color: var(--primary); }
+
+    /* Flashcard View */
+    .flashcard-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 40px;
+    }
+    .flashcard {
+      width: 100%;
+      height: 260px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      cursor: pointer;
+      text-align: center;
+    }
+    .fc-word { font-size: 26px; font-weight: 800; color: var(--primary); margin-bottom: 6px; }
+    .fc-phonetic { font-size: 14px; color: var(--text-light); margin-bottom: 20px; font-family: monospace; }
+    .fc-meaning { font-size: 19px; font-weight: 500; color: #0F172A; min-height: 28px; visibility: hidden; }
+    .fc-meaning.show { visibility: visible; }
+    .fc-speaker { position: absolute; top: 16px; right: 16px; font-size: 20px; background: none; border: none; cursor: pointer; color: var(--text-light); }
+    .fc-hint { position: absolute; bottom: 16px; font-size: 11px; color: var(--text-light); }
+    .flashcard-nav { display: flex; width: 100%; justify-content: space-between; margin-top: 20px; gap: 12px; }
+    .fc-nav-btn { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); font-weight: 600; cursor: pointer; }
+    .fc-status-row { display: flex; gap: 8px; width: 100%; margin-top: 10px; }
+    .fc-status-btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; color: white; }
+    .fc-status-btn.know { background: #10B981; }
+    .fc-status-btn.dont { background: #EF4444; }
+
+    /* Quiz View */
+    .quiz-container { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 20px; }
+    .quiz-progress { font-size: 12px; color: var(--text-light); margin-bottom: 10px; }
+    .quiz-question { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 20px; text-align: center; }
+    .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+    .quiz-opt {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      text-align: left;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .quiz-opt.correct { background: #D1FAE5; border-color: #10B981; color: #065F46; }
+    .quiz-opt.wrong { background: #FEE2E2; border-color: #EF4444; color: #991B1B; }
+    .quiz-result { text-align: center; padding: 30px 10px; }
+    .quiz-score { font-size: 48px; font-weight: 800; color: var(--primary); margin: 16px 0; }
+    .quiz-restart-btn { padding: 12px 24px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>씨유에탑 ✦ 영어단어장</h1>
+    <p id="sub-title">2026년 6월 고3 모의고사 어휘 · 총 235단어</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="switchTab('list')">단어목록</button>
+    <button class="tab-btn" onclick="switchTab('card')">플래시카드</button>
+    <button class="tab-btn" onclick="switchTab('quiz')">퀴즈모드</button>
+  </nav>
+
+  <!-- 구간 선택 바 UI (탭 바로 하위에 배치 필수) -->
+  <div class="range-container">
+    <div class="range-bar" id="range-bar">
+      <!-- 렌더링 엔진에 의해 자동 생성 -->
+    </div>
+  </div>
+
+  <!-- 1. 단어목록 탭 -->
+  <section id="section-list" class="content-section active">
+    <div class="controls">
+      <div class="search-wrapper">
+        <input type="text" class="search-input" id="search-bar" placeholder="영어 또는 한글 뜻 검색..." oninput="filterList()">
+      </div>
+      <div class="filter-buttons">
+        <button class="filter-btn active" id="flt-all" onclick="setFilter('all')">전체</button>
+        <button class="filter-btn" id="flt-unknown" onclick="setFilter('unknown')">모름</button>
+        <button class="filter-btn" id="flt-fav" onclick="setFilter('fav')">⭐ 즐겨찾기</button>
+      </div>
+    </div>
+    <div class="word-list" id="word-list-container"></div>
+  </section>
+
+  <!-- 2. 플래시카드 탭 -->
+  <section id="section-card" class="content-section">
+    <div class="flashcard-container">
+      <div class="flashcard" id="fc-card" onclick="toggleCardMeaning()">
+        <button class="fc-speaker" onclick="speakCurrentCard(event)">🔊</button>
+        <div class="fc-word" id="fc-word">word</div>
+        <div class="fc-phonetic" id="fc-phonetic">/phonetic/</div>
+        <div class="fc-meaning" id="fc-meaning">뜻</div>
+        <div class="fc-hint">터치하여 뜻 보기 / 좌우 스와이프 지원</div>
+      </div>
+      <div class="flashcard-nav">
+        <button class="fc-nav-btn" onclick="prevCard()">이전</button>
+        <button class="fc-nav-btn" onclick="nextCard()">다음</button>
+      </div>
+      <div class="fc-status-row">
+        <button class="fc-status-btn dont" onclick="setCardStatus('unknown')">모름</button>
+        <button class="fc-status-btn know" onclick="setCardStatus('known')">알아요</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 퀴즈 탭 -->
+  <section id="section-quiz" class="content-section">
+    <div id="quiz-area" class="quiz-container">
+      <!-- 퀴즈 렌더링 엔진 -->
+    </div>
+  </section>
+
+  <script>
+    // RAW WORD DATA INSIDE
+    const rawWords = [
+      {word:"telescope",phonetic:"[ˈtelɪskəʊp]",meaning:"압축하다",pos:"v"},
+      {word:"correlate with",phonetic:"[ˈkɒrəleɪt wɪð]",meaning:"~과 상관관계가 있다",pos:"v"},
+      {word:"reflex",phonetic:"[ˈriːfleks]",meaning:"반사 작용",pos:"n"},
+      {word:"streamlined",phonetic:"[ˈstriːmlaɪnd]",meaning:"간소화된",pos:"a"},
+      {word:"metabolic rate",phonetic:"[ˌmetəˈbɒlɪk reɪt]",meaning:"신진대사율",pos:"n"},
+      {word:"minimal",phonetic:"[ˈmɪnɪməl]",meaning:"매우 적은",pos:"a"},
+      {word:"energy reserve",phonetic:"[ˈenədʒi rɪˈzɜːv]",meaning:"에너지 비축량",pos:"n"},
+      {word:"predator",phonetic:"[ˈpredətə(r)]",meaning:"포식자",pos:"n"},
+      {word:"mating behavior",phonetic:"[ˈmeɪtɪŋ bɪˈheɪvjə(r)]",meaning:"짝짓기 행동",pos:"n"},
+      {word:"put a premium on",phonetic:"[pʊt ə ˈpriːmiəm ɒn]",meaning:"~을 특히 중요하게 만들다",pos:"v"},
+      {word:"preprogrammed",phonetic:"[ˌpriːˈprəʊɡræmd]",meaning:"미리 프로그램화된",pos:"a"},
+      {word:"fine-tuning",phonetic:"[faɪn ˈtjuːnɪŋ]",meaning:"세밀한 조정",pos:"n"},
+      {word:"get by with",phonetic:"[ɡet baɪ wɪð]",meaning:"~으로 그럭저럭 살아가다",pos:"v"},
+      {word:"vary",phonetic:"[ˈveəri]",meaning:"변화시키다",pos:"v"},
+      {word:"optimize",phonetic:"[ˈɒptɪmaɪz]",meaning:"최적화하다",pos:"v"},
+      {word:"trial and error",phonetic:"[ˈtraɪəl ənd ˈerə(r)]",meaning:"시행착오",pos:"n"},
+      {word:"capacity",phonetic:"[kəˈpæsəti]",meaning:"능력",pos:"n"},
+      {word:"limb",phonetic:"[lɪm]",meaning:"(사람·동물의) 수족",pos:"n"},
+      {word:"locomotor",phonetic:"[ˌləʊkəˈməʊtə(r)]",meaning:"운동 기관의",pos:"a"},
+      {word:"metabolic",phonetic:"[ˌmetəˈbɒlɪk]",meaning:"신진대사의",pos:"a"},
+      {word:"tourism",phonetic:"[ˈtʊərɪzəm]",meaning:"관광업",pos:"n"},
+      {word:"transport operator",phonetic:"[ˈtrænspɔːt ˈɒpəreɪtə(r)]",meaning:"운송업체",pos:"n"},
+      {word:"travel agent",phonetic:"[ˈtrævl ˈeɪdʒənt]",meaning:"여행사",pos:"n"},
+      {word:"tour operator",phonetic:"[tʊə(r) ˈɒpəreɪtə(r)]",meaning:"여행 상품 운영업체",pos:"n"},
+      {word:"independently",phonetic:"[ˌɪndɪˈpendəntli]",meaning:"독립적으로",pos:"ad"},
+      {word:"bed night",phonetic:"[bed naɪt]",meaning:"숙박",pos:"n"},
+      {word:"nature",phonetic:"[ˈneɪtʃə(r)]",meaning:"성격",pos:"n"},
+      {word:"integrated",phonetic:"[ˈɪntɪɡreɪted]",meaning:"통합적인",pos:"a"},
+      {word:"evolution",phonetic:"[ˌiːvəˈluːʃn]",meaning:"발전",pos:"n"},
+      {word:"rough",phonetic:"[rʌf]",meaning:"거친",pos:"a"},
+      {word:"advance",phonetic:"[ədˈvɑːns]",meaning:"발전",pos:"n"},
+      {word:"elaborate",phonetic:"[ɪˈlæbərət]",meaning:"정교한",pos:"a"},
+      {word:"form-fitting",phonetic:"[fɔːm ˈfɪtɪŋ]",meaning:"몸에 꼭 맞는",pos:"a"},
+      {word:"refined",phonetic:"[rɪˈfaɪnd]",meaning:"세련된",pos:"a"},
+      {word:"emphasis",phonetic:"[ˈemfəsɪs]",meaning:"강조",n:"n"},
+      {word:"pronounced",phonetic:"[prəˈnaʊnst]",meaning:"뚜렷한",pos:"a"},
+      {word:"enact",phonetic:"[ɪˈnækt]",meaning:"제정하다",pos:"v"},
+      {word:"luxury",phonetic:"[ˈlʌkʃəri]",meaning:"사치품의, 사치의",pos:"a"},
+      {word:"decoration",phonetic:"[ˌdekəˈreɪʃn]",meaning:"장식",pos:"n"},
+      {word:"demonstrate",phonetic:"[ˈdemənstreɪt]",meaning:"보여 주다",pos:"v"},
+      {word:"standing",phonetic:"[ˈstændɪŋ]",meaning:"지위",pos:"n"},
+      {word:"incorporate",phonetic:"[ɪnˈkɔːpəreɪt]",meaning:"포함하다",pos:"v"},
+      {word:"identify",phonetic:"[aɪˈdentɪfaɪ]",meaning:"식별하다",pos:"v"},
+      {word:"playwright",phonetic:"[ˈpleɪraɪt]",meaning:"극작가",pos:"n"},
+      {word:"lyric",phonetic:"[ˈlɪrɪk]",meaning:"노래 가사",pos:"n"},
+      {word:"contain",phonetic:"[kənˈteɪn]",meaning:"포함하다",pos:"v"},
+      {word:"unconventional",phonetic:"[ˌʌnkənˈvenʃənl]",meaning:"관습적이지 않은",pos:"a"},
+      {word:"unrealistic",phonetic:"[ˌʌnrɪəˈlɪstɪk]",meaning:"비현실적인",pos:"a"},
+      {word:"communicate",phonetic:"[kəˈmjuːnɪkeɪt]",meaning:"전달하다",pos:"v"},
+      {word:"character",phonetic:"[ˈkærəktə(r)]",meaning:"등장인물",pos:"n"},
+      {word:"get in the way of",phonetic:"[ɡet ɪn ðə weɪ ɒv]",meaning:"~을 방해하다",pos:"v"},
+      {word:"revealing",phonetic:"[rɪˈviːlɪŋ]",meaning:"(내용을) 드러내는",pos:"a"},
+      {word:"stylistic",phonetic:"[staɪˈlɪstɪk]",meaning:"문체의",pos:"a"},
+      {word:"technique",phonetic:"[tekˈniːk]",meaning:"기법",pos:"v"},
+      {word:"visualize",phonetic:"[ˈvɪʒuəlaɪz]",meaning:"마음속에 그리다",pos:"v"},
+      {word:"diminished",phonetic:"[dɪˈmɪnɪʃt]",meaning:"줄어든",pos:"a"},
+      {word:"significant",phonetic:"[sɪɡˈnɪfɪkənt]",meaning:"상당한",pos:"a"},
+      {word:"libretto",phonetic:"[lɪˈbretəʊ]",meaning:"(가극) 대본",pos:"n"},
+      {word:"time-consuming",phonetic:"[ˈtaɪm kənˈsjuːmɪŋ]",meaning:"시간이 많이 걸리는",pos:"a"},
+      {word:"archaic",phonetic:"[ɑːˈkeɪɪk]",meaning:"고어(古語)체의",pos:"a"},
+      {word:"Enlightenment",phonetic:"[ɪnˈlaɪtnmənt]",meaning:"계몽주의",pos:"n"},
+      {word:"preservation",phonetic:"[ˌprezəˈveɪʃn]",meaning:"보존",pos:"n"},
+      {word:"conservation",phonetic:"[ˌkɒnsəˈveɪʃn]",meaning:"보전",pos:"n"},
+      {word:"synonym",phonetic:"[ˈsɪnənɪm]",meaning:"동의어",pos:"n"},
+      {word:"distinguish",phonetic:"[dɪˈstɪŋɡwɪʃ]",meaning:"구별하다",pos:"v"},
+      {word:"estorative",phonetic:"[rɪˈstɔːrətɪv]",meaning:"복원적인",pos:"a"},
+      {word:"aspect",phonetic:"[ˈæspekt]",meaning:"측면",pos:"n"},
+      {word:"musical instrument",phonetic:"[ˈmjuːzɪkl ˈɪnstrəmənt]",meaning:"악기",pos:"n"},
+      {word:"ecosystem",phonetic:"[ˈiːkəʊsɪstəm]",meaning:"생태계",pos:"n"},
+      {word:"acknowledge",phonetic:"[əkˈnɒlɪdʒ]",meaning:"인정하다",pos:"v"},
+      {word:"prolong",phonetic:"[prəˈlɒŋ]",meaning:"연장하다",pos:"v"},
+      {word:"contemplation",phonetic:"[ˌkɒntəmˈpleɪʃn]",meaning:"주시(注視)",pos:"n"},
+      {word:"deteriorate",phonetic:"[dɪˈtɪəriəreɪt]",meaning:"나쁘게 하다",pos:"v"},
+      {word:"observe",phonetic:"[əbˈzɜːv]",meaning:"관찰하다",pos:"v"},
+      {word:"nonverbal",phonetic:"[ˌnɒnˈvɜːbl]",meaning:"비언어적인",pos:"a"},
+      {word:"tone",phonetic:"[təʊn]",meaning:"어조",pos:"n"},
+      {word:"misinterpret",phonetic:"[ˌmɪsɪnˈtɜːprɪt]",meaning:"오해하다",pos:"v"},
+      {word:"verify",phonetic:"[ˈverɪfaɪ]",meaning:"확인하다",pos:"v"},
+      {word:"be on the same wavelength",phonetic:"[bi ɒn ðə seɪm ˈweɪvleŋθ]",meaning:"비슷하게 생각 하다",pos:"v"},
+      {word:"indicate",phonetic:"[ˈɪndɪkeɪt]",meaning:"가리키다",pos:"v"},
+      {word:"convince",phonetic:"[kənˈvɪns]",meaning:"확신시키다, 납득시키다",pos:"v"},
+      {word:"chatter",phonetic:"[ˈtʃætə(r)]",meaning:"재재거리다",pos:"v"},
+      {word:"betrayal",phonetic:"[bɪˈtreɪəl]",meaning:"누설, (속마음을) 드러냄",pos:"n"},
+      {word:"mortal",phonetic:"[ˈmɔːtl]",meaning:"인간",pos:"n"},
+      {word:"ooze",phonetic:"[uːz]",meaning:"스며 나오다",pos:"v"},
+      {word:"pore",phonetic:"[pɔː(r)]",meaning:"모공",pos:"n"},
+      {word:"dispose",phonetic:"[dɪˈspəʊz]",meaning:"~하도록 이끌다",pos:"v"},
+      {word:"distorted",phonetic:"[dɪˈstɔːtɪd]",meaning:"왜곡된",pos:"a"},
+      {word:"coward",phonetic:"[ˈkaʊəd]",meaning:"겁쟁이",pos:"n"},
+      {word:"disposition",phonetic:"[ˌdɪspəˈzɪʃn]",meaning:"성향, 경향",pos:"n"},
+      {word:"desire",phonetic:"[ˈdesɪə(r)]",meaning:"욕망",pos:"n"},
+      {word:"misidentification",phonetic:"[ˌmɪsaɪˌdentɪfɪˈkeɪʃn]",meaning:"오인, 잘못된 인식",pos:"n"},
+      {word:"organ",phonetic:"[ˈɔːɡən]",meaning:"기관",pos:"n"},
+      {word:"investment",phonetic:"[ɪnˈvestmənt]",meaning:"몰입, 투자",pos:"n"},
+      {word:"biased",phonetic:"[ˈbaɪəst]",meaning:"편향된",pos:"a"},
+      {word:"discern",phonetic:"[dɪˈsɜːn]",meaning:"분별하다",pos:"v"},
+      {word:"shifting",phonetic:"[ˈʃɪftɪŋ]",meaning:"가변적인",pos:"a"},
+      {word:"inherently",phonetic:"[ɪnˈhɪərəntli]",meaning:"본질적으로",pos:"ad"},
+      {word:"uppermost",phonetic:"[ˈʌpəməʊst]",meaning:"가장 우선적인",pos:"a"},
+      {word:"representative",phonetic:"[ˌreprɪˈzentətɪv]",meaning:"대표자",pos:"n"},
+      {word:"institution",phonetic:"[ˌɪnstɪˈtjuːʃn]",meaning:"기관",pos:"n"},
+      {word:"acquire",phonetic:"[əˈkwaɪə(r)]",meaning:"소장하다",pos:"v"},
+      {word:"souvenir",phonetic:"[ˌsuːvəˈnɪə(r)]",meaning:"기념품",pos:"n"},
+      {word:"check",phonetic:"[tʃek]",meaning:"수표",pos:"n"},
+      {word:"attain",phonetic:"[əˈteɪn]",meaning:"달성하다, 이루다",pos:"v"},
+      {word:"merit",phonetic:"[ˈmerɪt]",meaning:"가치",pos:"n"},
+      {word:"validation",phonetic:"[ˌvælɪˈdeɪʃn]",meaning:"확인",pos:"n"},
+      {word:"displace",phonetic:"[dɪsˈpleɪs]",meaning:"대체하다",pos:"v"},
+      {word:"in the last analysis",phonetic:"[ɪn ðə lɑːst əˈnæləsɪs]",meaning:"결국",pos:"ad"},
+      {word:"commit oneself to",phonetic:"[kəˈmɪt wʌnˈself tuː]",meaning:"~에 헌신하다",pos:"v"},
+      {word:"affirm",phonetic:"[əˈfɜːm]",meaning:"확언하다",pos:"v"},
+      {word:"derive",phonetic:"[dɪˈraɪv]",meaning:"유래하다",pos:"v"},
+      {word:"conviction",phonetic:"[kənˈvɪkʃn]",meaning:"확신",pos:"n"},
+      {word:"consensus",phonetic:"[kənˈsensəs]",meaning:"합의",pos:"n"},
+      {word:"aesthetic",phonetic:"[iːsˈθetɪk]",meaning:"미학의",pos:"a"},
+      {word:"in saying that",phonetic:"[ɪn ˈseɪɪŋ ðæt]",meaning:"그렇게 말함에 있어",pos:"ad"},
+      {word:"defense",phonetic:"[dɪˈfens]",meaning:"방어 기제",pos:"n"},
+      {word:"stress",phonetic:"[stres]",meaning:"강조하다",pos:"v"},
+      {word:"inevitable",phonetic:"[ɪnˈevɪtəbl]",meaning:"필연적인",pos:"a"},
+      {word:"diverse",phonetic:"[daɪˈvɜːs]",meaning:"다양한",pos:"a"},
+      {word:"load",phonetic:"[ləʊd]",meaning:"채우다, 싣다",pos:"v"},
+      {word:"harsh",phonetic:"[hɑːʃ]",meaning:"독한",pos:"a"},
+      {word:"compound",phonetic:"[ˈkɒmpaʊnd]",meaning:"화합물",pos:"n"},
+      {word:"intoxicate",phonetic:"[ɪnˈtɒksɪkeɪt]",meaning:"취하게 하다",pos:"v"},
+      {word:"altogether",phonetic:"[ˌɔːltəˈɡeðə(r)]",meaning:"아예, 완전히",pos:"ad"},
+      {word:"release",phonetic:"[rɪˈliːs]",meaning:"방출(배출)하다",pos:"v"},
+      {word:"build up",phonetic:"[bɪld ʌp]",meaning:"축적하다",pos:"v"},
+      {word:"call for",phonetic:"[ɔːl fɔː(r)]",meaning:"요청, 요구",pos:"n"},
+      {word:"back-and-forth",phonetic:"[bæk ænd fɔːθ]",meaning:"공방전",pos:"n"},
+      {word:"drawn-out",phonetic:"[drɔːn aʊt]",meaning:"길게 이어지는",pos:"a"},
+      {word:"unintentionally",phonetic:"[ˌʌnɪnˈtenʃənəli]",meaning:"의도치 않게",pos:"ad"},
+      {word:"select for",phonetic:"[sɪˈlekt fɔː(r)]",meaning:"~을 선택하다",pos:"v"},
+      {word:"get around",phonetic:"[ɡet əˈraʊnd]",meaning:"~을 우회하다",pos:"v"},
+      {word:"in turn",phonetic:"[ɪn tɜːn]",meaning:"결국",pos:"ad"},
+      {word:"resistant",phonetic:"[rɪˈzɪstənt]",meaning:"저항력 있는",pos:"a"},
+      {word:"shade into",phonetic:"[ʃeɪd ˈɪntuː]",meaning:"(점차) ~으로 변해가다",pos:"v"},
+      {word:"adaptation",phonetic:"[ˌædæpˈteɪʃn]",meaning:"적응",pos:"n"},
+      {word:"maintain",phonetic:"[meɪnˈteɪn]",meaning:"유지하다",pos:"v"},
+      {word:"genera",phonetic:"[ˈdʒenərə]",meaning:"genera(생물 분류상의 속)",pos:"n"},
+      {word:"resilient",phonetic:"[rɪˈzɪliənt]",meaning:"회복 탄력성이 있는",pos:"a"},
+      {word:"stalemate",phonetic:"[ˈsteɪlmeɪt]",meaning:"교착 상태",pos:"n"},
+      {word:"trigger",phonetic:"[ˈtrɪɡə(r)]",meaning:"유발하다",pos:"v"},
+      {word:"instinctive",phonetic:"[ɪnˈstɪŋktɪv]",meaning:"본능적인",pos:"a"},
+      {word:"spectacle",phonetic:"[ˈspektəkl]",meaning:"구경거리",pos:"n"},
+      {word:"primarily",phonetic:"[praɪˈmerəli]",meaning:"주로",pos:"ad"},
+      {word:"be subject to",phonetic:"[bi səbˈdʒekt tuː]",meaning:"~에 영향을 받는다",pos:"v"},
+      {word:"prevailing",phonetic:"[prɪˈveɪlɪŋ]",meaning:"주요한, 지배적인",pos:"a"},
+      {word:"bring to bear",phonetic:"[brɪŋ tuː beə(r)]",meaning:"적용하다",pos:"v"},
+      {word:"by extension",phonetic:"[baɪ ɪkˈstenʃn]",meaning:"더 나아가",pos:"ad"},
+      {word:"grain",phonetic:"[ɡreɪn]",meaning:"결",pos:"n"},
+      {word:"blend with",phonetic:"[blend wɪð]",meaning:"~을 ...와 혼합하다",pos:"v"},
+      {word:"established",phonetic:"[ɪˈstæblɪʃt]",meaning:"기존의",pos:"a"},
+      {word:"deploy",phonetic:"[dɪˈplɔɪ]",meaning:"전개하다",pos:"v"},
+      {word:"convention",phonetic:"[kənˈvenʃn]",meaning:"관습",pos:"n"},
+      {word:"imitation",phonetic:"[ˌɪmɪˈteɪʃn]",meaning:"모방",pos:"n"},
+      {word:"address",phonetic:"[əˈdres]",meaning:"해결하다",pos:"v"},
+      {word:"literature",phonetic:"[ˈlɪtrətʃə(r)]",meaning:"문학",pos:"n"},
+      {word:"bound",phonetic:"[baʊnd]",meaning:"얽매인",pos:"a"},
+      {word:"sufficient",phonetic:"[səˈfɪʃnt]",meaning:"충분한",pos:"a"},
+      {word:"originality",phonetic:"[əˌrɪdʒəˈnæləti]",meaning:"독창성",pos:"n"},
+      {word:"spectacular",phonetic:"[spekˈtækjələ(r)]",meaning:"장관인",pos:"a"},
+      {word:"outdo",phonetic:"[ˌaʊtˈduː]",meaning:"능가하다",pos:"v"},
+      {word:"effort",phonetic:"[ˈefət]",meaning:"시도",pos:"n"},
+      {word:"witness",phonetic:"[ˈwɪtnəs]",meaning:"목격하다",pos:"v"},
+      {word:"diversify",phonetic:"[daɪˈvɜːsɪfaɪ]",meaning:"다양화하다",pos:"v"},
+      {word:"palette",phonetic:"[ˈpælət]",meaning:"색채의 범위",pos:"n"},
+      {word:"varied",phonetic:"[ˈveərid]",meaning:"다양한",pos:"a"},
+      {word:"tone",phonetic:"[təʊn]",meaning:"색조",pos:"n"},
+      {word:"shade",phonetic:"[ʃeɪd]",meaning:"명암",pos:"n"},
+      {word:"exceed",phonetic:"[ɪkˈsiːd]",meaning:"뛰어넘다, 능가하다",pos:"v"},
+      {word:"comparable",phonetic:"[ˈkɒmpərəbl]",meaning:"비슷한",pos:"a"},
+      {word:"construct",phonetic:"[kənˈstrʌkt]",meaning:"구축하다",pos:"v"},
+      {word:"pictorial",phonetic:"[pɪkˈtɔːriəl]",meaning:"회화의, 그림의",pos:"a"},
+      {word:"lexical",phonetic:"[ˈleksɪkl]",meaning:"어휘의",pos:"a"},
+      {word:"hierarchical",phonetic:"[ˌhaɪəˈrɑːkɪkl]",meaning:"위계의",pos:"a"},
+      {word:"chromatic",phonetic:"[krəˈmætɪk]",meaning:"색채의",pos:"a"},
+      {word:"lexicon",phonetic:"[ˈleksɪkən]",meaning:"어휘 목록",pos:"n"},
+      {word:"pharmaceutical",phonetic:"[ˌfɑːməˈsuːtɪkl]",meaning:"제약의, 약학의",pos:"a"},
+      {word:"employ",phonetic:"[ɪmˈplɔɪ]",meaning:"활용하다",pos:"v"},
+      {word:"treatment",phonetic:"[ˈtriːtmənt]",meaning:"치료",pos:"n"},
+      {word:"to date",phonetic:"[tuː deɪ]",meaning:"지금까지",pos:"ad"},
+      {word:"attention",phonetic:"[əˈtenʃn]",meaning:"관심",pos:"n"},
+      {word:"pharma",phonetic:"[ˈfɑːmə]",meaning:"제약 회사",pos:"n"},
+      {word:"devote",phonetic:"[dɪˈvəʊt]",meaning:"쏟다, 기울이다",pos:"v"},
+      {word:"affect",phonetic:"[əˈfekt]",meaning:"병이 나게 하다",pos:"v"},
+      {word:"definition",phonetic:"[ˌdefɪˈnɪʃn]",meaning:"정의",pos:"n"},
+      {word:"associated with",phonetic:"[əˈsəʊʃieɪtɪd wɪð]",meaning:"~와 연관된",pos:"a"},
+      {word:"prevalent",phonetic:"[ˈprevələnt]",meaning:"널리 퍼져있는",pos:"a"},
+      {word:"neglect",phonetic:"[nɪˈɡlekt]",meaning:"등한시하다, 무시하다",pos:"v"},
+      {word:"compared to",phonetic:"[kəmˈpeəd tuː]",meaning:"~와 비교하여",pos:"prep"},
+      {word:"First World",phonetic:"[fɜːst wɜːld]",meaning:"부유한 선진국들",pos:"n"},
+      {word:"clinical trial",phonetic:"[ˈklɪnɪkl ˈtraɪəl]",meaning:"임상실험",pos:"n"},
+      {word:"imbalance",phonetic:"[ɪmˈbæləns]",meaning:"불균형",pos:"n"},
+      {word:"democratize",phonetic:"[dɪˈmɒkrətaɪz]",meaning:"민주화하다",pos:"v"},
+      {word:"offset",phonetic:"[ˈɒfset]",meaning:"상쇄하다",pos:"v"},
+      {word:"demographic",phonetic:"[ˌdeməˈɡræfɪk]",meaning:"인구 집단",pos:"n"},
+      {word:"impress",phonetic:"[ɪmˈpres]",meaning:"인상을 주다",pos:"v"},
+      {word:"hitter",phonetic:"[ˈhɪtə(r)]",meaning:"타자",pos:"n"},
+      {word:"competition",phonetic:"[ˌkɒmpəˈtɪʃn]",meaning:"경쟁",pos:"n"},
+      {word:"community",phonetic:"[kəˈmjuːnəti]",meaning:"지역사회",pos:"n"},
+      {word:"positive",phonetic:"[ˈpɒzətɪv]",meaning:"긍정적인",pos:"a"},
+      {word:"depart",phonetic:"[dɪˈpɑːt]",meaning:"떠나다",pos:"v"},
+      {word:"blankly",phonetic:"[ˈblæŋkli]",meaning:"멍하니",pos:"ad"},
+      {word:"surround",phonetic:"[səˈrawʊnd]",meaning:"둘러싸다",pos:"v"},
+      {word:"marvelous",phonetic:"[ˈmɑːvələs]",meaning:"놀라운",pos:"a"},
+      {word:"instructor",phonetic:"[ɪnˈstrʌktə(r)]",meaning:"강사",pos:"n"},
+      {word:"participant",phonetic:"[pɑːˈtɪsɪpənt]",meaning:"참가자",pos:"n"},
+      {word:"be unrelated to",phonetic:"[bi ˌʌnrɪˈleɪtɪd tuː]",meaning:"~와 관련이 없다",pos:"v"},
+      {word:"blindly",phonetic:"[ˈblaɪndli]",meaning:"맹목적으로",pos:"ad"},
+      {word:"direction",phonetic:"[dəˈrekʃn]",meaning:"지시",pos:"n"},
+      {word:"explicitly",phonetic:"[ɪkˈsplɪsɪtli]",meaning:"명시적으로",pos:"ad"},
+      {word:"principle",phonetic:"[ˈprɪnsəpl]",meaning:"원칙",pos:"n"},
+      {word:"ownership",phonetic:"[ˈəʊnəʃɪp]",meaning:"소유권",pos:"n"},
+      {word:"consciousness",phonetic:"[ˈkɒnʃəsnəs]",meaning:"의식",pos:"n"},
+      {word:"publish",phonetic:"[ˈpʌblɪʃ]",meaning:"출판하다",pos:"v"},
+      {word:"cognition",phonetic:"[kɒɡˈnɪʃn]",meaning:"인지",pos:"n"},
+      {word:"navigate",phonetic:"[ˈnævɪɡeɪt]",meaning:"길을 찾다",pos:"v"},
+      {word:"echolocation",phonetic:"[ˌekəʊləʊˈkeɪʃn]",meaning:"반향 위치 측정",pos:"n"},
+      {word:"inner world",phonetic:"[ˈɪnə(r) wɜːld]",meaning:"내면세계",pos:"n"},
+      {word:"flexible",phonetic:"[ˈfleksəbl]",meaning:"유연한",pos:"a"},
+      {word:"hallmark",phonetic:"[ˈhɑːlmɑːk]",meaning:"특징",pos:"n"},
+      {word:"exhibit",phonetic:"[ɪɡˈzɪbɪt]",meaning:"전시하다",pos:"v"},
+      {word:"neuroscience",phonetic:"[ˈnjʊərəʊsaɪəns]",meaning:"신경과학",pos:"n"},
+      {word:"unique",phonetic:"[juˈniːk]",meaning:"독특한",pos:"a"},
+      {word:"ghost",phonetic:"[ɡəʊst]",meaning:"유령",pos:"n"},
+      {word:"hallow",phonetic:"[ˈhæləʊ]",meaning:"신성하게 하다",pos:"v"},
+      {word:"emotional attachment",phonetic:"[ɪˈməʊʃənl əˈtætʃmənt]",meaning:"감정적 애착",pos:"n"},
+      {word:"appeal",phonetic:"[əˈpiːl]",meaning:"매력",pos:"v"},
+      {word:"tap",phonetic:"[tæp]",meaning:"활용하다",pos:"v"},
+      {word:"entitle",phonetic:"[ɪnˈtaɪtl]",meaning:"자격을 주다",pos:"v"},
+      {word:"automotive",phonetic:"[ˌɔːtəˈməʊtɪv]",meaning:"자동차의",pos:"a"},
+      {word:"hypothesize",phonetic:"[haɪˈpɒθəsaɪz]",meaning:"가설을 세우다",pos:"v"},
+      {word:"tumultuous",phonetic:"[tjuːˈmʌltʃuəs]",meaning:"거친",pos:"a"},
+      {word:"buoyant",phonetic:"[ˈbɔɪənt]",meaning:"부력이 있는",pos:"a"},
+      {word:"a range of",phonetic:"[ə reɪndʒ ɒv]",meaning:"다양한",pos:"a"},
+      {word:"accommodation",phonetic:"[əˌkɒməˈdeɪʃn]",meaning:"숙박 시설",pos:"n"},
+      {word:"secretarial centre",phonetic:"[ˌsekrəˈteəriəl ˈsentə(r)]",meaning:"비서 업무 센터",pos:"n"},
+      {word:"spend",phonetic:"[spend]",meaning:"소비하다",pos:"v"},
+      {word:"hotel complex",phonetic:"[həʊˈtel ˈkɒmpleks]",meaning:"호텔 단지",pos:"n"},
+      {word:"integral to",phonetic:"[ˈɪntɪɡrəl tuː]",meaning:"~에 필수적인",pos:"a"},
+      {word:"insurance",phonetic:"[ɪnˈʃʊərəns]",meaning:"보험",pos:"n"},
+      {word:"fragment",phonetic:"[ˈfræɡmənt]",meaning:"파편",pos:"n"},
+      {word:"percentage",phonetic:"[pəˈsentɪdʒ]",meaning:"백분율",pos:"n"},
+      {word:"weekday trip",phonetic:"[ˈwiːkdeɪ trɪp]",meaning:"평일 여행",pos:"n"},
+      {word:"transportation",phonetic:"[ˌtrænspɔːˈteɪʃn]",meaning:"교통수단",pos:"n"},
+      {word:"public transport",phonetic:"[ˈpʌblɪk ˈtrænspɔːt]",meaning:"대중교통",pos:"n"},
+      {word:"region",phonetic:"[ˈriːdʒən]",meaning:"지역",pos:"n"},
+      {word:"research article",phonetic:"[rɪˈsɜːtʃ ˈɑːtɪkl]",meaning:"연구 논문",pos:"n"},
+      {word:"less than",phonetic:"[les ðæn]",meaning:"~보다 적은",pos:"a"},
+      {word:"influential",phonetic:"[ˌɪnfluˈenʃl]",meaning:"영향력 있는",pos:"a"},
+      {word:"linguistics",phonetic:"[lɪŋˈɡwɪstɪks]",meaning:"언어학",pos:"n"},
+      {word:"undergraduate",phonetic:"[ˌʌndəˈɡrædʒuət]",meaning:"대학생",pos:"n"},
+      {word:"high honor",phonetic:"[haɪ ˈɒnə(r)]",meaning:"우등 학위",pos:"n"},
+      {word:"appoint",phonetic:"[əˈpɔɪnt]",meaning:"임명하다",pos:"v"},
+      {word:"contribution",phonetic:"[ˌkɒntrɪˈbjuːʃn]",meaning:"기여",pos:"n"},
+      {word:"article",phonetic:"[ˈɑːtɪkl]",meaning:"글",pos:"n"},
+      {word:"foundational",phonetic:"[faʊnˈdeɪʃənl]",meaning:"기초적인",pos:"a"},
+      {word:"retire",phonetic:"[rɪˈtaɪə(r)]",meaning:"퇴직하다",pos:"v"},
+      {word:"be excellent at",phonetic:"[bi ˈeksələnt æt]",meaning:"~에 뛰어나다",pos:"v"},
+      {word:"hold",phonetic:"[həʊld]",meaning:"개최하다",pos:"v"},
+      {word:"encourage",phonetic:"[ɪnˈkʌrɪdʒ]",meaning:"장려하다",pos:"v"},
+      {word:"skill",phonetic:"[skɪl]",meaning:"기술",pos:"n"},
+      {word:"registration",phonetic:"[ˌredʒɪˈstreɪʃn]",meaning:"등록",pos:"n"},
+      {word:"canvas",phonetic:"[ˈkænvəs]",meaning:"캔버스",pos:"n"},
+      {word:"breathtaking",phonetic:"[ˈbreθteɪkɪŋ]",meaning:"숨이 막히는",pos:"a"},
+      {word:"attraction",phonetic:"[əˈtrækʃn]",meaning:"명소",pos:"n"},
+      {word:"laser tag",phonetic:"[ˈleɪzə(r) tæɡ]",meaning:"레이저 서바이벌 게임",pos:"n"},
+      {word:"space-themed",phonetic:"[speɪs θiːmd]",meaning:"우주 테마의",pos:"a"},
+      {word:"beverage",phonetic:"[ˈbevərɪdʒ]",meaning:"음료",pos:"n"},
+      {word:"lawn chair",phonetic:"[lɔːn tʃeə(r)]",meaning:"접이식 의자",pos:"n"},
+      {word:"relatively",phonetic:"[ˈrelətɪvli]",meaning:"상대적으로",pos:"ad"},
+      {word:"despite",phonetic:"[dɪˈspaɪt]",meaning:"~에도 불구하고",pos:"prep"},
+      {word:"bump",phonetic:"[bʌmp]",meaning:"부딪치다",pos:"v"},
+      {word:"sustain",phonetic:"[səˈsteɪn]",meaning:"지탱하다",pos:"v"},
+      {word:"in comparison to",phonetic:"[ɪn kəmˈpærɪsn tuː]",meaning:"~와 비교하여",pos:"prep"},
+      {word:"nonlinear",phonetic:"[ˌnɒnˈlɪniə(r)]",meaning:"비선형의",pos:"a"},
+      {word:"absolute terms",phonetic:"[ˈæbsəluːt tɜːmz]",meaning:"절대적 관점",pos:"n"},
+      {word:"compensate",phonetic:"[ˈkɒmpenseɪt]",meaning:"보상하다",pos:"v"},
+      {word:"innocuous",phonetic:"[ɪˈnɒkjuəs]",meaning:"무해한",pos:"a"},
+      {word:"toddler",phonetic:"[ˈtɒdlə(r)]",meaning:"걸음마 단계의 아이",pos:"n"},
+      {word:"revenue",phonetic:"[ˈrevənjuː]",meaning:"수익",pos:"n"},
+      {word:"skyscraper",phonetic:"[ˈskaɪskreɪpə(r)]",meaning:"초고층 건물",pos:"n"},
+      {word:"rectangle",phonetic:"[ˈrektæŋɡl]",meaning:"직사각형",pos:"n"},
+      {word:"aerodynamic",phonetic:"[ˌeərəʊdaɪˈnæmɪk]",meaning:"공기 역학의",pos:"a"},
+      {word:"phenomenon",phonetic:"[fəˈnɒmɪnən]",meaning:"현상",pos:"n"},
+      {word:"eventually",phonetic:"[ɪˈventʃuəli]",meaning:"결국",pos:"ad"},
+      {word:"give rise to",phonetic:"[ɡɪv raɪz tuː]",meaning:"~을 발생시키다",pos:"v"},
+      {word:"spinning",phonetic:"[ˈspɪnɪŋ]",meaning:"회전하는",pos:"a"},
+      {word:"current",phonetic:"[ˈkʌrənt]",meaning:"흐름",pos:"n"},
+      {word:"frequency",phonetic:"[ˈfriːkwənsi]",meaning:"주파수",pos:"n"},
+      {word:"self-sustaining",phonetic:"[self səˈsteɪnɪŋ]",meaning:"자립적인",pos:"a"},
+      {word:"orient",phonetic:"[ˈɔːrient]",meaning:"방향을 맞추다",pos:"v"},
+      {word:"parallel",phonetic:"[ˈpærəlel]",meaning:"평행한",pos:"a"},
+      {word:"chop off",phonetic:"[tʃɒp ɒf]",meaning:"잘라내다",pos:"v"},
+      {word:"round off",phonetic:"[raʊnd ɒf]",meaning:"둥글게 깎다",pos:"v"},
+      {word:"rough up",phonetic:"[rʌf ʌp]",meaning:"거칠게 만들다",pos:"v"},
+      {word:"stepped",phonetic:"[stept]",meaning:"계단식의",pos:"a"},
+      {word:"disturb",phonetic:"[dɪˈstɜːb]",meaning:"방해하다",pos:"v"},
+      {word:"delay",phonetic:"[dɪˈleɪ]",meaning:"지연시키다",pos:"v"},
+      {word:"formation",phonetic:"[fɔːˈmeɪʃn]",meaning:"형성",pos:"n"},
+      {word:"vortex",phonetic:"[ˈvɔːteks]",meaning:"소용돌이",pos:"n"},
+      {word:"perpendicular",phonetic:"[ˌpɜːpənˈdɪkjələ(r)]",meaning:"수직의",pos:"a"},
+      {word:"random",phonetic:"[ˈrændəm]",meaning:"무작위의",pos:"a"},
+      {word:"ball-pit",phonetic:"[bɔːl pɪt]",meaning:"볼풀",pos:"n"},
+      {word:"supercooled",phonetic:"[ˌsuːpəˈkuːld]",meaning:"과냉각된",pos:"a"},
+      {word:"imperceptibly",phonetic:"[ˌɪmpəˈseptəbli]",meaning:"감지할 수 없게",pos:"ad"},
+      {word:"lime",phonetic:"[laɪm]",meaning:"석회",pos:"n"},
+      {word:"misshapen",phonetic:"[ˌmɪsˈʃeɪpən]",meaning:"기형의",pos:"a"},
+      {word:"endure",phonetic:"[ɪnˈdjʊə(r)]",meaning:"견디다",pos:"v"},
+      {word:"uneven",phonetic:"[ʌnˈiːvn]",meaning:"울퉁불퉁한",pos:"a"},
+      {word:"solidify",phonetic:"[səˈlɪdɪfaɪ]",meaning:"굳어지다",pos:"v"},
+      {word:"paradox",phonetic:"[ˈpærədɒks]",meaning:"역설",pos:"n"},
+      {word:"substance",phonetic:"[ˈsʌbstəns]",meaning:"물질",pos:"n"},
+      {word:"comprehend",phonetic:"[ˌkɒmprɪˈhend]",meaning:"이해하다",pos:"v"},
+      {word:"molecular",phonetic:"[məˈlekjələ(r)]",meaning:"분자의",pos:"a"},
+      {word:"amorphous",phonetic:"[əˈmɔːfəs]",meaning:"무정형의",pos:"a"},
+      {word:"viscous",phonetic:"[ˈvɪskəs]",meaning:"점성이 있는",pos:"a"},
+      {word:"unpolished",phonetic:"[ʌnˈpɒlɪʃt]",meaning:"세련되지 못한",pos:"a"},
+      {word:"welcoming",phonetic:"[ˈwelkəmɪŋ]",meaning:"환대하는",pos:"a"},
+      {word:"string",phonetic:"[strɪŋ]",meaning:"끈",pos:"n"},
+      {word:"talent",phonetic:"[ˈtælənt]",meaning:"재능",pos:"n"},
+      {word:"response",phonetic:"[rɪˈspɒns]",meaning:"반응",pos:"n"},
+      {word:"frankly",phonetic:"[ˈfræŋkli]",meaning:"솔직히",pos:"ad"},
+      {word:"mess",phonetic:"[mes]",meaning:"엉망진창",pos:"n"}
+    ];
+
+    // State Management
+    let words = rawWords.map(w => ({ ...w, fav: false, status: '' }));
+    let currentRangeIndex = 0; // 0 means 'All'
+    let currentFilter = 'all'; // all, unknown, fav
+    let activeTab = 'list';
+    
+    // Flashcard index & UI variables
+    let currentCardIndex = 0;
+    let cardIsRevealed = false;
+    
+    // Quiz state
+    let quizWords = [];
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+
+    // Load from LocalStorage if exists
+    const STORAGE_KEY = 'CUTOP_VOCAB_2026_06_G3';
+    if(localStorage.getItem(STORAGE_KEY)) {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        words = words.map(w => {
+          const match = saved.find(s => s.word === w.word);
+          return match ? { ...w, fav: match.fav, status: match.status } : w;
+        });
+      } catch(e) { console.error(e); }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(words.map(w => ({ word: w.word, fav: w.fav, status: w.status }))));
+    }
+
+    // TTS Utility
+    function playTTS(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-US';
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    // Calculate Range Buckets (10 units per block)
+    const ITEMS_PER_PAGE = 10;
+    const totalRanges = Math.ceil(words.length / ITEMS_PER_PAGE);
+
+    function renderRangeBar() {
+      const container = document.getElementById('range-bar');
+      let html = `<div class="range-item ${currentRangeIndex === 0 ? 'active' : ''}" onclick="selectRange(0)">전체</div>`;
+      for(let i = 1; i <= totalRanges; i++) {
+        const start = (i - 1) * ITEMS_PER_PAGE + 1;
+        const end = Math.min(i * ITEMS_PER_PAGE, words.length);
+        html += `<div class="range-item ${currentRangeIndex === i ? 'active' : ''}" onclick="selectRange(${i})">${start}-${end}</div>`;
+      }
+      container.innerHTML = html;
+    }
+
+    function selectRange(idx) {
+      currentRangeIndex = idx;
+      renderRangeBar();
+      // Synchronize views
+      filterList();
+      initFlashcard();
+      startQuiz();
+    }
+
+    // Get current scoped dynamic word subset based on interval bar
+    function getScopedWords() {
+      if (currentRangeIndex === 0) return words;
+      const start = (currentRangeIndex - 1) * ITEMS_PER_PAGE;
+      return words.slice(start, start + ITEMS_PER_PAGE);
+    }
+
+    // Tab switcher
+    function switchTab(tab) {
+      activeTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+      
+      if(tab === 'list') {
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('section-list').classList.add('active');
+        filterList();
+      } else if(tab === 'card') {
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('section-card').classList.add('active');
+        initFlashcard();
+      } else if(tab === 'quiz') {
+        document.querySelectorAll('.tab-btn')[2].classList.add('active');
+        document.getElementById('section-quiz').classList.add('active');
+        startQuiz();
+      }
+    }
+
+    /* 1. List View Logic */
+    function setFilter(type) {
+      currentFilter = type;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if(type === 'all') document.getElementById('flt-all').classList.add('active');
+      if(type === 'unknown') document.getElementById('flt-unknown').classList.add('active');
+      if(type === 'fav') document.getElementById('flt-fav').classList.add('active');
+      filterList();
+    }
+
+    function filterList() {
+      const q = document.getElementById('search-bar').value.toLowerCase().trim();
+      const scoped = getScopedWords();
+      
+      let filtered = scoped.filter(w => {
+        // Search condition
+        const matchesQuery = w.word.toLowerCase().includes(q) || w.meaning.toLowerCase().includes(q);
+        if(!matchesQuery) return false;
+        
+        // Status filter condition
+        if(currentFilter === 'unknown') return w.status === 'unknown';
+        if(currentFilter === 'fav') return w.fav;
+        return true;
+      });
+
+      const container = document.getElementById('word-list-container');
+      if(filtered.length === 0) {
+        container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-light); font-size:14px;">조건에 맞는 단어가 없습니다.</p>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(w => {
+        const globalIdx = words.findIndex(gw => gw.word === w.word);
+        return `
+          <div class="word-card">
+            <div class="word-info">
+              <div class="word-header-row">
+                <span class="word-text">${w.word}</span>
+                <span class="pos-tag">${w.pos}</span>
+              </div>
+              <div class="word-phonetic">${w.phonetic}</div>
+              <div class="word-meaning">${w.meaning}</div>
+            </div>
+            <div class="word-actions">
+              <button class="action-btn" onclick="playTTS('${w.word.replace(/'/g, "\\'")}')">🔊</button>
+              <button class="action-btn status-btn ${w.status === 'unknown' ? 'active' : ''}" onclick="toggleStatus(${globalIdx})">❓</button>
+              <button class="action-btn fav-btn ${w.fav ? 'active' : ''}" onclick="toggleFav(${globalIdx})">⭐</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleFav(globalIdx) {
+      words[globalIdx].fav = !words[globalIdx].fav;
+      saveState();
+      filterList();
+    }
+
+    function toggleStatus(globalIdx) {
+      words[globalIdx].status = words[globalIdx].status === 'unknown' ? '' : 'unknown';
+      saveState();
+      filterList();
+    }
+
+    /* 2. Flashcard Engine */
+    function initFlashcard() {
+      const scoped = getScopedWords();
+      currentCardIndex = 0;
+      cardIsRevealed = false;
+      renderFlashcard();
+    }
+
+    function renderFlashcard() {
+      const scoped = getScopedWords();
+      const cardEl = document.getElementById('fc-card');
+      const meaningEl = document.getElementById('fc-meaning');
+      
+      if(scoped.length === 0) {
+        document.getElementById('fc-word').innerText = "단어 없음";
+        document.getElementById('fc-phonetic').innerText = "";
+        meaningEl.innerText = "이 구간에 설정된 조건의 단어가 없습니다.";
+        meaningEl.classList.add('show');
+        return;
+      }
+
+      const item = scoped[currentCardIndex];
+      document.getElementById('fc-word').innerText = item.word;
+      document.getElementById('fc-phonetic').innerText = item.phonetic;
+      meaningEl.innerText = item.meaning;
+      
+      if(cardIsRevealed) {
+        meaningEl.classList.add('show');
+      } else {
+        meaningEl.classList.remove('show');
+      }
+    }
+
+    function toggleCardMeaning() {
+      const scoped = getScopedWords();
+      if(scoped.length === 0) return;
+      
+      cardIsRevealed = !cardIsRevealed;
+      const meaningEl = document.getElementById('fc-meaning');
+      if(cardIsRevealed) {
+        meaningEl.classList.add('show');
+        playTTS(scoped[currentCardIndex].word);
+      } else {
+        meaningEl.classList.remove('show');
+      }
+    }
+
+    function speakCurrentCard(e) {
+      e.stopPropagation(); // Prevents flipping card when icon pressed
+      const scoped = getScopedWords();
+      if(scoped.length > 0) {
+        playTTS(scoped[currentCardIndex].word);
+      }
+    }
+
+    function nextCard() {
+      const scoped = getScopedWords();
+      if(scoped.length === 0) return;
+      currentCardIndex = (currentCardIndex + 1) % scoped.length;
+      cardIsRevealed = false;
+      renderFlashcard();
+    }
+
+    function prevCard() {
+      const scoped = getScopedWords();
+      if(scoped.length === 0) return;
+      currentCardIndex = (currentCardIndex - 1 + scoped.length) % scoped.length;
+      cardIsRevealed = false;
+      renderFlashcard();
+    }
+
+    function setCardStatus(type) {
+      const scoped = getScopedWords();
+      if(scoped.length === 0) return;
+      
+      const currentWord = scoped[currentCardIndex];
+      const globalIdx = words.findIndex(gw => gw.word === currentWord.word);
+      
+      if(type === 'unknown') words[globalIdx].status = 'unknown';
+      if(type === 'known') words[globalIdx].status = 'known';
+      
+      saveState();
+      nextCard();
+    }
+
+    // Flashcard Mobile Touch/Swipe Feature
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const cardZone = document.getElementById('fc-card');
+    
+    cardZone.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    
+    cardZone.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) nextCard(); // Swiped Left
+      if (touchEndX > touchStartX + 50) prevCard(); // Swiped Right
+    }
+
+
+    /* 3. Quiz Mode Logic */
+    function startQuiz() {
+      const scoped = getScopedWords();
+      if(scoped.length < 4) {
+        document.getElementById('quiz-area').innerHTML = `<p style="text-align:center; padding:20px; color:var(--text-light);">사지선다 출제를 위해선 최소 4개 이상의 단어가 구간에 존재해야 합니다. 상단 구간 선택 바에서 더 넓은 구간을 선택하세요.</p>`;
+        return;
+      }
+      // Pick max 10 random items
+      quizWords = [...scoped].sort(() => 0.5 - Math.random()).slice(0, 10);
+      currentQuizIndex = 0;
+      quizScore = 0;
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      const container = document.getElementById('quiz-area');
+      if(currentQuizIndex >= quizWords.length) {
+        // Quiz completed
+        let emoji = "🏅";
+        let comment = "훌륭합니다! 씨유에탑 최고 실력자!";
+        const percent = (quizScore / quizWords.length) * 100;
+        if(percent < 80) { emoji = "💪"; comment = "틀린 단어는 단어장에서 다시 복습해요!"; }
+        if(percent < 50) { emoji = "📚"; comment = "집중해서 다시 한 번 도전해 보세요!"; }
+
+        container.innerHTML = `
+          <div class="quiz-result">
+            <div style="font-size:50px">${emoji}</div>
+            <div class="quiz-score">${quizScore} / ${quizWords.length}</div>
+            <p style="font-weight:600; margin-bottom:20px; color:var(--text);">${comment}</p>
+            <button class="quiz-restart-btn" onclick="startQuiz()">다시 테스트</button>
+          </div>
+        `;
+        return;
+      }
+
+      const item = quizWords[currentQuizIndex];
+      playTTS(item.word);
+
+      // Generate options
+      let options = [item.meaning];
+      let pool = words.filter(w => w.meaning !== item.meaning);
+      let shuffledPool = pool.sort(() => 0.5 - Math.random());
+      for(let i=0; i<3; i++) {
+        if(shuffledPool[i]) options.push(shuffledPool[i].meaning);
+      }
+      options = options.sort(() => 0.5 - Math.random());
+
+      container.innerHTML = `
+        <div class="quiz-progress">문제 ${currentQuizIndex + 1} / ${quizWords.length}</div>
+        <div class="quiz-question">${item.word}</div>
+        <div class="quiz-options">
+          ${options.map(opt => `<button class="quiz-opt" onclick="checkQuizAnswer(this, '${opt.replace(/'/g, "\\'")}', '${item.meaning.replace(/'/g, "\\'")}')">${opt}</button>`).join('')}
+        </div>
+      `;
+    }
+
+    function checkQuizAnswer(btn, chosen, correct) {
+      // Disable all options immediately
+      document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+      
+      if(chosen === correct) {
+        btn.classList.add('correct');
+        quizScore++;
+      } else {
+        btn.classList.add('wrong');
+        // highlight correct answer
+        document.querySelectorAll('.quiz-opt').forEach(b => {
+          if(b.innerText === correct) b.classList.add('correct');
+        });
+      }
+
+      setTimeout(() => {
+        currentQuizIndex++;
+        renderQuizQuestion();
+      }, 1200);
+    }
+
+    // Core Initialization Entry Point
+    window.onload = function() {
+      renderRangeBar();
+      filterList();
+    };
+  </script>
+</body>
+</html>
