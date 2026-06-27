@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta property="og:title" content="씨유에탑 ✦ 26년3월 고2 39·40번">
+  <meta property="og:description" content="26년3월 고2 39·40번 · 총 2문제 지문 암기카드">
+  <title>씨유에탑 ✦ 26년3월 고2 39·40번</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #2563EB;
+      --blue-light: #EFF6FF;
+      --blue-mid: #BFDBFE;
+      --green: #16A34A;
+      --green-light: #F0FDF4;
+      --red: #DC2626;
+      --red-light: #FEF2F2;
+      --amber: #D97706;
+      --amber-light: #FFFBEB;
+      --purple: #7C3AED;
+      --purple-light: #F5F3FF;
+      --gray100: #F3F4F6;
+      --gray200: #E5E7EB;
+      --gray400: #9CA3AF;
+      --gray600: #4B5563;
+      --gray800: #1F2937;
+      --radius: 14px;
+      --shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', 'Noto Sans KR', sans-serif; background: #F0F4FF; }
+
+    /* 헤더 */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff; border-bottom: 1px solid var(--gray200);
+      padding: 10px 16px 0;
+      box-shadow: 0 2px 8px rgba(37,99,235,.07);
+    }
+    .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .brand { font-size: 13px; font-weight: 800; color: var(--blue); letter-spacing: -.3px; }
+    .subtitle { font-size: 11px; color: var(--gray400); margin-top: 1px; }
+    .stats { display: flex; gap: 8px; font-size: 11px; font-weight: 700; }
+    .stat-ok { color: var(--green); }
+    .stat-no { color: var(--red); }
+    .stat-fav { color: #F59E0B; }
+    .prog-wrap { height: 4px; background: var(--gray100); border-radius: 2px; margin-bottom: 8px; }
+    .prog-bar { height: 100%; background: linear-gradient(90deg, var(--blue), #60A5FA); border-radius: 2px; transition: width .4s; }
+    .tabs { display: flex; border-bottom: 2px solid var(--gray200); }
+    .tab-btn { flex: 1; padding: 8px 4px; font-size: 13px; font-weight: 700; border: none; background: none; cursor: pointer; color: var(--gray400); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s; }
+    .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+    /* 구간 바 */
+    .seg-wrap {
+      position: sticky; top: var(--header-h, 108px); z-index: 90;
+      background: #F0F4FF; padding: 8px 12px;
+      overflow-x: auto; white-space: nowrap;
+      scrollbar-width: none; border-bottom: 1px solid var(--gray200);
+    }
+    .seg-wrap::-webkit-scrollbar { display: none; }
+    .seg-btn {
+      display: inline-block; padding: 4px 12px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; cursor: pointer;
+      border: 1.5px solid var(--gray200); background: #fff; color: var(--gray600);
+      margin-right: 6px; transition: all .15s;
+    }
+    .seg-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* 공통 컨트롤 */
+    .mode-toggle { display: flex; background: var(--gray100); border-radius: 20px; padding: 3px; margin-bottom: 12px; }
+    .mode-btn { flex: 1; padding: 5px; border-radius: 18px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; color: var(--gray600); background: none; }
+    .mode-btn.active { background: #fff; color: var(--blue); box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+
+    .filter-row { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+    .filter-btn { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1.5px solid var(--gray200); background: #fff; color: var(--gray600); cursor: pointer; }
+    .filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .search-box { width: 100%; padding: 9px 14px; border-radius: 10px; border: 1.5px solid var(--gray200); font-size: 13px; font-family: inherit; margin-bottom: 10px; outline: none; background: #fff; }
+    .search-box:focus { border-color: var(--blue); }
+
+    .repeat-wrap { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+    .rep-label { font-size: 10px; color: var(--gray400); font-weight: 700; }
+    .rep-btn { padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; border: 1.5px solid var(--gray200); background: #fff; color: var(--gray600); cursor: pointer; }
+    .rep-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .rep-playing {
+      display: flex; align-items: center; gap: 6px;
+      margin-top: 8px; padding: 6px 10px;
+      background: var(--blue-light); border-radius: 8px;
+      font-size: 11px; font-weight: 700; color: var(--blue);
+    }
+    .rep-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); animation: pulse .8s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* 지문목록 카드 */
+    .s-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 10px; border: 1.5px solid transparent; overflow: hidden; transition: border-color .15s; }
+    .s-card.status-ok { border-color: var(--green); }
+    .s-card.status-no { border-color: var(--red); }
+
+    .s-card-head { display: flex; align-items: center; gap: 8px; padding: 11px 14px; }
+    .s-num { min-width: 32px; height: 32px; border-radius: 8px; background: var(--blue-light); color: var(--blue); font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .s-preview { flex: 1; font-size: 12.5px; font-weight: 600; line-height: 1.5; color: var(--gray800); cursor: pointer; }
+    .s-head-btns { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }
+    .s-speak-btn { background: var(--blue-light); border: none; cursor: pointer; font-size: 14px; padding: 5px 8px; border-radius: 8px; color: var(--blue); font-weight: 700; }
+    .s-chevron { font-size: 14px; color: var(--gray400); cursor: pointer; padding: 4px; background: none; border: none; }
+
+    .s-body { padding: 0 14px; max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s; }
+    .s-body.open { max-height: 3000px; padding-bottom: 14px; }
+
+    .full-passage { font-size: 13px; font-weight: 600; line-height: 1.8; color: var(--gray800); padding-top: 10px; margin-bottom: 10px; border-top: 1px solid var(--gray100); }
+    .full-trans { font-size: 12.5px; color: var(--gray600); line-height: 1.7; margin-bottom: 8px; }
+    .note-badge { font-size: 11.5px; color: var(--amber); font-weight: 600; background: var(--amber-light); padding: 6px 10px; border-radius: 7px; line-height: 1.55; }
+
+    .sent-list { padding-top: 10px; border-top: 1px solid var(--gray100); }
+    .sent-item { margin-bottom: 8px; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--gray200); }
+    .sent-en-row { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; cursor: pointer; background: var(--blue-light); }
+    .sent-idx { font-size: 10px; font-weight: 800; color: var(--blue); min-width: 20px; padding-top: 2px; flex-shrink: 0; }
+    .sent-en-text { flex: 1; font-size: 12.5px; font-weight: 700; line-height: 1.65; color: var(--gray800); }
+    .sent-spk { background: #fff; border: none; cursor: pointer; font-size: 14px; padding: 4px 7px; border-radius: 7px; flex-shrink: 0; color: var(--blue); font-weight: 700; }
+    .sent-detail { padding: 10px 12px; display: none; }
+    .sent-detail.open { display: block; }
+    .sent-ko { font-size: 12px; color: var(--gray600); line-height: 1.65; margin-bottom: 7px; }
+    .sent-gram { font-size: 11px; color: var(--purple); font-weight: 600; background: var(--purple-light); padding: 5px 9px; border-radius: 6px; line-height: 1.6; }
+
+    .s-actions { display: flex; gap: 6px; align-items: center; padding: 10px 14px 12px; flex-wrap: wrap; border-top: 1px solid var(--gray100); }
+    .act-btn { padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1.5px solid var(--gray200); background: #fff; cursor: pointer; transition: all .15s; }
+    .act-ok { color: var(--green); border-color: var(--green); }
+    .act-ok.sel { background: var(--green); color: #fff; }
+    .act-no { color: var(--red); border-color: var(--red); }
+    .act-no.sel { background: var(--red); color: #fff; }
+    .act-skip { color: var(--gray400); }
+    .act-skip.sel { background: var(--gray100); }
+    .act-fav { font-size: 17px; background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto; }
+
+    /* 플래시카드 */
+    .flash-wrap { display: flex; flex-direction: column; }
+    .flash-card { background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(37,99,235,.12); padding: 18px 16px 16px; display: flex; flex-direction: column; min-height: 260px; border: 2px solid transparent; transition: border-color .2s; }
+    .flash-card.status-ok { border-color: var(--green); }
+    .flash-card.status-no { border-color: var(--red); }
+    .flash-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .flash-num { width: 36px; height: 36px; border-radius: 10px; background: var(--blue-light); color: var(--blue); font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .flash-top-btns { display: flex; gap: 6px; align-items: center; }
+    .flash-spk { background: var(--blue); border: none; cursor: pointer; font-size: 13px; padding: 7px 12px; border-radius: 10px; color: #fff; font-weight: 700; }
+    .flash-fav { background: none; border: none; cursor: pointer; font-size: 18px; padding: 4px; }
+    .flash-label { font-size: 11px; font-weight: 700; color: var(--blue); margin-bottom: 8px; letter-spacing: .4px; }
+    .flash-en { font-size: 13px; font-weight: 700; line-height: 1.8; color: var(--gray800); flex: 1; cursor: pointer; }
+    .flash-hint { font-size: 11px; color: var(--gray400); margin-top: 14px; text-align: center; cursor: pointer; padding: 8px; border: 1.5px dashed var(--gray200); border-radius: 8px; }
+    .flash-reveal { margin-top: 14px; border-top: 1px solid var(--gray100); padding-top: 12px; }
+    .flash-ko { font-size: 12.5px; color: var(--gray600); line-height: 1.65; margin-bottom: 8px; }
+    .flash-note { font-size: 11px; color: var(--amber); font-weight: 600; background: var(--amber-light); padding: 5px 9px; border-radius: 6px; }
+
+    .flash-sent-item { margin-bottom: 7px; border-radius: 9px; overflow: hidden; border: 1.5px solid var(--gray200); }
+    .flash-sent-en-row { display: flex; align-items: flex-start; gap: 6px; padding: 8px 10px; background: var(--blue-light); cursor: pointer; }
+    .flash-sent-idx { font-size: 10px; font-weight: 800; color: var(--blue); min-width: 18px; padding-top: 1px; flex-shrink: 0; }
+    .flash-sent-en { flex: 1; font-size: 12px; font-weight: 700; line-height: 1.6; color: var(--gray800); }
+    .flash-sent-spk { background: #fff; border: none; cursor: pointer; font-size: 13px; padding: 3px 6px; border-radius: 6px; flex-shrink: 0; color: var(--blue); }
+    .flash-sent-detail { padding: 8px 10px; display: none; }
+    .flash-sent-detail.open { display: block; }
+    .flash-sent-ko { font-size: 11.5px; color: var(--gray600); line-height: 1.6; margin-bottom: 5px; }
+    .flash-sent-gram { font-size: 10.5px; color: var(--purple); font-weight: 600; background: var(--purple-light); padding: 4px 8px; border-radius: 5px; line-height: 1.55; }
+
+    .flash-nav { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+    .nav-btn { flex: 1; padding: 10px; border-radius: 12px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; transition: all .15s; }
+    .nav-prev { background: var(--gray100); color: var(--gray600); }
+    .nav-next { background: var(--blue); color: #fff; }
+    .flash-counter { font-size: 12px; color: var(--gray400); font-weight: 700; text-align: center; min-width: 54px; }
+
+    .flash-actions { display: flex; gap: 6px; margin-top: 10px; }
+    .fa-btn { flex: 1; padding: 9px; border-radius: 12px; font-size: 12px; font-weight: 700; border: 1.5px solid; cursor: pointer; transition: all .15s; }
+    .fa-ok { color: var(--green); border-color: var(--green); background: #fff; }
+    .fa-ok.sel { background: var(--green); color: #fff; }
+    .fa-no { color: var(--red); border-color: var(--red); background: #fff; }
+    .fa-no.sel { background: var(--red); color: #fff; }
+    .fa-skip { color: var(--gray400); border-color: var(--gray200); background: #fff; }
+    .fa-skip.sel { background: var(--gray100); }
+
+    .empty-msg { text-align: center; color: var(--gray400); font-size: 13px; font-weight: 700; padding: 40px 0; }
+  </style>
+</head>
+<body>
+
+<div class="header" id="mainHeader">
+  <div class="header-top">
+    <div>
+      <div class="brand">씨유에탑 ✦ 문장외우기</div>
+      <div class="subtitle">26년3월 고2 39·40번 · 총 2문제</div>
+    </div>
+    <div class="stats">
+      <span class="stat-ok">✅ <span id="cntOk">0</span></span>
+      <span class="stat-no">❌ <span id="cntNo">0</span></span>
+      <span class="stat-fav">⭐ <span id="cntFav">0</span></span>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('list')">📋 지문목록</button>
+    <button class="tab-btn" onclick="switchTab('flash')">🃏 플래시카드</button>
+  </div>
+</div>
+
+<div class="seg-wrap" id="segWrap"></div>
+
+<div id="list-tab" style="padding:10px 12px 80px"></div>
+<div id="flash-tab" style="padding:10px 12px 80px;display:none"></div>
+
+<script>
+const SENTENCES_RAW = [
+  {
+    "number": 39,
+    "translation": "물질의 상태에 대한 우리의 직관은 압력이 한결같이 낮고 온도의 변화가 고체에서 액체로, 다시 기체로 물질의 상태 변화를 유발하는 지구 표면에서의 경험에서 비롯된다. 그러므로 우리가 용해나 비등 또는 플라즈마의 생성을 생각할 때, 우리는 직관적으로 그것이 온도의 상승을 반영한다고 가정한다. 이러한 편견은 우리가 매우 일정한 압력 환경에서 살고 있다는 사실에서 비롯된다. 우리가 수중이나 높은 산꼭대기에서 경험하는 것과 같은 아주 작은 압력 변화조차도 우리의 신진대사에 매우 큰 영향을 미칠 수 있다. 그러나 우리가 경험하는 압력 변화는 전반적인 행성 환경의 압력 범위에 비하면 사소하다. 압력은 위에 놓인 물질의 무게에 의해 조절되기 때문에, 깊이에 따라 압력이 급격히 증가한다. 1마일 두께의 암석 무게에 의해 생성되는 압력을 상상해 보라! 이러한 이유로 행성의 압력 범위는 우주의 거의 제로 압력부터 행성 내부의 수백만 기압에 이르기까지 엄청나다.",
+    "note": "intuition: 직관 / bias: 편견 / trivial: 사소한, 하찮은 / overlying: 위에 놓인 / interior: 내부",
+    "sentences": [
+      {
+        "en": "Our intuition about states of matter comes from our experience on Earth's surface, where the pressure is uniformly low and variations in temperature cause changes in the state of matter from solid to liquid to gas.",
+        "ko": "물질의 상태에 대한 우리의 직관은 압력이 한결같이 낮고 온도의 변화가 고체에서 액체로, 다시 기체로 물질의 상태 변화를 유발하는 지구 표면에서의 경험에서 비롯된다.",
+        "gram": "관계부사의 계속적 용법: 'where'는 'Earth's surface'를 부연 설명하며, 뒤에 완전한 문장이 이어집니다."
+      },
+      {
+        "en": "Therefore, when we think of melting or boiling or the creation of plasma, we intuitively assume it reflects an increase in temperature.",
+        "ko": "그러므로 우리가 용해나 비등 또는 플라즈마의 생성을 생각할 때, 우리는 직관적으로 그것이 온도의 상승을 반영한다고 가정한다.",
+        "gram": "접속사 that 생략: 'assume'과 'it' 사이에는 목적어절을 이끄는 접속사 'that'이 생략되어 있습니다."
+      },
+      {
+        "en": "This bias comes from the fact that we live in a very constant pressure environment.",
+        "ko": "이러한 편견은 우리가 매우 일정한 압력 환경에서 살고 있다는 사실에서 비롯된다.",
+        "gram": "동격의 접속사 that: 추상명사 'the fact'의 구체적 내용을 이끄는 동격 that절로, 뒤에 완전한 문장이 옵니다."
+      },
+      {
+        "en": "Even small changes in pressure, such as those we experience when under water or on high mountaintops, can have very large effects on our metabolism.",
+        "ko": "우리가 수중이나 높은 산꼭대기에서 경험하는 것과 같은 아주 작은 압력 변화조차도 우리의 신진대사에 매우 큰 영향을 미칠 수 있다.",
+        "gram": "지시대명사 those: 앞의 복수 명사 'small changes'를 대신하여 쓰였습니다."
+      },
+      {
+        "en": "But the pressure changes we experience are trivial compared to the pressure range of the overall planetary environment.",
+        "ko": "그러나 우리가 경험하는 압력 변화는 전반적인 행성 환경의 압력 범위에 비하면 사소하다.",
+        "gram": "분사구문: 'compared to~'는 '~와 비교하여 볼 때'라는 의미의 관용적 분사구문 표현입니다."
+      },
+      {
+        "en": "Since pressure is controlled by the weight of overlying material, pressures increase rapidly with depth.",
+        "ko": "압력은 위에 놓인 물질의 무게에 의해 조절되기 때문에, 깊이에 따라 압력이 급격히 증가한다.",
+        "gram": "이유의 접속사 since: 여기서 'since'는 시간(~이래로)이 아니라 이유(~때문에)를 나타내는 부사절을 이끕니다."
+      },
+      {
+        "en": "Imagine the pressures generated by the weight of rock a mile thick!",
+        "ko": "1마일 두께의 암석 무게에 의해 생성되는 압력을 상상해 보라!",
+        "gram": "과거분사의 후치수식: 'generated'는 과거분사구로 앞의 명사 'the pressures'를 수동의 의미로 수식합니다."
+      },
+      {
+        "en": "For this reason a planet's pressure ranges are enormous — from essentially zero pressure in space to pressures of millions of atmospheres in planetary interiors.",
+        "ko": "이러한 이유로 행성의 압력 범위는 우주의 거의 제로 압력부터 행성 내부의 수백만 기압에 이르기까지 엄청나다.",
+        "gram": "상관구조 from A to B: '~에서 …까지'의 구조로 압력의 광범위한 범위를 나타냅니다."
+      }
+    ]
+  },
+  {
+    "number": 40,
+    "translation": "자가 실험과 전통적인 실험이 둘 다 가능할 때, 그 둘 사이의 차이는 종종 배우는 것과 보여주는 것 사이의 차이와 유사하다. 자가 실험은 발견에는 더 좋지만, 해결책이 도움이 된다거나 답이 옳다는 것을 다른 사람들에게 확신시키는 데는 더 나쁘다. 물론 대부분의 과학자들은 발견도 하고 자신의 발견을 다른 사람들에게 확신시키는 것, 즉 두 가지 모두를 하기를 원한다. 따라서 심리학자들은 자가 실험과 전통적인 실험을 둘 다 수행하는 것을 고려해야 한다. 자원을 가장 잘 사용하는 것은 종종 전통적인 실험이 뒤따르는 자가 실험일 수 있다. 연구자는 모든 일이 잘 진행된다면 큰 효과를 발견하거나 많은 가설을 생성하고 제거하는 자가 실험으로 시작한다. 이 탐색적이고 이론을 구축하는 단계는 편리한 해결책이나 큰 효과가 발견될 때까지 지속된다. 그런 다음 연구자는 자가 실험을 사용하여 해결책을 최적화하거나 효과를 극대화하는 절차적 매개변수(예: 기간, 시간대, 강도)를 찾는다. 오직 그러고 나서야 연구자는 최적화된 매개변수를 사용하여 전통적인 실험을 시작할 것이다. 자가 실험은 탐색에 적합한 반면 전통적인 실험은 검증을 제공하므로, 가장 효율적인 전략은 전자가 후자에 선행하는 것이다.",
+    "note": "resemble: 유사하다, 닮다 / eliminate: 제거하다 / parameter: 매개변수 / optimize: 최적화하다 / precede: 선행하다, 앞서다",
+    "sentences": [
+      {
+        "en": "When selfexperimentation and conventional experiments are both possible, the difference between them often resembles the difference between learning and showing: Self-experiments are better for discovery but worse for convincing others that the solution is helpful or the answer is correct.",
+        "ko": "자가 실험과 전통적인 실험이 둘 다 가능할 때, 그 둘 사이의 차이는 종종 배우는 것과 보여주는 것 사이의 차이와 유사하다. 즉, 자가 실험은 발견에는 더 좋지만, 해결책이 도움이 된다거나 답이 옳다는 것을 다른 사람들에게 확신시키는 데는 더 나쁘다.",
+        "gram": "동명사 목적어: 'convincing'은 전치사 'for'의 목적어로 쓰인 동명사이며, that절을 목적어로 취합니다."
+      },
+      {
+        "en": "Of course, most scientists want to do both — discover something and convince others of their discovery.",
+        "ko": "물론 대부분의 과학자들은 발견도 하고 자신의 발견을 다른 사람들에게 확신시키는 것, 즉 두 가지 모두를 하기를 원한다.",
+        "gram": "convince A of B: 'A에게 B를 확신시키다'의 구조로, 'others'가 A, 'their discovery'가 B에 해당합니다."
+      },
+      {
+        "en": "Thus, psychologists should consider doing both self-experiments and conventional ones.",
+        "ko": "따라서 심리학자들은 자가 실험과 전통적인 실험을 둘 다 수행하는 것을 고려해야 한다.",
+        "gram": "consider + 동명사: 'consider'는 목적어로 동명사('doing')만 취합니다. 'ones'는 앞의 'experiments'를 대치하는 부정대명사입니다."
+      },
+      {
+        "en": "The best use of resources may often be self-experiments followed by conventional ones.",
+        "ko": "자원을 가장 잘 사용하는 것은 종종 전통적인 실험이 뒤따르는 자가 실험일 수 있다.",
+        "gram": "과거분사의 후치수식: 'followed by'는 '~가 뒤따르는'이라는 의미의 과거분사구로 'self-experiments'를 수식합니다."
+      },
+      {
+        "en": "The researcher begins with self-experiments that, if all goes well, find large effects and / or generate and eliminate many hypotheses.",
+        "ko": "연구자는 모든 일이 잘 진행된다면 큰 효과를 발견하거나 많은 가설을 생성하고 제거하는 자가 실험으로 시작한다.",
+        "gram": "주격 관계대명사: 'that'은 선행사 'self-experiments'를 수식하며, 복수 동사 'find', 'generate', 'eliminate'가 병렬 구조를 이룹니다."
+      },
+      {
+        "en": "This exploratory and theory-building phase lasts until a convenient solution or large effect is found.",
+        "ko": "이 탐색적이고 이론을 구축하는 단계는 편리한 해결책이나 큰 효과가 발견될 때까지 지속된다.",
+        "gram": "수동태: 시간 부사절 'until' 내에서 주어가 발견되는 대상이므로 수동태('is found')가 쓰였습니다."
+      },
+      {
+        "en": "Then the researcher uses self-experiments to find the procedural parameters (e.g., duration, time of day, intensity) that optimize the solution or maximize the effect.",
+        "ko": "그런 다음 연구자는 자가 실험을 사용하여 해결책을 최적화하거나 효과를 극대화하는 절차적 매개변수(예: 기간, 시간대, 강도)를 찾는다.",
+        "gram": "to부정사의 부사적 용법(목적) & 관계대명사: 'to find'는 목적을 나타내며, 'that'은 'procedural parameters'를 수식하는 주격 관계대명사입니다."
+      },
+      {
+        "en": "Only then would the researcher begin conventional experiments, using the optimized parameters.",
+        "ko": "오직 그러고 나서야 연구자는 최적화된 매개변수를 사용하여 전통적인 실험을 시작할 것이다.",
+        "gram": "부정어구 도치 & 분사구문: 'Only then'이 문두에 오며 조동사 'would'가 주어 앞으로 도치되었고, 'using'은 동시동작을 나타내는 분사구문입니다."
+      },
+      {
+        "en": "Since self-experiments are suited to (A) exploration while conventional experiments provide validation, the most efficient strategy is for the former to (B) precede the latter.",
+        "ko": "자가 실험은 탐색에 적합한 반면 전통적인 실험은 검증을 제공하므로, 가장 효율적인 전략은 전자가 후자에 선행하는 것이다.",
+        "gram": "to부정사의 의미상 주어: 'for the former'는 to부정사 'to precede'의 의미상 주어를 나타내는 구조입니다."
+      }
+    ]
+  }
+];
+
+// ── 상태 변수 ──
+let state = {}, favs = {}, curSeg = 'all', curTab = 'list';
+let listFilter = 'all', listMode = 'problem';
+let flashIdx = 0, flashFilter = 'all', flashMode = 'problem', flashRevealed = false;
+let swipeStartX = 0, repeatCount = 1;
+const STORAGE_KEY = 'cuetop_26mar_g2_3940_v1';
+
+// ── localStorage ──
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({state, favs, curSeg, repeatCount}));
+}
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    state = d.state || {}; favs = d.favs || {};
+    curSeg = d.curSeg || 'all'; repeatCount = d.repeatCount || 1;
+  } catch(e) { state = {}; favs = {}; curSeg = 'all'; repeatCount = 1; }
+}
+
+// ── 발음 ──
+let _voices = [], _repeatTimer = null, _isPlaying = false;
+
+function _warmVoices() {
+  if (!window.speechSynthesis) return;
+  _voices = speechSynthesis.getVoices();
+  if (!_voices.length) {
+    speechSynthesis.onvoiceschanged = () => {
+      _voices = speechSynthesis.getVoices();
+      speechSynthesis.onvoiceschanged = null;
+    };
+  }
+}
+
+function stopSpeak() {
+  if (_repeatTimer) { clearTimeout(_repeatTimer); _repeatTimer = null; }
+  if (window.speechSynthesis) speechSynthesis.cancel();
+  _isPlaying = false;
+  document.querySelectorAll('.rep-playing').forEach(el => el.remove());
+}
+
+function speak(text, repeatN, onDone) {
+  stopSpeak();
+  if (!window.speechSynthesis) return;
+  const n = repeatN !== undefined ? repeatN : repeatCount;
+  _isPlaying = true;
+  let count = 0;
+  function playOne() {
+    if (!_isPlaying || count >= n) {
+      _isPlaying = false;
+      if (onDone) onDone();
+      return;
+    }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.85;
+    const vv = _voices.length ? _voices : speechSynthesis.getVoices();
+    const v = vv.find(x => x.lang === 'en-US') || vv.find(x => x.lang.startsWith('en'));
+    if (v) u.voice = v;
+    u.onend = () => {
+      count++;
+      if (count < n && _isPlaying) { _repeatTimer = setTimeout(playOne, 600); }
+      else {
+        _isPlaying = false;
+        document.querySelectorAll('.rep-playing').forEach(el => el.remove());
+        if (onDone) onDone();
+      }
+    };
+    u.onerror = () => { _isPlaying = false; };
+    speechSynthesis.speak(u);
+  }
+  playOne();
+}
+
+function showRepIndicator(container, n) {
+  document.querySelectorAll('.rep-playing').forEach(el => el.remove());
+  if (n <= 1 || !container) return;
+  const div = document.createElement('div');
+  div.className = 'rep-playing';
+  div.innerHTML = `<span class="rep-dot"></span> ${n}회 반복 재생 중...
+    <button onclick="stopSpeak()"
+      style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:13px;color:var(--blue)">
+      ⏹
+    </button>`;
+  container.appendChild(div);
+}
+
+// ── 구간 / 필터 유틸 ──
+const SEG_SIZE = 5;
+function getSegments() {
+  const nums = SENTENCES_RAW.map(s => s.number);
+  const segs = [{label: '전체', key: 'all'}];
+  for (let i = 0; i < nums.length; i += SEG_SIZE) {
+    const c = nums.slice(i, i + SEG_SIZE);
+    segs.push({label: c[0] + '~' + c[c.length-1] + '번', key: c.join(',')});
+  }
+  return segs;
+}
+function getFiltered() {
+  if (curSeg === 'all') return SENTENCES_RAW;
+  const keys = curSeg.split(',').map(Number);
+  return SENTENCES_RAW.filter(s => keys.includes(s.number));
+}
+function applyFilter(arr, f) {
+  if (f === 'no') return arr.filter(s => state[s.number] === 'no' || !state[s.number]);
+  if (f === 'fav') return arr.filter(s => favs[s.number]);
+  return arr;
+}
+
+function updateHeaderH() {
+  const h = document.getElementById('mainHeader').offsetHeight;
+  document.getElementById('segWrap').style.top = h + 'px';
+  document.documentElement.style.setProperty('--header-h', h + 'px');
+}
+
+function updateStats() {
+  let ok = 0, no = 0, fav = 0;
+  SENTENCES_RAW.forEach(s => {
+    if (state[s.number] === 'ok') ok++;
+    else if (state[s.number] === 'no') no++;
+    if (favs[s.number]) fav++;
+  });
+  document.getElementById('cntOk').textContent = ok;
+  document.getElementById('cntNo').textContent = no;
+  document.getElementById('cntFav').textContent = fav;
+  const pct = SENTENCES_RAW.length ? Math.round((ok + no) / SENTENCES_RAW.length * 100) : 0;
+  document.getElementById('progBar').style.width = pct + '%';
+}
+
+function renderSegBar() {
+  document.getElementById('segWrap').innerHTML = getSegments().map(s =>
+    `<button class="seg-btn${curSeg === s.key ? ' active' : ''}"
+             onclick="setSeg('${s.key}')">${s.label}</button>`
+  ).join('');
+}
+function setSeg(k) {
+  curSeg = k; flashIdx = 0; flashRevealed = false;
+  stopSpeak(); save(); renderSegBar(); renderCurrent();
+}
+
+function switchTab(tab) {
+  stopSpeak(); curTab = tab;
+  ['list', 'flash'].forEach(t =>
+    document.getElementById(t + '-tab').style.display = t === tab ? '' : 'none'
+  );
+  document.querySelectorAll('.tab-btn').forEach((b, i) =>
+    b.classList.toggle('active', ['list', 'flash'][i] === tab)
+  );
+  flashIdx = 0; flashRevealed = false; renderCurrent();
+}
+function renderCurrent() { if (curTab === 'list') renderList(); else renderFlash(); }
+
+function repeatBtnsHtml() {
+  return `<div class="repeat-wrap">
+    <span class="rep-label">반복</span>
+    ${[1, 3, 5].map(n =>
+      `<button class="rep-btn${repeatCount === n ? ' active' : ''}"
+               onclick="setRepeat(${n})">${n}회</button>`
+    ).join('')}
+  </div>`;
+}
+function setRepeat(n) { repeatCount = n; stopSpeak(); save(); renderCurrent(); }
+
+// ── 지문목록 탭 ──
+function renderList() {
+  const tab = document.getElementById('list-tab');
+  const prevSearch = tab.querySelector('.search-box')?.value || '';
+  const arr = applyFilter(getFiltered(), listFilter);
+  const search = prevSearch.trim().toLowerCase();
+  const filtered = arr.filter(s => !search ||
+    s.sentences.some(x => x.en.toLowerCase().includes(search) || x.ko.toLowerCase().includes(search)) ||
+    s.translation.toLowerCase().includes(search)
+  );
+
+  let html = `
+    <div class="mode-toggle">
+      <button class="mode-btn${listMode === 'problem' ? ' active' : ''}" onclick="setListMode('problem')">📄 지문 전체</button>
+      <button class="mode-btn${listMode === 'sentence' ? ' active' : ''}" onclick="setListMode('sentence')">📝 문장 분해</button>
+    </div>
+    <input class="search-box" id="listSearch" placeholder="🔍 지문/해석 검색..."
+           value="${prevSearch.replace(/"/g, '&quot;')}">
+    <div class="filter-row">
+      <button class="filter-btn${listFilter === 'all' ? ' active' : ''}" onclick="setListFilter('all')">전체</button>
+      <button class="filter-btn${listFilter === 'no' ? ' active' : ''}" onclick="setListFilter('no')">❌ 미완료</button>
+      <button class="filter-btn${listFilter === 'fav' ? ' active' : ''}" onclick="setListFilter('fav')">⭐ 즐겨찾기</button>
+      ${repeatBtnsHtml()}
+    </div>`;
+
+  filtered.forEach(s => {
+    const st = state[s.number] || '', isFav = favs[s.number];
+    const preview = s.sentences[0]?.en.slice(0, 65) || '';
+    html += `<div class="s-card${st ? ' status-' + st : ''}" id="sc-${s.number}">
+      <div class="s-card-head">
+        <div class="s-num">${s.number}</div>
+        <div class="s-preview" onclick="toggleCard(${s.number})">${preview}${s.sentences[0]?.en.length > 65 ? '…' : ''}</div>
+        <div class="s-head-btns">
+          <button class="s-speak-btn" onclick="event.stopPropagation();speakCard(${s.number},this)">🔊</button>
+          <button class="s-chevron" id="sci-${s.number}" onclick="toggleCard(${s.number})">▾</button>
+        </div>
+      </div>
+      <div class="s-body" id="sb-${s.number}">`;
+
+    if (listMode === 'problem') {
+      html += `
+        <div class="full-passage">${s.sentences.map(x => x.en).join(' ')}</div>
+        <div class="full-trans">${s.translation}</div>
+        ${s.note ? `<div class="note-badge">📌 ${s.note}</div>` : ''}`;
+    } else {
+      html += `<div class="sent-list">`;
+      s.sentences.forEach((sent, i) => {
+        html += `
+          <div class="sent-item">
+            <div class="sent-en-row" onclick="toggleSent(${s.number},${i})">
+              <div class="sent-idx">[${i+1}]</div>
+              <div class="sent-en-text">${sent.en}</div>
+              <button class="sent-spk" onclick="event.stopPropagation();speakSent(${JSON.stringify(sent.en)},this)">🔊</button>
+            </div>
+            <div class="sent-detail" id="sd-${s.number}-${i}">
+              <div class="sent-ko">${sent.ko}</div>
+              ${sent.gram ? `<div class="sent-gram">📐 ${sent.gram}</div>` : ''}
+            </div>
+          </div>`;
+      });
+      html += `</div>`;
+    }
+
+    html += `</div>
+      <div class="s-actions">
+        <button class="act-btn act-ok${st === 'ok' ? ' sel' : ''}" onclick="setState(${s.number},'ok')">✅ 외웠어요</button>
+        <button class="act-btn act-no${st === 'no' ? ' sel' : ''}" onclick="setState(${s.number},'no')">❌ 모름</button>
+        <button class="act-btn act-skip${st === 'skip' ? ' sel' : ''}" onclick="setState(${s.number},'skip')">⤵ 건너뜀</button>
+        <button class="act-fav" onclick="toggleFav(${s.number})">${isFav ? '⭐' : '☆'}</button>
+      </div>
+    </div>`;
+  });
+
+  tab.innerHTML = html;
+  const box = document.getElementById('listSearch');
+  if (box) { box.value = prevSearch; box.addEventListener('input', renderList); }
+}
+
+function speakCard(num, btn) {
+  const s = SENTENCES_RAW.find(x => x.number === num); if (!s) return;
+  speak(s.sentences.map(x => x.en).join(' '));
+  if (repeatCount > 1) showRepIndicator(btn.closest('.s-card')?.querySelector('.s-actions'), repeatCount);
+}
+function speakSent(text, btn) {
+  speak(text);
+  if (repeatCount > 1) showRepIndicator(btn.closest('.sent-item'), repeatCount);
+}
+function toggleCard(num) {
+  const body = document.getElementById('sb-' + num), icon = document.getElementById('sci-' + num);
+  if (!body) return;
+  const isOpen = body.classList.toggle('open');
+  icon.textContent = isOpen ? '▴' : '▾';
+  if (isOpen) { const s = SENTENCES_RAW.find(x => x.number === num); if (s) speak(s.sentences.map(x => x.en).join(' ')); }
+}
+function toggleSent(num, idx) {
+  const detail = document.getElementById(`sd-${num}-${idx}`); if (!detail) return;
+  const isOpen = detail.classList.toggle('open');
+  if (isOpen) {
+    const s = SENTENCES_RAW.find(x => x.number === num);
+    if (s && s.sentences[idx]) {
+      speak(s.sentences[idx].en);
+      if (repeatCount > 1) showRepIndicator(detail, repeatCount);
+    }
+  }
+}
+function setListMode(m) { listMode = m; stopSpeak(); renderList(); }
+function setListFilter(f) { listFilter = f; stopSpeak(); renderList(); }
+function setState(num, st) {
+  state[num] = st; save(); updateStats();
+  const card = document.getElementById('sc-' + num); if (!card) return;
+  card.className = 's-card' + (st ? ' status-' + st : '');
+  card.querySelectorAll('.act-btn').forEach(b => b.classList.remove('sel'));
+  const btn = card.querySelector('.act-' + st); if (btn) btn.classList.add('sel');
+}
+function toggleFav(num) {
+  favs[num] = !favs[num]; save(); updateStats();
+  document.querySelectorAll(`#sc-${num} .act-fav`).forEach(b => b.textContent = favs[num] ? '⭐' : '☆');
+}
+
+// ── 플래시카드 탭 ──
+function renderFlash() {
+  const arr = applyFilter(getFiltered(), flashFilter);
+  const tab = document.getElementById('flash-tab');
+  if (!arr.length) { tab.innerHTML = '<div class="empty-msg">해당 지문이 없습니다.</div>'; return; }
+  if (flashIdx >= arr.length) flashIdx = 0;
+  const s = arr[flashIdx], st = state[s.number] || '', isFav = favs[s.number];
+  const fullText = s.sentences.map(x => x.en).join(' ');
+
+  let revealHtml = '';
+  if (flashRevealed) {
+    if (flashMode === 'problem') {
+      revealHtml = `<div class="flash-reveal">
+        <div class="flash-ko">${s.translation}</div>
+        ${s.note ? `<div class="flash-note">📌 ${s.note}</div>` : ''}
+      </div>`;
+    } else {
+      revealHtml = `<div class="flash-reveal">
+        ${s.sentences.map((sent, i) => `
+          <div class="flash-sent-item">
+            <div class="flash-sent-en-row" onclick="toggleFlashSent(${i})">
+              <div class="flash-sent-idx">[${i+1}]</div>
+              <div class="flash-sent-en">${sent.en}</div>
+              <button class="flash-sent-spk" onclick="event.stopPropagation();speak(${JSON.stringify(sent.en)})">🔊</button>
+            </div>
+            <div class="flash-sent-detail" id="fsd-${i}">
+              <div class="flash-sent-ko">${sent.ko}</div>
+              ${sent.gram ? `<div class="flash-sent-gram">📐 ${sent.gram}</div>` : ''}
+            </div>
+          </div>`).join('')}
+        ${s.note ? `<div class="flash-note" style="margin-top:8px">📌 ${s.note}</div>` : ''}
+      </div>`;
+    }
+  }
+
+  tab.innerHTML = `
+    <div class="mode-toggle">
+      <button class="mode-btn${flashMode === 'problem' ? ' active' : ''}" onclick="setFlashMode('problem')">📄 지문 전체</button>
+      <button class="mode-btn${flashMode === 'sentence' ? ' active' : ''}" onclick="setFlashMode('sentence')">📝 문장 분해</button>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn${flashFilter === 'all' ? ' active' : ''}" onclick="setFlashFilter('all')">전체</button>
+      <button class="filter-btn${flashFilter === 'no' ? ' active' : ''}" onclick="setFlashFilter('no')">❌ 미완료</button>
+      <button class="filter-btn${flashFilter === 'fav' ? ' active' : ''}" onclick="setFlashFilter('fav')">⭐ 즐겨찾기</button>
+      ${repeatBtnsHtml()}
+    </div>
+    <div class="flash-wrap">
+      <div class="flash-card${st ? ' status-' + st : ''}"
+           ontouchstart="swipeStart(event)" ontouchend="swipeEnd(event)">
+        <div class="flash-card-top">
+          <div class="flash-num">${s.number}</div>
+          <div class="flash-top-btns">
+            <button class="flash-spk" onclick="event.stopPropagation();flashSpeak()">
+              🔊 듣기${repeatCount > 1 ? ' ×' + repeatCount : ''}
+            </button>
+            <button class="flash-fav" onclick="event.stopPropagation();flashToggleFav()">${isFav ? '⭐' : '☆'}</button>
+          </div>
+        </div>
+        <div class="flash-label">[ ${s.number}번 지문 ]</div>
+        <div class="flash-en" onclick="revealFlash()">${fullText}</div>
+        ${!flashRevealed
+          ? `<div class="flash-hint" onclick="revealFlash()">👆 탭하면 해석이 나타나요</div>`
+          : revealHtml}
+      </div>
+      <div id="flashRepWrap"></div>
+      <div class="flash-nav">
+        <button class="nav-btn nav-prev" onclick="flashMove(-1)">◀ 이전</button>
+        <span class="flash-counter">${flashIdx + 1} / ${arr.length}</span>
+        <button class="nav-btn nav-next" onclick="flashMove(1)">다음 ▶</button>
+      </div>
+      <div class="flash-actions">
+        <button class="fa-btn fa-ok${st === 'ok' ? ' sel' : ''}" onclick="flashSetState('ok')">✅ 외웠어요</button>
+        <button class="fa-btn fa-no${st === 'no' ? ' sel' : ''}" onclick="flashSetState('no')">❌ 모름</button>
+        <button class="fa-btn fa-skip${st === 'skip' ? ' sel' : ''}" onclick="flashSetState('skip')">⤵ 건너뜀</button>
+      </div>
+    </div>`;
+}
+
+function flashSpeak() {
+  const arr = applyFilter(getFiltered(), flashFilter); if (!arr[flashIdx]) return;
+  speak(arr[flashIdx].sentences.map(x => x.en).join(' '));
+  if (repeatCount > 1) showRepIndicator(document.getElementById('flashRepWrap'), repeatCount);
+}
+function toggleFlashSent(idx) {
+  const detail = document.getElementById('fsd-' + idx); if (!detail) return;
+  const isOpen = detail.classList.toggle('open');
+  if (isOpen) {
+    const arr = applyFilter(getFiltered(), flashFilter);
+    const s = arr[flashIdx];
+    if (s && s.sentences[idx]) speak(s.sentences[idx].en);
+  }
+}
+function revealFlash() {
+  if (!flashRevealed) {
+    flashRevealed = true; renderFlash();
+    const arr = applyFilter(getFiltered(), flashFilter);
+    if (arr[flashIdx]) {
+      speak(arr[flashIdx].sentences.map(x => x.en).join(' '));
+      if (repeatCount > 1) showRepIndicator(document.getElementById('flashRepWrap'), repeatCount);
+    }
+  }
+}
+function flashMove(dir) {
+  const arr = applyFilter(getFiltered(), flashFilter); stopSpeak();
+  flashIdx = (flashIdx + dir + arr.length) % arr.length;
+  flashRevealed = false; renderFlash();
+}
+function flashSetState(st) {
+  const arr = applyFilter(getFiltered(), flashFilter); if (!arr[flashIdx]) return;
+  state[arr[flashIdx].number] = st; save(); updateStats(); renderFlash();
+}
+function flashToggleFav() {
+  const arr = applyFilter(getFiltered(), flashFilter); if (!arr[flashIdx]) return;
+  const n = arr[flashIdx].number; favs[n] = !favs[n]; save(); updateStats(); renderFlash();
+}
+function setFlashMode(m) { flashMode = m; stopSpeak(); renderFlash(); }
+function setFlashFilter(f) { flashFilter = f; flashIdx = 0; stopSpeak(); renderFlash(); }
+
+function swipeStart(e) { swipeStartX = e.touches[0].clientX; }
+function swipeEnd(e) {
+  const dx = e.changedTouches[0].clientX - swipeStartX;
+  if (Math.abs(dx) > 50) flashMove(dx < 0 ? 1 : -1);
+}
+
+// ── 초기화 ──
+load(); _warmVoices(); renderSegBar(); updateStats(); renderList();
+setTimeout(updateHeaderH, 100);
+window.addEventListener('resize', updateHeaderH);
+</script>
+</body>
+</html>
